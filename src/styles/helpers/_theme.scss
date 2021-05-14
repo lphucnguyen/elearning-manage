@@ -1,0 +1,50 @@
+// CREATE THEME
+// colors background
+$bgColor: (
+  "primary": #fbfbf8,
+  "secondary": #0f7c90
+);
+
+// colors text
+$textColor: (
+  "textPrimary": #3c3b37,
+  "textSecondary": #0f7c90
+);
+
+$borderColor: (
+  "borderSecondary": #0f7c90,
+  "borderBlue": #2896a9
+);
+
+// font size
+$fontSize: (
+  "body1": 1.2rem,
+  "body2": 1.4rem,
+  "subtitle": 1.5rem,
+  "h6": 1.6rem,
+  "h5": 1.8rem,
+  "h4": 2.5rem,
+  "h3": 3.2rem,
+  "h2": 3.8rem,
+  "h1": 4.8rem,
+);
+
+//fonts weight
+$fontWeight: (
+  "fwBlack": 900,
+  "fwBold": 700,
+  "fwMedium": 600,
+  "fwRegular": 500,
+  "fwExtraLight": 400,
+  "fwLight": 300,
+);
+
+//spacing
+$spacing: 10px;
+
+$breakPoint: (
+  "extraLarge": 1200px,
+  "large": 992px,
+  "medium": 768px,
+  "small": 576px,
+);
