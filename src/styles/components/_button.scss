@@ -1,1 +1,29 @@
 // css buttons
+
+.btn--green {
+    position: relative;
+    width: 100% !important;
+    text-transform: uppercase;
+    
+    // @include button(c("secondary"), bc("borderSecondary"), 5px);
+    background: linear-gradient(136deg, rgb(74, 214, 203) 50%, #3c3737 50%);
+    border: none;
+    border-radius: 4px;
+    
+    background-size: 250%;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    outline: none;
+    padding: 5px;
+
+    // @include text(fs("subtitle"), tc("textWhite"), fw("fwBold"), 0.05);
+    font-size: 17px;
+    color: #111;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    transition: all 0.5s;
+
+    &:hover {
+        background-position: right;
+        color: #fff;
+    }
+}

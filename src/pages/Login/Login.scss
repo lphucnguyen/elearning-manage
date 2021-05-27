@@ -75,13 +75,15 @@
                     position: relative;
                     width: 100% !important;
                     text-transform: uppercase;
+                    
                     background: linear-gradient(136deg, rgb(74, 214, 203) 50%, #3c3737 50%);
-                    background-size: 250%;
                     border: none;
+                    border-radius: 4px;
+                    
+                    background-size: 250%;
                     border-color: rgba(255, 255, 255, 0.2) !important;
                     outline: none;
                     padding: 5px;
-                    border-radius: 4px;
                     color: #111;
                     font-size: 17px;
                     font-weight: 500;
