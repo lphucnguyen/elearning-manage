@@ -1,4 +1,21 @@
 // css buttons
+@import "../helpers/theme";
+
+.btn--common {
+    padding: 12px 17px;
+}
+
+.btn--login {
+    background: c("bgPrimary");
+    color: tc("textOrange") !important;
+    border: 2px solid c("bgPrimary");
+    transition: all 0.4s ease;
+    &:hover {
+        background: transparent;
+        color: c("bgPrimary") !important;
+        border: 2px solid tc("textOrange");
+    }
+}
 
 .btn--green {
     position: relative;

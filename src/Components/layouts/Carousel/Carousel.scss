@@ -1,0 +1,17 @@
+@import "../../../styles/helpers/function";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/theme";
+@import "../../../styles/base/reset";
+
+.container-fluid {
+    padding: 0;
+    .carousel {
+        background-image: url("../../../assets/images/bg1.jpg");
+        width: 100%;
+        height: 100vh;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }    
+}
+

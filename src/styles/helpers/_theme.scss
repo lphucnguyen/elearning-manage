@@ -1,19 +1,29 @@
 // CREATE THEME
 // colors background
 $bgColor: (
-  "primary": #fbfbf8,
-  "secondary": #0f7c90
+  "bgPrimary": #fff,
+  "bgSecondary": #FBF4EC,
+  "bgGreenLight": #D7EDEC,
+  "bgBlack": #111111
 );
 
 // colors text
 $textColor: (
-  "textPrimary": #3c3b37,
-  "textSecondary": #0f7c90
+  "textPrimary": #373027,
+  "textSecondary": #AFAAA4,
+  "textOrange": #EF5740,
+  "textGreen": #7FC6C1
+);
+
+$btnColor: (
+  "btnWhite": #fff,
+  "btnOrange": #EF5740,
+  "btnGreen": #7FC6C1
 );
 
 $borderColor: (
-  "borderSecondary": #0f7c90,
-  "borderBlue": #2896a9
+  "borderPrimary": #373027,
+  "borderSecondary": #C2C4C5
 );
 
 // font size
@@ -24,9 +34,9 @@ $fontSize: (
   "h6": 1.6rem,
   "h5": 1.8rem,
   "h4": 2.5rem,
-  "h3": 3.2rem,
-  "h2": 3.8rem,
-  "h1": 4.8rem,
+  "h3": 2.8rem,
+  "h2": 3.2rem,
+  "h1": 3.6rem,
 );
 
 //fonts weight
