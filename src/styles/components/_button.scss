@@ -41,3 +41,15 @@
         color: tc("textGreen");
     }
 }
+
+.btn-search {
+    background: btnc("btnGreen") !important;
+    @include text(fs("h5"), tc("textWhite"), fw("fwRegular"), 0);
+    transition: all 0.5s;
+
+    &:hover {
+        border: 1px solid bc("borderGreen") !important;
+        background: transparent !important;
+        color: tc("textGreen");
+    }
+}

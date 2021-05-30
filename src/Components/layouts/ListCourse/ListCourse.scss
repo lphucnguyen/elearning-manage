@@ -1,0 +1,46 @@
+@import "../../../styles/helpers/function";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/theme";
+@import "../../../styles/base/reset";
+@import "../../../styles/components/button";
+
+.page-manage-courses {
+    background: c("bgSecondary");
+    min-height: 100vh;
+
+    .container {
+    
+        .main-list-course {
+            margin-top: 100px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+    
+            h1 {
+                @include text(fs("h1"), tc("textPrimary"), fw("fwRegular"), 0);
+            }
+    
+            .search {
+                width: 70%;
+                height: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 20px;
+    
+                input {
+                    flex-basis: 80%;
+                    padding: 20px;
+                    border: none;
+                    outline: none;
+                    @include text(fs("h6"), tc("textPrimary"), fw("fwRegular"), 0);
+                }
+    
+                button {
+                    flex-basis: 20%;
+                    padding: 20px 0px;
+                }
+            }
+        }
+    }
+}
