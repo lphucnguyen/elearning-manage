@@ -3,6 +3,7 @@
 $bgColor: (
   "bgPrimary": #fff,
   "bgSecondary": #FBF4EC,
+  "bgGreen": #7FC6C1,
   "bgGreenLight": #D7EDEC,
   "bgBlack": #111111
 );
@@ -18,12 +19,15 @@ $textColor: (
 $btnColor: (
   "btnWhite": #fff,
   "btnOrange": #EF5740,
-  "btnGreen": #7FC6C1
+  "btnGreen": #7FC6C1,
+  "btnBlack": #373027,
+  "btnSkin": #FBF4EC,
 );
 
 $borderColor: (
   "borderPrimary": #373027,
-  "borderSecondary": #C2C4C5
+  "borderSecondary": #C2C4C5,
+  "borderGreen": #7FC6C1
 );
 
 // font size

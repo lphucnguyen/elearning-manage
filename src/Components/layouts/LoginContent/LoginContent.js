@@ -40,10 +40,10 @@ function LoginContent() {
                             </div>
                             <div className="form-group form-check">
                                 <input type="checkbox" className="form-check-input" id="check" />
-                                <label className="form-check-label" htmlFor="check">Remember me</label>
+                                <label className="form-check-label ml-2" htmlFor="check">Remember me</label>
                             </div>
                             <div className="form-group">
-                                <button type="button" className="btn btn-primary">Login</button>
+                                <button type="button" className="btn btn--green">Login</button>
                             </div>
                         </div>
                         <div id="signUp-body" className="tab-body">
@@ -64,7 +64,7 @@ function LoginContent() {
                                 <input type="email" className="form-control" id="email" placeholder="Enter your email..." />
                             </div>
                             <div className="form-group">
-                                <button type="button" className="btn btn-primary">Register</button>
+                                <button type="button" className="btn btn--green">Register</button>
                             </div>
                         </div>
                     </div>
