@@ -14,10 +14,20 @@
     @warn ("This color doesn't exist");
     @return "";
   }
+
   //get color from borderColor Array
   @function bc($color) {
     @if map-has-key($map: $borderColor, $key: $color) {
       @return map-get($map: $borderColor, $key: $color);
+    }
+    @warn ("This color doesn't exist");
+    @return "";
+  }
+
+  //get color from btnColor Array
+  @function btnc($color) {
+    @if map-has-key($map: $btnColor, $key: $color) {
+      @return map-get($map: $btnColor, $key: $color);
     }
     @warn ("This color doesn't exist");
     @return "";
