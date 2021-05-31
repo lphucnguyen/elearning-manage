@@ -3,7 +3,7 @@ import './CourseItem.scss'
 
 function CourseItem() {
     return (
-        <div className="card-product">
+        <div className="card-product shadow">
             <img className="card-img-top p-3" src="./images/images.jfif" alt />
             <div className="card-body">
                 <div className="rate">
@@ -23,7 +23,7 @@ function CourseItem() {
                 <div className="footer">
                     <span><i className="fa fa-share-alt" /></span>
                     <span><i className="fa fa-heart" /></span>
-                    <span className="read-more">Read more...</span>
+                    <span className="read-more btn-read-more">Read more...</span>
                 </div>
             </div>
         </div>

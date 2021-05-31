@@ -7,8 +7,8 @@ function ListCourse() {
         <div className="container">
             <div className="main-list-course d-flex">
                 <h1 className="title">Our Courses</h1>
-                <div className="search">
-                    <input type="text" name="" id="" />
+                <div className="search shadow">
+                    <input type="text" name="search" id="search" placeholder="Search Course"/>
                     <button className="btn btn-search">Search</button>
                 </div>
                 <div className="list-type-course">
@@ -75,6 +75,17 @@ function ListCourse() {
                             <CourseItem/>
                         </div>
                     </div>
+                </div>
+                <div className="list-pagination d-flex justify-content-center my-5">
+                    <nav aria-label="Page navigation example">
+                        <ul className="pagination">
+                            <li className="page-item"><a className="page-link p-3" href="#">Previous</a></li>
+                            <li className="page-item"><a className="page-link p-3" href="#">1</a></li>
+                            <li className="page-item"><a className="page-link p-3" href="#">2</a></li>
+                            <li className="page-item"><a className="page-link p-3" href="#">3</a></li>
+                            <li className="page-item"><a className="page-link p-3" href="#">Next</a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

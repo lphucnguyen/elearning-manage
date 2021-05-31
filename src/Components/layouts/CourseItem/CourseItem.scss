@@ -5,9 +5,14 @@
 @import "../../../styles/components/button";
 
 .card-product {
-    background: #fff;
-    border-radius: 7px;
+    background: c("bgPrimary");
     width: 100%;
+    cursor: pointer;
+    transition: all 0.3s linear;
+
+    &:hover {
+        box-shadow: 0px 0px 0px rgba(0,0,0,.15) !important;
+    }
 
     .card-body {    
         padding-top: 0px;
@@ -25,12 +30,11 @@
 
                 label {
                     float:right;
-                    width:1em;
+                    width: 17px;
                     overflow:hidden;
                     white-space:nowrap;
                     cursor:pointer;
-                    font-size:15px;
-                    color:#ccc;
+                    @include text(fs("subtitle"), tc("textSecondary"), none, 0);
 
                     &::before {
                         content: '★ ';
@@ -39,12 +43,12 @@
             }
 
             input:checked ~ label {
-                color: #69BDB8;    
+                color: tc("textGreen");    
             }
 
             &:not(:checked) > label:hover,
             &:not(:checked) > label:hover ~ label {
-                color: #69BDB8;  
+                color: tc("textGreen");     
             }
 
             input:checked + label:hover,
@@ -52,8 +56,16 @@
             input:checked ~ label:hover,
             input:checked ~ label:hover ~ label,
             label:hover ~ input:checked ~ label {
-                color: #69BDB8;
+                color: tc("textGreen");    
             }
+        }
+
+        .card-title {
+            @include text(fs("subtitle"), tc("textPrimary"), fw("fwMedium"), 0);
+        }
+
+        .card-text {
+            @include text(fs("body1"), tc("textPrimary"), fw("fwLight"), 0);
         }
     }
 
@@ -63,29 +75,31 @@
         
         span {
             cursor: pointer;
-            width: 35px;
-            height: 35px;
-            line-height: 35px;
-            text-align: center;
+            @include sizeIcon(35px, 35px, 35px);
+            @include fontIcon(fs("subtitle"), tc("textPrimary"));
             border-radius: 50%;
             transition: all 0.3s linear;
 
+            &:nth-child(1) {
+                color: tc("textBlue");
+            }
+
+            &:nth-child(2) {
+                color: tc("textSecondary");
+            }
+
             &:hover {
-                background: #c6c6c9;
+                background: c("bgGreen");
+                color: tc("textWhite");
             }
         }
 
         .read-more {
             width: auto;
             height: 35px;
-            border-radius: 5px;
-            background: #2F323A;
-            color: #fff;
+            border-radius: 0px;
             padding: 0px 5px;
-
-            font-size: 16px;
-            font-weight: 500;
-            letter-spacing: 0.8px;
+            margin-left: 55px;
         }
     }
 }

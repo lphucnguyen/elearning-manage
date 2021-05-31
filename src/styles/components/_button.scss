@@ -46,11 +46,22 @@
     background: btnc("btnGreen") !important;
     @include text(fs("h5"), tc("textWhite"), fw("fwRegular"), 0);
     border-radius: 0px;
-    transition: all 0.5s;
+    transition: all 0.5s linear;
 
     &:hover {
         border: 1px solid bc("borderGreen") !important;
         background: transparent !important;
         color: tc("textGreen");
+    }
+}
+
+.btn-read-more {
+    background: c("bgGreenLight");
+    @include text(fs("body2"), tc("textWhite"), fw("fwRegular"), 0);
+    border-radius: 0px;
+    transition: all 0.5s linear;
+
+    &:hover {
+        background: c("bgGreen");
     }
 }
