@@ -30,7 +30,7 @@
     
                 input {
                     flex-basis: 80%;
-                    padding: 20px;
+                    padding: 22px;
                     border: none;
                     outline: none;
                     @include text(fs("h6"), tc("textPrimary"), fw("fwRegular"), 0);
@@ -39,7 +39,42 @@
                 button {
                     flex-basis: 20%;
                     padding: 20px 0px;
+                    border-radius: none;
                 }
+            }
+
+            .list-type-course {
+                width: 80%;
+                margin-top: 70px;
+
+                .select-group {
+                    padding: 10px;
+                    border: 1px solid bc("borderPrimary");
+
+                    select {
+                        width: 100%;
+                        border: none;
+                        background: transparent;
+                        @include text(fs("subtitle"), tc("textPrimary"), fw("fwRegular"), 0);
+                        outline: none;
+                        cursor: pointer;
+
+                        &:focus {
+                            outline: none;
+                        }
+
+                        option {
+                            height: auto;
+                            background: c("bgSecondary");
+                            box-shadow: 5px 5px 5px 0.5px rgba(0,0,0,0.5);
+                            padding: 5px !important;
+                        }
+                    }
+                }
+            }
+
+            .list-course {
+                width: 100%;
             }
         }
     }

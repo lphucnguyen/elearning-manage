@@ -1,0 +1,91 @@
+@import "../../../styles/helpers/function";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/theme";
+@import "../../../styles/base/reset";
+@import "../../../styles/components/button";
+
+.card-product {
+    background: #fff;
+    border-radius: 7px;
+    width: 100%;
+
+    .card-body {    
+        padding-top: 0px;
+        
+        .rate {
+            height: 28px;
+            padding-right: 62%;
+
+            &:not(:checked) {
+
+                input {
+                    position:absolute;
+                    top:-9999px;
+                }
+
+                label {
+                    float:right;
+                    width:1em;
+                    overflow:hidden;
+                    white-space:nowrap;
+                    cursor:pointer;
+                    font-size:15px;
+                    color:#ccc;
+
+                    &::before {
+                        content: '★ ';
+                    }
+                }
+            }
+
+            input:checked ~ label {
+                color: #69BDB8;    
+            }
+
+            &:not(:checked) > label:hover,
+            &:not(:checked) > label:hover ~ label {
+                color: #69BDB8;  
+            }
+
+            input:checked + label:hover,
+            input:checked + label:hover ~ label,
+            input:checked ~ label:hover,
+            input:checked ~ label:hover ~ label,
+            label:hover ~ input:checked ~ label {
+                color: #69BDB8;
+            }
+        }
+    }
+
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        
+        span {
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            border-radius: 50%;
+            transition: all 0.3s linear;
+
+            &:hover {
+                background: #c6c6c9;
+            }
+        }
+
+        .read-more {
+            width: auto;
+            height: 35px;
+            border-radius: 5px;
+            background: #2F323A;
+            color: #fff;
+            padding: 0px 5px;
+
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.8px;
+        }
+    }
+}

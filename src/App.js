@@ -1,7 +1,7 @@
 import Loading from './common/Loading/Loading';
 import Login from './pages/Login/Login';
 import Home from './pages/Home/Home';
-import CourseManage from './pages/CourseManage/CourseManage';
+import Courses from './pages/Courses/Courses';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       {/* <Login/> */}
       {/* <Loading/> */}
       {/* <Home /> */}
-      <CourseManage/>
+      <Courses/>
     </div>
   );
 }

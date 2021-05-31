@@ -3,7 +3,7 @@ import Footer from '../../common/Footer/Footer';
 import Header from '../../common/Header/Header';
 import ListCourse from '../../Components/layouts/ListCourse/ListCourse';
 
-function CourseManage() {
+function Courses() {
     return (
         <div className="container-fluid page-manage-courses">
             <Header/>
@@ -13,4 +13,4 @@ function CourseManage() {
     )
 }
 
-export default  CourseManage;
+export default  Courses;
