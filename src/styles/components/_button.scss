@@ -45,6 +45,7 @@
 .btn-search {
     background: btnc("btnGreen") !important;
     @include text(fs("h5"), tc("textWhite"), fw("fwRegular"), 0);
+    border-radius: 0px;
     transition: all 0.5s;
 
     &:hover {
