@@ -3,6 +3,7 @@ import CourseItem from '../CourseItem/CourseItem';
 import "./ListCourse.scss"
 
 function ListCourse() {
+
     return (
         <div className="container">
             <div className="main-list-course d-flex">
@@ -20,6 +21,7 @@ function ListCourse() {
                                     <option value="1">Title: A-to-Z</option>
                                     <option value="2">Title: Z-to-A</option>
                                 </select>
+                                <div className="custom-arrow"></div>
                             </div>
                         </div>
                         <div className="col-md-4 pr-5">
@@ -33,6 +35,7 @@ function ListCourse() {
                                     <option value="5">Lập trình Full Stack</option>
                                     <option value="6">Tư duy lập trình</option>
                                 </select>
+                                <div className="custom-arrow"></div>
                             </div>
                         </div>
                         <div className="col-md-4 pr-5">
@@ -47,6 +50,7 @@ function ListCourse() {
                                     <option value="6" checked>Group 07</option>
                                     <option value="7" checked>Group 08</option>
                                 </select>
+                                <div className="custom-arrow"></div>
                             </div>
                         </div>
                     </div>

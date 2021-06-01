@@ -48,27 +48,57 @@
                 margin-top: 70px;
 
                 .select-group {
-                    padding: 10px;
-                    border: 1px solid bc("borderPrimary");
+                    position: relative;
 
                     select {
                         width: 100%;
-                        border: none;
+                        border: 2px solid bc("borderPrimary");
                         background: transparent;
                         @include text(fs("subtitle"), tc("textPrimary"), fw("fwRegular"), 0);
                         outline: none;
                         cursor: pointer;
+                        padding: 10px;
+                        padding-right: 20px;
+                        appearance: none;
+                        transition: all 0.3s linear;
 
                         &:focus {
                             outline: none;
                         }
 
                         option {
-                            height: auto;
                             background: c("bgSecondary");
-                            box-shadow: 5px 5px 5px 0.5px rgba(0,0,0,0.5);
-                            padding: 5px !important;
                         }
+                    }
+
+                    .custom-arrow {
+                        position: absolute;
+                        top: 0px;
+                        right: 0px;
+                        width: 40px;
+                        height: 100%;
+                        background: transparent;
+                        pointer-events: none;
+
+                        &::before{
+                            content: "";
+                            position: absolute;
+                            top: 60%;
+                            left: 50%;
+                            width: 15px;
+                            height: 15px;
+                            transform: translate(-50%,-50%);
+                            border: 8px solid transparent;
+                            border-color: btnc("btnBlack") transparent transparent transparent;
+                        }
+                    }
+
+                    &:hover select {
+                        border: 2px solid bc("borderGreen");
+                    }
+
+                    &:hover .custom-arrow::before {
+                        border-color: btnc("btnGreen") transparent transparent transparent;
                     }
                 }
             }
