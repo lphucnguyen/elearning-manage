@@ -4,19 +4,19 @@
 @import "../../../styles/base/reset";
 @import "../../../styles/components/button";
 
-.page-manage-courses {
+.main-list-course {
     background: c("bgSecondary");
     min-height: 100vh;
 
     .container {
     
-        .main-list-course {
-            margin-top: 100px;
+        .list-course {
             justify-content: center;
             align-items: center;
             flex-direction: column;
     
             h1 {
+                margin-top: 80px;
                 @include text(fs("h1"), tc("textPrimary"), fw("fwRegular"), 0);
             }
     

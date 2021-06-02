@@ -1,15 +1,16 @@
 import React from 'react'
+import { Fragment } from 'react';
 import Footer from '../../common/Footer/Footer';
 import Header from '../../common/Header/Header';
 import ListCourse from '../../Components/layouts/ListCourse/ListCourse';
 
 function Courses() {
     return (
-        <div className="container-fluid page-manage-courses">
+        <Fragment>
             <Header/>
             <ListCourse/>
             <Footer/>
-        </div>
+        </Fragment>
     )
 }
 

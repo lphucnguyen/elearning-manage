@@ -12,11 +12,11 @@ function CourseItem() {
                     <input type="radio" id="star2" name="rate" defaultValue={2} />
                     <label htmlFor="star2" title="text">2 stars</label>
                     <input type="radio" id="star3" name="rate" defaultValue={3} />
-                    <label htmlFor="star3" title="text">3 stars</label>
+                    <label className="checked" htmlFor="star3" title="text">3 stars</label>
                     <input type="radio" id="star4" name="rate" defaultValue={4} />
-                    <label htmlFor="star4" title="text">4 stars</label>
+                    <label className="checked" htmlFor="star4" title="text">4 stars</label>
                     <input type="radio" id="star5" name="rate" defaultValue={5} />
-                    <label htmlFor="star5" title="text">5 stars</label>
+                    <label className="checked" htmlFor="star5" title="text">5 stars</label>
                 </div>
                 <h4 className="card-title">Web development</h4>
                 <p className="card-text">2321 views</p>
