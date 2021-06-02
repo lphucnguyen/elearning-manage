@@ -3,7 +3,7 @@ import './CourseItem.scss'
 
 function CourseItem() {
     return (
-        <div className="card-product shadow">
+        <div className="product-item shadow">
             <img className="card-img-top p-3" src="./images/images.jfif" alt />
             <div className="card-body">
                 <div className="rate">
