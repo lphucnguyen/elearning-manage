@@ -40,6 +40,10 @@
                         content: '★ ';
                     }
                 }
+
+                .checked {
+                    color: tc("textGreen");
+                }
             }
 
             input:checked ~ label {
