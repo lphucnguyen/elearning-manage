@@ -15,11 +15,14 @@
     }
 
     .card-body {    
+        position: relative;
         padding-top: 0px;
         
         .rate {
+            position: absolute;
+            top: 0px;
+            left: 10px;
             height: 28px;
-            padding-right: 62%;
 
             &:not(:checked) {
 
@@ -61,6 +64,7 @@
         }
 
         .card-title {
+            padding-top: 28px;
             @include text(fs("subtitle"), tc("textPrimary"), fw("fwMedium"), 0);
         }
 
@@ -99,7 +103,7 @@
             height: 35px;
             border-radius: 0px;
             padding: 0px 5px;
-            margin-left: 55px;
+            margin-left: auto;
         }
     }
 }

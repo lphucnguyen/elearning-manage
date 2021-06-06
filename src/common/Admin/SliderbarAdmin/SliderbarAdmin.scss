@@ -1,0 +1,74 @@
+@import "../../../styles/helpers/function";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/theme";
+@import "../../../styles/base/reset";
+@import "../../../styles/components/button";
+
+.wrapper {
+
+    .slidebar {
+        background: c("bgGrayBlack");
+        position: fixed;
+        top: 70px;
+        width: 250px;
+        height: calc(100% - 9%);
+        border-right: 1px solid bc("borderSecondary");
+        z-index: 1;
+        transition: all 0.3s linear;
+
+        .slidebar-menu {
+            overflow: hidden;
+
+            .item {
+                width: 250px;
+                overflow: hidden;
+                list-style-type: none;
+
+                .menu-btn {
+                    display: block;
+                    @include text(fs("h5"), tc("textWhite"), fw("fwRegular"), 0);
+                    position: relative;
+                    padding: 25px 20px;
+                    transition: all 0.3s linear;
+
+                    &:hover {
+                        color: tc("textGreen");
+                    }
+
+                    i {
+                        margin-right: 20px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.wrapper.collapse-slide {
+
+    .slidebar {
+        width: 70px;
+        transition: all 0.3s linear;
+
+        .profile img, 
+        .profile p {
+            display: none;
+        }
+
+        a span {
+            display: none;
+        }
+
+        .slidebar-menu .item {
+
+            .menu-btn{
+                font-size: fs("h4");
+            }
+        }
+    }
+
+    .main-container {
+        width: calc(100% - 70px);
+        margin-left: 70px;
+    }
+}
