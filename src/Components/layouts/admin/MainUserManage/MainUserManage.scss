@@ -1,0 +1,522 @@
+@import "../../../../styles/helpers/function";
+@import "../../../../styles/helpers/mixin";
+@import "../../../../styles/helpers/theme";
+@import "../../../../styles/base/reset";
+@import "../../../../styles/components/button";
+// Create theme
+// colors background
+    $bgPrimary: #22242A;
+    $bgSecondary: #fff;
+    $bgBlueSky: #4CCEE8;
+    $bgBlue: #3498DB;
+    $bgBlueLight: #55B1F0;
+    $bgBlueLight2: #c4e3f7;
+    $bgGray:#2F323A;
+    $bgGrayLight: #F2F2F2;
+    $bgGrayLight1: #bbb;
+
+.main-container {
+    width: calc(100% - 250px);
+    margin-top: 70px;
+    margin-left: 250px;
+    padding: 15px;
+    min-height: 100vh;
+    background: c("bgSecondary");
+    transition: all 0.3s linear;
+
+    .list-users {
+        width: 100%;
+        min-height: 100vh;
+        background: c("bgGrayBlack");
+
+        .group-select-info {
+
+            .btn-add {
+                width: 43px;
+                height: 43px;
+                border-radius: 50%;
+                background: c("bgGreen");
+                border: none;
+                transition: all 0.3s linear;
+
+                i {
+                    font-size: fs("h4");
+                    color: tc("textPrimary");
+                }
+
+                &:hover {
+                    background: c("bgGreenLight");
+                }
+            }
+
+            .count-user {
+                height: 30px;
+                color: #fff;
+                border: 1px solid rgba(255, 255, 255, 0.23);
+                border-radius: 200px;
+                padding: 0px 5px;
+                background: transparent;
+                cursor: pointer;    
+                transition: all 0.3s linear;
+
+                &:hover {
+                    background: rgba(255, 255, 255, 0.08);
+                }
+
+                span {
+                    padding: 0px 5px;
+                }
+
+                .icon-avatar {
+                    font-size: 20px;
+                }
+
+                .content {
+                    @include text(fs("body1"), tc("textSecondary"), fw("fwLight"), 0);
+                    font-size: 12px;
+                    font-weight: 300;
+                }
+
+                .icon-check {
+                    font-size: 17px;
+                    color: rgba(255, 255, 255, 0.26);
+
+                    &:hover {
+                        color: rgba(255, 255, 255, 0.4);
+                    }
+                }
+            }
+
+            .select-group {
+                position: relative;
+                width: 105px;
+                @include text(fs("h6"), tc("textWhite"), fw("fwLight"), 0);
+                
+                select {
+                    width: 100%;
+                    padding: 7px 3px;
+                    background: transparent;
+                    border: none;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.23);
+                    color: tc("textWhite");
+                    appearance: none;
+                    cursor: pointer;
+                    transition: all 0.3s linear;
+
+                    option {
+                        background: c("bgGrayBlack");
+                    }
+
+                    &:hover {
+                        padding-bottom: 6px;
+                        border-bottom: 2px solid bc("btnWhite");
+                    }
+
+                    &:focus-visible {
+                        outline: none;
+                        background:  rgba(255, 255, 255, 0.2);
+                    }
+                }
+
+                .custom-arrow {
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    width: 40px;
+                    height: 100%;
+                    background: transparent;
+                    pointer-events: none;
+
+                    &::before{
+                        content: "";
+                        position: absolute;
+                        top: 60%;
+                        right: 0px;
+                        transform: translate(-50%,-50%);
+                        border: 6px solid transparent;
+                        border-color: #fff transparent transparent transparent;
+                    }
+                }
+            }
+        }
+
+        .search-user {
+
+            .search-user--input {
+                position: relative;
+                width: 100%;
+                
+                // &::before {
+                //     content: "Search User...";
+                //     position: absolute;
+                //     top: 20px;
+                //     left: 15px;
+                //     @include text(fs("h5"), rgba(255, 255, 255, 0.26), fw("fwLight"), 0);
+                //     transition: all 0.5s ease;
+                // }
+
+                // &:focus::before {
+                //     top: -5px;
+                //     font-size: 12px;
+                //     color: #fff;
+                // }
+
+                input {
+                    flex-grow: 1;
+                    background: transparent;
+                    border: none;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.23);
+                    padding: 7px 0px;
+                    @include text(fs("subtitle"), tc("textWhite"), fw("fwLight"), 0);
+                    outline: none;
+                    transition: all 0.5s linear;
+
+                    &:hover {
+                        border-bottom: 2px solid #fff;
+                    }
+                }
+            }
+        }
+
+        .list-user--item {
+            max-height: 525px;
+            overflow-y: auto;
+
+            &::-webkit-scrollbar {
+                width: 8px;
+                background: #3B3B3B;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                border: 1px solid rgba(255, 255, 255, 0.23);
+                border-radius: 5px;
+                background: #3B3B3B;
+
+                &:hover {
+                    background:  rgba(255, 255, 255, 0.2);
+                }
+            }
+
+            .user {
+                cursor: pointer;
+                position: relative;
+                transition: all 0.3s linear;
+
+                &:hover {
+                    background:  rgba(255, 255, 255, 0.1);
+                }
+
+                .avatar-user {
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                }
+
+                .info-user {
+                    margin-right: auto;
+                    @include text(fs("subtitle"), tc("textWhite"), fw("fwLight"), 0);
+                    padding: 0px 10px;
+
+                    .email {
+                        color: tc("textSecondary");
+                    }
+                }
+
+                .type-user {
+                    position: absolute;
+                    top: -3px;
+                    left: 35px;
+                    width: 30px;
+                    height: 20px;
+                    line-height: 20px;
+                    text-align: center;
+                    border-radius: 50%;
+                    background: orangered;
+                    @include text(fs("body1"), tc("textWhite"), fw("fwRegular"), 0);
+                }
+
+                .options {
+                    font-size: fs("h5");
+                    color: tc("textWhite");
+                    flex-basis: 15%;
+
+                    span {
+                        width: 45px;
+                        height: 45px;
+                        line-height: 45px;
+                        border-radius: 50%;
+                        cursor: pointer;
+                        text-align: center;
+                        transition: all 0.3s linear;
+
+                        &:hover {
+                            background: c("bgGreenLight");
+                            color: tc("textPrimary");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .modal-user {
+        width: 100%;
+        min-height: 200px;
+        background: c("bgGrayBlack");
+        border-radius: 7px;
+        padding: 15px;
+        // display: none !important;
+
+        .modal-user--course {
+            background: transparent;
+            width: 100%;
+            min-height: 100px;
+
+            .modal-user--course__avatar {
+                padding: 30px;
+
+                .avatar-img {
+                    width: 55px;
+                    height: 55px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    overflow: hidden;
+                }
+
+                .avatar-id {
+                    @include text(fs("h5"), tc("textWhite"), fw("fwRegular"), 0);
+                    padding: 10px 0px;
+                }
+            }
+
+            .modal-user--course__pending,
+            .modal-user--course__approved,
+            .modal-user--course__available {
+                border-top: 1px solid rgba(255, 255, 255, 0.23);
+                color: tc("textWhite");
+                margin-bottom: 10px;
+                cursor: pointer;
+                transition: all 0.3s linear;
+
+                // &:hover {
+                //     background:  rgba(255, 255, 255, 0.1);
+                // }
+
+                .content {
+                    padding: 10px;
+                    width: 100%;
+
+                    p {
+                        margin: 0px;
+                        @include text(fs("body2"), rgba(255, 255, 255, 0.26), fw("fwLight"), 0);
+                        font-size: 14px;
+                        font-weight: 300;
+                        color: rgba(255, 255, 255, 0.26);
+                    }
+
+                    .content-title {
+                        @include text(fs("h6"), tc("textWhite"), fw("fwRegular"), 0);
+                        padding-left: 20px;
+                    }
+
+                    .note {
+                        margin-right: auto;
+                        padding: 0px 10px;
+                    }
+
+                    .custom-arrow-content {
+                        padding: 0px 10px;
+                        width: 40px;
+                        height: 40px;
+                        line-height: 40px;
+                        border-radius: 50%;
+                        text-align: center;
+                        font-size: 20px;
+                        transition: all 0.3s linear;
+
+                        &:hover {
+                            transform: rotate(180deg);
+                        }
+                    }
+                }
+
+                .details {
+                    padding: 20px;
+                    display: none;
+
+                    .list-details {
+                        ul {
+                            .list-details--item {
+
+                                .icon-user {
+                                    font-size: 20px;
+                                    width: 45px;
+                                    height: 40px;
+                                    line-height: 40px;
+                                    text-align: center;
+                                    border-radius: 50%;
+                                    background: rgba(255, 255, 255, 0.26);
+                                    color: c("bgGrayBlack");
+                                }
+        
+                                .content {
+                                    font-size: 15px;
+                                    font-weight: 300;
+                                }
+        
+                                .icon-delete {
+                                    font-size: 25px;
+                                    color: rgba(255, 255, 255, 0.26);
+                                    position: relative;
+                                    width: 45px;
+                                    height: 40px;
+                                    line-height: 40px;
+                                    text-align: center;
+                                    border-radius: 50%;
+                                    transition: all 0.3s linear;
+
+                                    i {
+                                        transform: rotate(45deg);
+                                    }
+
+                                    &::after {
+                                        content: "";
+                                        width: 21px;
+                                        height: 3px;
+                                        background: rgba(255, 255, 255, 0.26);
+                                        position: absolute;
+                                        top: 17px;
+                                        left: 9px;
+                                        transform: rotate(134deg);
+                                    }
+
+                                    &:hover {
+                                        background: rgba(255, 255, 255, 0.1);
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+            }
+            
+            .modal-user--course__pending {
+                box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.226), 0px 1px 1px 0px rgba(0, 0, 0, 0.226), 0px 1px 3px 0px rgba(0, 0, 0, 0.226);
+
+            }
+
+            .modal-user--course__approved {
+                box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.226), 0px 1px 1px 0px rgba(0, 0, 0, 0.226), 0px 1px 3px 0px rgba(0, 0, 0, 0.226);
+
+            }
+
+            .modal-user--course__available {
+                box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.226), 0px 1px 1px 0px rgba(0, 0, 0, 0.226), 0px 1px 3px 0px rgba(0, 0, 0, 0.226);
+
+            }
+        }
+
+        .modal-user--form {
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 20px 0px;
+            padding: 25px;
+
+            form {
+
+                .form-group {
+                    label {
+                        @include text(fs("body1"), tc("textSecondary"), fw("fwLight"), 0);
+                    }
+
+                    input {
+                        background: transparent;
+                        border: none;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.23);
+                        @include text(fs("h6"), tc("textSecondary"), fw("fwLight"), 0);
+                        outline: none;
+                        padding-left: 0px !important;
+                    }
+
+                    select {
+                        background: transparent;
+                        padding: 5px 0px;
+                        border: none;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.23);
+                        @include text(fs("h6"), tc("textSecondary"), fw("fwLight"), 0);
+                        outline: none;
+
+                        option {
+                            background: c("bgGrayBlack");
+                            color: tc("textSecondary");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .modal-form{
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        border-radius: 7px;
+        padding: 15px;
+        position: relative;
+        display: none !important;
+
+        .form-user {
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 20px 0px;
+            padding: 10px 15px;
+            width: 300px;
+            min-height: 300px;
+            margin: 0px auto;
+            background: c("bgGrayBlack");
+            position: absolute;
+            top: 0px;
+            left: 35%;
+            transition: all 0.3s linear;
+
+            &:hover {
+                top: 10px;
+            }
+
+            form {
+
+                h1 {
+                    @include text(fs("h4"), tc("textWhite"), fw("fwRegular"), 0);
+                    text-align: center;
+                }
+
+                .form-group {
+                    label {
+                        @include text(fs("h6"), tc("textSecondary"), fw("fwLight"), 0);
+                    }
+
+                    input {
+                        background: transparent;
+                        border: none;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.23);
+                        @include text(fs("h6"), tc("textWhite"), fw("fwLight"), 0);
+                        outline: none;
+                        padding-left: 0px !important;
+                    }
+
+                    select {
+                        background: transparent;
+                        padding: 5px 0px;
+                        border: none;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.23);
+                        @include text(fs("h6"), tc("textWhite"), fw("fwLight"), 0);
+                        outline: none;
+
+                        option {
+                            background: c("bgGrayBlack");
+                            color: tc("textWhite");
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

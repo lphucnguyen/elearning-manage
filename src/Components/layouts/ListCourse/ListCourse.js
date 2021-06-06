@@ -15,7 +15,7 @@ function ListCourse() {
                 <div className="list-type-course">
                     <div className="row">
                         <div className="col-md-4 pr-5">
-                            <div className="select-group">
+                            <div className="select-group mb-3 mb-md-0">
                                 <select name="sortCourses" id="sortCourses">
                                     <option value="0" checked>Course ID</option>
                                     <option value="1">Title: A-to-Z</option>
@@ -25,7 +25,7 @@ function ListCourse() {
                             </div>
                         </div>
                         <div className="col-md-4 pr-5">
-                            <div className="select-group">
+                            <div className="select-group mb-3 mb-md-0">
                                 <select name="courses" id="courses">
                                     <option value="0" checked>All Topic</option>
                                     <option value="1">Lập trình Backend</option>
@@ -39,16 +39,16 @@ function ListCourse() {
                             </div>
                         </div>
                         <div className="col-md-4 pr-5">
-                            <div className="select-group">
+                            <div className="select-group mb-3 mb-md-0">
                                 <select name="groupCourses" id="groupCourses">
-                                    <option value="0" checked>Group 01</option>
-                                    <option value="1" checked>Group 02</option>
-                                    <option value="2" checked>Group 03</option>
-                                    <option value="3" checked>Group 04</option>
-                                    <option value="4" checked>Group 05</option>
-                                    <option value="5" checked>Group 06</option>
-                                    <option value="6" checked>Group 07</option>
-                                    <option value="7" checked>Group 08</option>
+                                    <option value="0">Group 01</option>
+                                    <option value="1">Group 02</option>
+                                    <option value="2">Group 03</option>
+                                    <option value="3">Group 04</option>
+                                    <option value="4">Group 05</option>
+                                    <option value="5">Group 06</option>
+                                    <option value="6">Group 07</option>
+                                    <option value="7">Group 08</option>
                                 </select>
                                 <div className="custom-arrow"></div>
                             </div>
@@ -57,25 +57,25 @@ function ListCourse() {
                 </div>
                 <div className="list-course mt-5">
                     <div className="row">
-                        <div className="col-md-3 pb-4">
+                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
                             <CourseItem/>
                         </div>
-                        <div className="col-md-3 pb-4">
+                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
                             <CourseItem/>
                         </div>
-                        <div className="col-md-3 pb-4">
+                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
                             <CourseItem/>
                         </div>
-                        <div className="col-md-3 pb-4">
+                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
                             <CourseItem/>
                         </div>
-                        <div className="col-md-3 pb-4">
+                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
                             <CourseItem/>
                         </div>
-                        <div className="col-md-3 pb-4">
+                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
                             <CourseItem/>
                         </div>
-                        <div className="col-md-3 pb-4">
+                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
                             <CourseItem/>
                         </div>
                     </div>

@@ -1,0 +1,29 @@
+@import "../../../../styles/helpers/function";
+@import "../../../../styles/helpers/mixin";
+@import "../../../../styles/helpers/theme";
+@import "../../../../styles/base/reset";
+@import "../../../../styles/components/button";
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+// .scroll-to-top {
+//     display: none;
+//     position: fixed;
+//     bottom: 20px;
+//     right: 20px;
+//     width: 50px;
+//     height: 50px;
+//     border-radius: 50%;
+//     background: red;
+//     color: c("textPrimary");
+//     outline: none;
+//     border: none;
+// }
+
+// .scroll-to-top.active {
+//     display: block;
+// }
