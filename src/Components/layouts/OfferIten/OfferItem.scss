@@ -1,0 +1,46 @@
+@import "../../../styles/helpers/function";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/theme";
+@import "../../../styles/base/reset";
+
+.offer-item {
+    margin-top: 20px;
+    background: tc("textGreen");
+    padding: 20px;
+    padding-top: 30px;
+
+    .offer-item-subtitle {
+        font-weight: fw("fwLight");
+        font-size: 9px;
+    }
+
+    .offer-item-content {
+        font-weight: fw("fwLight");
+        font-size: 12px;
+    }
+
+    .offer-item-discount {
+        padding: 5px;
+        margin-bottom: 10px;
+        font-size: fs("h6");
+        font-weight: fw("fwLight");
+        background: c("bgOrange");
+        display: inline-block;
+        color: tc("textWhite");
+    }
+
+    .offer-item-btn {
+        padding: 10px 20px;
+        border: 1px solid tc("textPrimary");
+        display: inline-block;
+        margin-top: 40px;
+        font-weight: fw("fwMedium");
+        color: tc("textPrimary");
+        transition: all 0.4s ease;
+
+        &:hover {
+            background: tc("textPrimary");
+            color: tc("textWhite");
+        }
+    }
+}

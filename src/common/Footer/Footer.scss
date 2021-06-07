@@ -1,0 +1,50 @@
+@import "../../../src/styles/helpers/function";
+@import "../../../src/styles/helpers/mixin";
+@import "../../../src/styles/helpers/theme";
+@import "../../../src/styles/base/reset";
+@import "../../../src/styles/components/button";
+
+.footer {
+    background: c("bgSecondary");
+    padding-top: 30px;
+
+    .title {
+        font-size: fs("h5");
+        font-weight: fw("fwMeidum");
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: fs("body2");
+    }
+
+    .list-footer {
+        list-style: none;
+
+        a {
+            display: block;
+            padding: 5px 5px 5px 0px;
+            color: c("bgBlack");
+            font-size: fs("body2");
+        }
+    }
+
+    .form {
+        margin-top: 20px;
+
+        input[type="text"] {
+            padding: 5px 5px 5px 10px;
+            border: none;
+            outline: none;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            background: c("bgOrange");
+            box-shadow: none;
+            color: tc("textWhite");
+        }
+    }
+}

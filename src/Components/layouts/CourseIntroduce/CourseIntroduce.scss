@@ -1,0 +1,43 @@
+@import "../../../styles/helpers/function";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/theme";
+@import "../../../styles/base/reset";
+
+.course-introduce {
+    background: c("bgSecondary");
+
+    .course-introduce-subtitle {
+        @include text(fs("body2"), tc("textPrimary"), fw("fwRegular"), 0.4);
+    }
+
+    .course-introduce-title {
+        @include text(fs("h2"), tc("textPrimary"), fw("fwBold"), 0);
+    }
+
+    .course-contain .swiper-container {
+        padding: 20px 0px;
+    }
+
+    .course-introduce-all {
+        text-align: right;
+
+        a {
+            color: tc("textPrimary");
+            text-decoration: underline;
+            font-size: fs("subtitle");
+        }
+    }
+
+    .course-slide-control {
+        text-align: right;
+
+        .course-slide-prev, .course-slide-next {
+            border: 1px solid c("bgBlack");
+            display: inline-block;
+            font-size: fs("body2");
+            padding: 10px 15px;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+    }
+}

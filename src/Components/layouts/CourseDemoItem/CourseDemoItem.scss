@@ -1,0 +1,47 @@
+@import "../../../styles/helpers/function";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/theme";
+@import "../../../styles/base/reset";
+
+.course-demo-item {
+    position: relative;
+
+    img {
+        width: 100%;
+    }
+
+    .video-play-contain {
+        position: absolute;
+        left: 25px;
+        bottom: 15px;
+
+        .video-play {
+            margin: 0 auto;
+            width: 35px;
+            height: 35px;
+            text-align: center;
+            line-height: 35px;
+            background: c("bgOrange");
+            border-radius: 50%;
+            color: c("bgPrimary");
+            cursor: pointer;
+        }
+
+        .video-text {
+            color: c("bgPrimary");
+            font-weight: fw("fwMedium");
+            margin-top: 10px;
+            font-size: fs("body2");
+        }
+    }
+
+    &::before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.6));
+    }
+}
