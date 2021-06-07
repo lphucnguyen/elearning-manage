@@ -3,17 +3,6 @@
 @import "../../../../styles/helpers/theme";
 @import "../../../../styles/base/reset";
 @import "../../../../styles/components/button";
-// Create theme
-// colors background
-    $bgPrimary: #22242A;
-    $bgSecondary: #fff;
-    $bgBlueSky: #4CCEE8;
-    $bgBlue: #3498DB;
-    $bgBlueLight: #55B1F0;
-    $bgBlueLight2: #c4e3f7;
-    $bgGray:#2F323A;
-    $bgGrayLight: #F2F2F2;
-    $bgGrayLight1: #bbb;
 
 .main-container {
     width: calc(100% - 250px);
