@@ -3,7 +3,7 @@ import './Header.scss';
 
 function Header() {
     return (
-        <div className="header">
+        <div className="header my-shadow">
             <div className="container">
                 <div className="row">
                     <div className="col-12">
