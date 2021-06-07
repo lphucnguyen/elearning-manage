@@ -1,0 +1,66 @@
+@import "../../../styles/helpers/function";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/theme";
+@import "../../../styles/base/reset";
+
+.teacher {
+    background: c("bgSecondary");
+    padding: 30px 0px;
+
+    .best-teacher {
+        background: c("bgPrimary");
+        padding: 20px 10px;
+    
+        img {
+            display: block;
+            width: 100%;
+            object-fit: cover;
+        }
+    
+        .best-teacher-info {
+            .best-teacher-feed {
+                font-style: italic;
+                font-weight: fw("fwMedium");
+            }
+    
+            .best-teacher-school {
+                margin-top: 20px;
+            }
+    
+            .best-teacher-info-sell {
+                padding: 15px 0px;
+                
+                li {
+                    padding: 0px 15px;
+                    border-left: 2px solid tc("textSecondary");
+                    min-width: 150px;
+    
+                    &:first-of-type {
+                        border: none;
+                    }
+
+                    .best-teacher-info-title {
+                        font-weight: fw("fwBold");
+                    }
+
+                    .best-teacher-info-subtitle {
+                        font-weight: fw("fwRegular");
+                    }
+                }
+            }
+        }
+    
+        .best-teacher-img {
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+    
+}

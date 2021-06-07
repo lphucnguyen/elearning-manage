@@ -1,0 +1,8 @@
+@import "../../../styles/helpers/function";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/theme";
+@import "../../../styles/base/reset";
+
+.service-contain {
+    background: c("bgSecondary");
+}
