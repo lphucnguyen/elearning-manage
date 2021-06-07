@@ -1,0 +1,19 @@
+@import "../../../styles/helpers/function";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/theme";
+@import "../../../styles/base/reset";
+
+.offer-contain {
+    .offer-slide {
+        text-align: right;
+
+        .course-slide-prev, .course-slide-next {
+            border: 1px solid c("bgBlack");
+            display: inline-block;
+            font-size: fs("body2");
+            padding: 10px 15px;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+    }
+}

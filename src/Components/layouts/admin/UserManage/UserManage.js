@@ -12,7 +12,6 @@ function UserManage() {
             <SliderbarAdmin/>
             <MainUserManage/>
         </div>
-
     )
 }
 

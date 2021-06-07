@@ -3,7 +3,7 @@ import './Header.scss';
 
 function Header() {
     return (
-        // <div>
+        <div className="header">
             <div className="container">
                 <div className="row">
                     <div className="col-12">
@@ -43,7 +43,7 @@ function Header() {
                     </div>
                 </div>
             </div>
-        // </div>
+        </div>
     )
 }
 

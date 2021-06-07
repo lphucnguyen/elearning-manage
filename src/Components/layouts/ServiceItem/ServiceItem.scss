@@ -1,0 +1,38 @@
+@import "../../../styles/helpers/function";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/theme";
+@import "../../../styles/base/reset";
+
+.service-item {
+    background: c("bgPrimary");
+    padding: 40px 20px;
+    text-align: center;
+    margin: 30px 0px;
+
+    .service-item-icon {
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        line-height: 100px;
+        margin: 0 auto;
+        border: 1px dashed c("bgOrange");
+        font-size: fs("h1");
+        color: c("bgOrange");
+        transition: all 0.4s ease;
+
+        &:hover {
+            background: c("bgOrange");
+            color: c("bgPrimary");
+        }
+    }
+
+    .service-item-title {
+        margin-top: 20px;
+        font-weight: fw("fwBold");
+    }
+
+    .service-item-subtitle {
+        margin-top: 20px;
+        font-size: fs("body2");
+    }
+}
