@@ -1,8 +1,30 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import { layDanhSachKhoaHocAction } from '../../../redux/actions/CourseAction';
 import CourseItem from '../CourseItem/CourseItem';
 import "./ListCourse.scss"
 
 function ListCourse() {
+
+    // const getCourses = 
+
+    const arrCourse = useSelector(state => state.CourseReducer.arrCourse);
+
+    const dispatch =  useDispatch();
+
+    useEffect(() => {
+        dispatch(layDanhSachKhoaHocAction("bootcamp react 0112", "GP01"));
+        
+    }, []);
+
+    const renderCourses = () => {
+        console.log("run", arrCourse);
+        return arrCourse.map((item, index) => {
+            return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
+                    <CourseItem name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
+                </div>
+        })
+    };
 
     return (
         <div className="main-list-course">
@@ -57,27 +79,7 @@ function ListCourse() {
                 </div>
                 <div className="list-course mt-5">
                     <div className="row">
-                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-                            <CourseItem/>
-                        </div>
-                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-                            <CourseItem/>
-                        </div>
-                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-                            <CourseItem/>
-                        </div>
-                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-                            <CourseItem/>
-                        </div>
-                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-                            <CourseItem/>
-                        </div>
-                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-                            <CourseItem/>
-                        </div>
-                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-                            <CourseItem/>
-                        </div>
+                        {renderCourses()}
                     </div>
                 </div>
                 <div className="list-pagination d-flex justify-content-center mt-5">

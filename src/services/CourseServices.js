@@ -1,53 +1,52 @@
 import axios from "axios";
 import {domain, token} from '../configs/settings';
-import React from 'react'
 
-function CourseServices() {
+export class CourseServices {
 
-    const layDanhSachKhoaHoc = (data, group) => {
+    layDanhSachKhoaHoc = (data, group) => {
         return axios ({
-            url: `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${data}&MaNhom=${group}`,
+            url: `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc`,
             method: 'GET'
         });
     }
 
-    const layDanhSachKhoaHoc_PhanTrang = (group,page) => {
+    layDanhSachKhoaHoc_PhanTrang = (group,page) => {
       return axios({
         url: `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc_PhanTrang?page=${page}&pageSize=6&MaNhom=${group}`,
         method: "GET",
       });
     };
 
-    // const timKiemKhoaHoc = (data, group) => {
+    // timKiemKhoaHoc = (data, group) => {
     //     return axios ({
     //         url: `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${data}&MaNhom=${group}`,
     //         method: 'GET'
     //     });
     // }
     
-    const layChiTietKhoaHoc = (group) => {
+    layChiTietKhoaHoc = (group) => {
         return axios ({
             url: `${domain}/api/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${group}`,
             method: 'GET'
         });
     }
     
-    const layDanhMucKhoaHoc = () => {
+    layDanhMucKhoaHoc = () => {
         return axios ({
             url: `${domain}/api/QuanLyKhoaHoc/LayDanhMucKhoaHoc`,
             method: 'GET'
         });
     }
     
-    const layKhoaHocTheoDanhMuc = () => {
+    layKhoaHocTheoDanhMuc = (data, group) => {
         return axios ({
-            url: `${domain}/api/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${group}&MaNhom=${group}`,
+            url: `${domain}/api/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${data}&MaNhom=${group}`,
             method: 'GET'
         });
     }
 
 
-    const dangKyKhoaHoc = ({maKhoaHoc,taiKhoan}) => {
+    dangKyKhoaHoc = ({maKhoaHoc,taiKhoan}) => {
         console.log({maKhoaHoc,taiKhoan})
         return axios({
           url: `${domain}/api/QuanLyKhoaHoc/DangKyKhoaHoc`,
@@ -57,7 +56,7 @@ function CourseServices() {
         });
     };
       
-    const ghiDanhKhoaHoc = ({maKhoaHoc,taiKhoan}) => {
+    ghiDanhKhoaHoc = ({maKhoaHoc,taiKhoan}) => {
         return axios({
             url: `${domain}/api/QuanLyKhoaHoc/GhiDanhKhoaHoc`,
             method: "POST",
@@ -66,7 +65,7 @@ function CourseServices() {
         });
     };
 
-    const huyGhiDanh = ({maKhoaHoc,taiKhoan}) => {
+    huyGhiDanh = ({maKhoaHoc,taiKhoan}) => {
         return axios({
             url: `${domain}/api/QuanLyKhoaHoc/HuyGhiDanh`,
             method: "POST",
@@ -75,7 +74,7 @@ function CourseServices() {
         });
     };
 
-    const themKhoaHoc = (course) => {
+    themKhoaHoc = (course) => {
         return axios({
             url: `${domain}/api/QuanLyKhoaHoc/ThemKhoaHoc`,
             method: "POST",
@@ -84,7 +83,7 @@ function CourseServices() {
         });
     };
     
-    const capNhatKhoaHoc = (course) => {
+    capNhatKhoaHoc = (course) => {
         return axios({
             url: `${domain}/api/QuanLyKhoaHoc/CapNhatKhoaHoc`,
             method: "PUT",
@@ -93,7 +92,7 @@ function CourseServices() {
         });
     };
 
-    const xoaKhoaHoc = (id) => {
+    xoaKhoaHoc = (id) => {
         return axios({
             url: `${domain}/api/QuanLyKhoaHoc/XoaKhoaHoc?MaKhoaHoc=${id}`,
             method: "DELETE",
@@ -101,19 +100,13 @@ function CourseServices() {
         });
     };
 
-    const uploadHinhAnhKhoaHoc = (form) => {
+    uploadHinhAnhKhoaHoc = (form) => {
         return axios({
             url: `${domain}/api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc`,
             method: "POST",
             data:form,
         });
     };
-
-    return (
-        <div>
-            
-        </div>
-    )
 }
 
-export default  CourseServices;
+export const courseServices = new CourseServices();
