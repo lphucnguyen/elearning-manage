@@ -10,7 +10,8 @@ function App() {
       {/* <Login/> */}
       {/* <Loading/> */}
       {/* <Home /> */}
-      <UserManage />
+      {/* <UserManage /> */}
+      <Courses/>
     </div>
   );
 }
