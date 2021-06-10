@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import { layDanhSachKhoaHocAction } from '../../../redux/actions/CourseAction';
+import { layKhoaHocTheoDanhMucAction } from '../../../redux/actions/CourseAction';
 import CourseItem from '../CourseItem/CourseItem';
 import "./ListCourse.scss"
 
@@ -16,9 +17,11 @@ function ListCourse() {
     const dispatch =  useDispatch();
 
     useEffect(() => {
-        dispatch(layDanhSachKhoaHocAction("bootcamp react 0112", "GP01"));
+        dispatch(layDanhSachKhoaHocAction());
+        console.log("run", data);
+        dispatch(layKhoaHocTheoDanhMucAction(data.typeCourse, data.typeGroup));
         
-    }, []);
+    }, [data]);
 
     const getTypeCourses = (evt) => {
         if(evt) {
@@ -43,6 +46,7 @@ function ListCourse() {
             })
         }
     }
+
 
     const renderCourses = () => {
         return arrCourse.map((item, index) => {

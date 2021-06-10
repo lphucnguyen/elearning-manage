@@ -3,7 +3,7 @@ import {domain, token} from '../configs/settings';
 
 export class CourseServices {
 
-    layDanhSachKhoaHoc = (data, group) => {
+    layDanhSachKhoaHoc = () => {
         return axios ({
             url: `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc`,
             method: 'GET'

@@ -6,6 +6,8 @@ function Footer() {
 
     useLayoutEffect(() => {
         window.addEventListener("scroll", (e) => {
+            if(scrollTop.current === null) return;
+
             if(window.scrollY > 0) scrollTop.current.classList.add("active")
             else scrollTop.current.classList.remove("active")
 
