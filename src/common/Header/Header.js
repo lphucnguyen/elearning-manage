@@ -6,7 +6,7 @@ function Header() {
 
     useLayoutEffect(() => {
         window.addEventListener("scroll", (e) => {
-            console.log(window.scrollY)
+            if(headerElement.current === null) return;
 
             if(window.scrollY > 0) headerElement.current.classList.add("active")
             else headerElement.current.classList.remove("active")
