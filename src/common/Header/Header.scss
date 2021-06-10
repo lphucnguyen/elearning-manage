@@ -5,60 +5,69 @@
 @import "../../../src/styles/components/button";
 @import "../../../src/styles/components/shadow";
 
-.header-contain {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    z-index: 9;
-    align-items: center;
-    justify-content: space-between;
-    a {
-        @include text(fs("body1"), tc("textPrimary"), fw("fwMedium"), 0);
-        text-decoration: none;
-        position: relative;
-    }
 
-    a.a-teacher {
-        text-decoration: underline;
-    }
+.header {
+    border-bottom: 1px solid tc('textSecondary');
 
-    .logo {
-        font-size: fs("h6");
-        img {
-            width: 30px;
-            max-width: 100%;
+    .header-contain {
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        a {
+            @include text(fs("body2"), tc("textPrimary"), fw("fwMedium"), 0);
+            text-decoration: none;
+            position: relative;
         }
-    }
-    .menu {
-        .menu-list {
-            list-style: none;
-            margin-bottom: 0;
-            a {
-                display: block;
-                padding: 20px 15px;
 
-                &::after{
-                    content: "";
-                    position: absolute;
-                    bottom: 15px;
-                    left: 15px;
-                    width: 0;
-                    height: 2px;
-                    transition: all 0.4s ease;
-                    background: c("bgBlack");
-                }
-        
-                &:hover::after {
-                    width: 30%;
-                }
-            }
+        a.a-teacher {
+            text-decoration: underline;
+        }
 
-            a.active {
-                &::after {
-                    width: 30%;
-                }
+        .logo {
+            font-size: fs("h6");
+            img {
+                width: 30px;
+                max-width: 100%;
             }
         }
-    }
+        .menu {
+            .menu-list {
+                list-style: none;
+                margin-bottom: 0;
+                a {
+                    display: block;
+                    padding: 20px 15px;
+
+                    &::after{
+                        content: "";
+                        position: absolute;
+                        bottom: 15px;
+                        left: 15px;
+                        width: 0;
+                        height: 2px;
+                        transition: all 0.4s ease;
+                        background: c("bgBlack");
+                    }
+            
+                    &:hover::after {
+                        width: 30%;
+                    }
+                }
+
+                a.active {
+                    &::after {
+                        width: 30%;
+                    }
+                }
+            }
+        }
+    }    
+}
+
+.header.active {
+    background: c("bgSecondary");
+}
+
+.header.my-shadow {
+    transition: all 0.4s ease;
 }

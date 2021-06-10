@@ -1,12 +1,18 @@
-import React from 'react'
+import React, {useLayoutEffect, useRef} from 'react'
 import CourseItem from '../CourseItem/CourseItem';
 import "./ListCourse.scss"
 
 function ListCourse() {
 
+    const courseOption = useRef(null)
+
+    useLayoutEffect(() => {
+        console.log(courseOption.current.value)
+    }, [])
+
     return (
         <div className="container">
-            <div className="main-list-course d-flex">
+            <div className="main-list-course">
                 <h1 className="title">Our Courses</h1>
                 <div className="search shadow">
                     <input type="text" name="search" id="search" placeholder="Search Course"/>
@@ -40,7 +46,7 @@ function ListCourse() {
                         </div>
                         <div className="col-md-4 pr-5">
                             <div className="select-group mb-3 mb-md-0">
-                                <select name="groupCourses" id="groupCourses">
+                                <select name="groupCourses" id="groupCourses" ref={courseOption}>
                                     <option value="0">Group 01</option>
                                     <option value="1">Group 02</option>
                                     <option value="2">Group 03</option>

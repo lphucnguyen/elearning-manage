@@ -2,6 +2,7 @@
 @import "../../../styles/helpers/mixin";
 @import "../../../styles/helpers/theme";
 @import "../../../styles/base/reset";
+@import "../../../styles/helpers/keyframes";
 
 
 .carousel {
@@ -28,20 +29,6 @@
         img {
             max-width: 400px;
             animation: upDown 2.6s infinite linear;
-        }
-    }
-
-    @keyframes upDown {
-        0% {
-            transform: translateY(-10px);
-        }
-
-        50% {
-            transform: translateY(10px);
-        }
-
-        100% {
-            transform: translateY(-10px);
         }
     }
 
