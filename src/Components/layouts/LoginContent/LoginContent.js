@@ -21,7 +21,7 @@ function LoginContent() {
 
 
     return (
-        <div className="wrapper">
+        <div className="wrapper-login">
             <div className="form shadow">
                 <form>
                     <div className="tab-header">

@@ -1,8 +1,7 @@
-import React from 'react'
 import axios from "axios";
 import {domain, token} from '../configs/settings';
 
-function UserServices() {
+export class UserServices {
 
     dangKy = (data) => {
         return axios({
@@ -91,12 +90,7 @@ function UserServices() {
             headers: { Authorization: `Bearer ${token}` },
         });
     };
-    
-    return (
-        <div>
-            
-        </div>
-    )
 }
 
-export default UserServices;
+// export default UserServices;
+export const userServices = new UserServices();
