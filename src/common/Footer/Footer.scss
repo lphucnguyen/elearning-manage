@@ -3,14 +3,35 @@
 @import "../../../src/styles/helpers/theme";
 @import "../../../src/styles/base/reset";
 @import "../../../src/styles/components/button";
+@import "../../../src/styles/helpers/keyframes";
 
 .footer-contain {
     background: c("bgSecondary");
     padding-top: 30px;
 
+    .scroll-to-top {
+        position: fixed;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        right: 20px;
+        bottom: 20px;
+        background: c("bgGreen");
+        cursor: pointer;
+        font-size: fs("body2");
+        color: tc("textWhite");
+        display: none;
+    }
+
+    .scroll-to-top.active {
+        display: block;
+        animation: upDown 2.6s infinite linear;
+    }
+
     .title {
         font-size: fs("h5");
-        font-weight: fw("fwMeidum");
+        font-weight: fw("fwMedidum");
         margin-bottom: 20px;
     }
 
@@ -20,12 +41,14 @@
 
     .list-footer {
         list-style: none;
+        padding-left: 5px;
 
         a {
             display: block;
             padding: 5px 5px 5px 0px;
             color: c("bgBlack");
             font-size: fs("body2");
+            font-weight: fw("fwLight");
         }
     }
 

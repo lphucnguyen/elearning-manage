@@ -14,4 +14,4 @@ function CourseManage() {
     )
 }
 
-export default CourseManage:
+export default CourseManage;

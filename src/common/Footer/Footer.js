@@ -1,7 +1,21 @@
-import React from 'react'
+import React, {useLayoutEffect, useRef} from 'react'
 import './Footer.scss'
 
 function Footer() {
+    const scrollTop = useRef(null)
+
+    useLayoutEffect(() => {
+        window.addEventListener("scroll", (e) => {
+            if(window.scrollY > 0) scrollTop.current.classList.add("active")
+            else scrollTop.current.classList.remove("active")
+
+            scrollTop.current.addEventListener("click", (e) => {
+                window.scrollTo(0,0)
+            })
+        })
+
+    }, [])
+
     return (
         <div className="footer-contain">
             <div className="container">
@@ -40,6 +54,7 @@ function Footer() {
                     </div>
                 </div>
             </div>
+            <div className="scroll-to-top" ref={scrollTop}><i class="fa fa-arrow-up"></i></div>
         </div>
     )
 }

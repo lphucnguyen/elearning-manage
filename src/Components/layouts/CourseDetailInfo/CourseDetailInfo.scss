@@ -1,0 +1,114 @@
+@import "../../../styles/helpers/function";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/theme";
+@import "../../../styles/base/reset";
+
+.course-info {
+    width: 100%;
+    padding-top: 200px;
+    padding-bottom: 50px;
+
+    .course-bg {
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        &::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: rgba(0,0,0,0.5);
+        }
+    }
+
+    .rate {
+        position: relative;
+        display: flex;
+        justify-content: center;
+
+
+        label {
+            float:right;
+            overflow:hidden;
+            white-space:nowrap;
+            cursor:pointer;
+            @include text(fs("subtitle"), tc("textSecondary"), none, 0);
+            padding: 10px;
+
+            i {
+                color: tc("textWhite");
+                font-size: fs("h4");
+            }
+        }
+        
+        label.active {
+            i {
+                color: tc("textGreen");
+            }
+        }
+    }
+
+    .course-title {
+        font-size: 62px;
+        color: tc("textWhite");
+        margin-top: 70px;
+    }
+
+    .course-subtitle {
+        font-size: fs("h4");
+        color: tc("textWhite");
+        margin-top: 70px;
+    }
+
+    .author {
+        margin-top: 60px;
+
+        .author-img {
+            width: 45px;
+            height: 45px;
+            text-align: center;
+            margin: 0 auto;
+    
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+        }
+    
+        .author-name {
+            color: tc("textWhite");
+            font-weight: fw("fwMedium");
+            font-size: fs("h6");
+            margin-top: 20px;
+        }
+    }
+
+    .course-price, .course-buy  {
+        color: tc("textOrange");
+        font-size: fs("h4");
+        font-weight: fw("fwBold");
+        margin-top: 30px;
+    }
+
+    .course-buy {
+        background: c("bgOrange");
+        color: tc("textWhite");
+        cursor: pointer;
+        padding: 10px 20px;
+        display: inline-block;
+    }
+}
