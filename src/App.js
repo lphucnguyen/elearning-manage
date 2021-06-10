@@ -6,22 +6,18 @@ import UserManage from './Components/layouts/admin/UserManage/UserManage';
 import CourseManage from './Components/layouts/admin/CourseManage/CourseManage';
 import Details from './pages/Details/Details';
 
-import {createBrowserHistory} from 'history'
+import { createBrowserHistory } from 'history'
 import { Route, Router, Switch } from 'react-router';
-export const history =  createBrowserHistory();
+export const history = createBrowserHistory();
 
 function App() {
   return (
     <Router history = {history}>
       <div className="App">
-        {/* <Login/> */}
-        <Loading/>
         <Switch>
-          {/* <Home /> */}
-          {/* <UserManage /> */}
           <Route exact path="/courses" component={Courses} /> 
+          <Route exact path="/home" component={Home} /> 
           <Route exact path="/" component={Home} /> 
-          {/* <Courses/> */}
         </Switch>
       </div>
     </Router>

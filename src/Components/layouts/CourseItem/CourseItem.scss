@@ -80,6 +80,9 @@
         .card-title {
             padding-top: 28px;
             @include text(fs("subtitle"), tc("textPrimary"), fw("fwMedium"), 0);
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
         }
 
         .card-text {

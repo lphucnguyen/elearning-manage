@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import { layDanhSachKhoaHocAction } from '../../../redux/actions/CourseAction';
-import { layKhoaHocTheoDanhMucAction } from '../../../redux/actions/CourseAction';
+import Loading from '../../../common/Loading/Loading';
+import { layDanhSachKhoaHocAction, xoaDanhSachKhoaHocAction, layKhoaHocTheoDanhMucAction } from '../../../redux/actions/CourseAction';
 import CourseItem from '../CourseItem/CourseItem';
 import "./ListCourse.scss"
 
@@ -17,10 +17,12 @@ function ListCourse() {
     const dispatch =  useDispatch();
 
     useEffect(() => {
+
         dispatch(layDanhSachKhoaHocAction());
         console.log("run", data);
         dispatch(layKhoaHocTheoDanhMucAction(data.typeCourse, data.typeGroup));
-        
+        dispatch(xoaDanhSachKhoaHocAction());
+      
     }, [data]);
 
     const getTypeCourses = (evt) => {
@@ -49,6 +51,7 @@ function ListCourse() {
 
 
     const renderCourses = () => {
+        
         return arrCourse.map((item, index) => {
             return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
                     <CourseItem name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
@@ -109,6 +112,7 @@ function ListCourse() {
                 </div>
                 <div className="list-course mt-5">
                     <div className="row">
+                        <Loading />
                         {renderCourses()}
                     </div>
                 </div>

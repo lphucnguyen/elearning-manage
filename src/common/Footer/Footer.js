@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useRef} from 'react'
+import React, {useLayoutEffect, useRef, useEffect} from 'react'
 import './Footer.scss'
 
 function Footer() {

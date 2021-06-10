@@ -28,6 +28,15 @@ export const layDanhSachKhoaHocAction = () => {
     }
 }
 
+
+export const xoaDanhSachKhoaHocAction = () => {
+    return (dispatch) => {
+        dispatch({
+            type: "XOA_DANH_SACH_KHOA_HOC"
+        })
+    }
+}
+
 export const layKhoaHocTheoDanhMucAction = () => {
     return (dispatch) => {
         // Call loading open

@@ -14,6 +14,10 @@ export const CourseReducer = (state = stateDefault, action) => {
             console.log('run reducer',action.data);
             return {...state};
         }
+        case 'XOA_DANH_SACH_KHOA_HOC': {
+            state.arrCourse = [];
+            return {...state};
+        }
         default: return {...state};
     }
 }
