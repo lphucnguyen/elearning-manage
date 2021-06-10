@@ -27,3 +27,11 @@ export const layDanhSachKhoaHocAction = (data, group) => {
         },2000)
     }
 }
+
+export const xoaDanhSachKhoaHocAction = () => {
+    return (dispatch) => {
+        dispatch({
+            type: "XOA_DANH_SACH_KHOA_HOC"
+        })
+    }
+}

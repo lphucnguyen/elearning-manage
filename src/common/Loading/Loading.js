@@ -7,37 +7,13 @@ export default function Loading() {
 
     const isLoading = useSelector(state => state.LoadingReducer.loading);
 
-    const renderLoading = () => {
-        if(isLoading) {
-            return <div className='body'>
-                        <div className="container-loading">
-                            <div className="wrapper-loading">
-                                <div className="loader">
-                                    <div className="dot" />
-                                </div>
-                                <div className="loader">
-                                    <div className="dot" />
-                                </div>
-                                <div className="loader">
-                                    <div className="dot" />
-                                </div>
-                                <div className="loader">
-                                    <div className="dot" />
-                                </div>
-                                <div className="loader">
-                                    <div className="dot" />
-                                </div>
-                            </div>
-                            <div className="text">Please wait</div>
-                        </div>
-                    </div>
-        }
-        return '';
-    };
+    const rederLoading = () => {
+        if(isLoading) return (<div class="lds-dual-ring"></div>)
+    }
 
     return (
         <Fragment>
-            {renderLoading()}
+            {rederLoading()}
         </Fragment>
     )
 }

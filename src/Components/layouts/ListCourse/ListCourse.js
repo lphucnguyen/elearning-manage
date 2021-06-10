@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import { layDanhSachKhoaHocAction } from '../../../redux/actions/CourseAction';
+import Loading from '../../../common/Loading/Loading';
+import { layDanhSachKhoaHocAction, xoaDanhSachKhoaHocAction } from '../../../redux/actions/CourseAction';
 import CourseItem from '../CourseItem/CourseItem';
 import "./ListCourse.scss"
 
@@ -17,8 +18,10 @@ function ListCourse() {
 
     useEffect(() => {
         dispatch(layDanhSachKhoaHocAction("bootcamp react 0112", "GP01"));
-        
-    }, []);
+        dispatch(xoaDanhSachKhoaHocAction());
+
+        console.log(data)
+    }, [data]);
 
     const getTypeCourses = (evt) => {
         if(evt) {
@@ -45,6 +48,7 @@ function ListCourse() {
     }
 
     const renderCourses = () => {
+        
         return arrCourse.map((item, index) => {
             return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
                     <CourseItem name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
@@ -105,6 +109,7 @@ function ListCourse() {
                 </div>
                 <div className="list-course mt-5">
                     <div className="row">
+                        <Loading />
                         {renderCourses()}
                     </div>
                 </div>
