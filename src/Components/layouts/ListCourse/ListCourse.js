@@ -17,13 +17,13 @@ function ListCourse() {
         
     }, []);
 
-    const renderCourses = () => {
-        console.log("run", arrCourse);
-        return arrCourse.map((item, index) => {
-            return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
-                    <CourseItem name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
-                </div>
-        })
+    const renderCourses = (evt) => {
+        (evt) ? console.log("run", evt): console.log("All");
+        // return arrCourse.map((item, index) => {
+        //     return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
+        //             <CourseItem name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
+        //         </div>
+        // })
     };
 
     return (
@@ -48,14 +48,14 @@ function ListCourse() {
                         </div>
                         <div className="col-md-4 pr-5">
                             <div className="select-group mb-3 mb-md-0">
-                                <select name="courses" id="courses">
-                                    <option value={0} checked>All Topic</option>
-                                    <option value={1}>Lập trình Backend</option>
-                                    <option value={2}>Thiết kế Web</option>
-                                    <option value={3}>Lập trình di động</option>
-                                    <option value={4}>Lập trình Front end</option>
-                                    <option value={5}>Lập trình Full Stack</option>
-                                    <option value={6}>Tư duy lập trình</option>
+                                <select name="courses" id="courses" onChange={(e) => renderCourses(e)}>
+                                    <option value = "All" checked>All Topic</option>
+                                    <option value = "BackEnd">Lập trình Backend</option>
+                                    <option value = "Design">Thiết kế Web</option>
+                                    <option value = "DiDong">Lập trình di động</option>
+                                    <option value = "FrontEnd">Lập trình Front end</option>
+                                    <option value = "FullStack">Lập trình Full Stack</option>
+                                    <option value = "TuDuy">Tư duy lập trình</option>
                                 </select>
                                 <div className="custom-arrow" />
                             </div>
