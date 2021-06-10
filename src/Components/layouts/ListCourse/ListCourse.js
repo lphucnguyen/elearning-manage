@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import Loading from '../../../common/Loading/Loading';
-import { layDanhSachKhoaHocAction, xoaDanhSachKhoaHocAction } from '../../../redux/actions/CourseAction';
+import { layDanhSachKhoaHocAction, xoaDanhSachKhoaHocAction, layKhoaHocTheoDanhMucAction } from '../../../redux/actions/CourseAction';
 import CourseItem from '../CourseItem/CourseItem';
 import "./ListCourse.scss"
 
@@ -17,10 +17,12 @@ function ListCourse() {
     const dispatch =  useDispatch();
 
     useEffect(() => {
-        dispatch(layDanhSachKhoaHocAction("bootcamp react 0112", "GP01"));
-        dispatch(xoaDanhSachKhoaHocAction());
 
-        console.log(data)
+        dispatch(layDanhSachKhoaHocAction());
+        console.log("run", data);
+        dispatch(layKhoaHocTheoDanhMucAction(data.typeCourse, data.typeGroup));
+        dispatch(xoaDanhSachKhoaHocAction());
+      
     }, [data]);
 
     const getTypeCourses = (evt) => {
@@ -46,6 +48,7 @@ function ListCourse() {
             })
         }
     }
+
 
     const renderCourses = () => {
         
