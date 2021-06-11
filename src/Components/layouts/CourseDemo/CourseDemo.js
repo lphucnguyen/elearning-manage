@@ -6,17 +6,18 @@ import 'swiper/swiper.scss'
 import SwiperCore, {
     Navigation
 } from 'swiper/core';
+import { NavLink } from 'react-router-dom'
 
 SwiperCore.use([Navigation]);
 
 function CourseDemo() {
     return (
-        <div className="course-introduce course-demo">
+        <div className="course-introduce course-demo" id="courseDemo">
             <div className="container">
                 <h4 className="course-introduce-subtitle">DEMOS</h4>
                 <h1 className="course-introduce-title">Our Demo Classes</h1>
                 <div className="course-introduce-all">
-                    <a href="">View all</a>
+                    <NavLink to="/courses">View all</NavLink>
                 </div>
                 <div className="course-contain mt-5">
                     <Swiper

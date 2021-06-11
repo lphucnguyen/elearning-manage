@@ -6,6 +6,7 @@ import 'swiper/swiper.scss'
 import SwiperCore, {
     Navigation
 } from 'swiper/core';
+import { NavLink } from 'react-router-dom'
 
 SwiperCore.use([Navigation]);
 
@@ -16,7 +17,7 @@ function CourseIntroduce() {
                 <h4 className="course-introduce-subtitle">REMOTELY</h4>
                 <h1 className="course-introduce-title">Our Courses</h1>
                 <div className="course-introduce-all">
-                    <a href="">View all</a>
+                    <NavLink to="/courses">View all</NavLink>
                 </div>
                 <div className="course-contain mt-5">
                     <Swiper

@@ -4,7 +4,7 @@ import './ServicesContent.scss';
 
 function ServicesContent() {
     return (
-        <div className="service-contain course-introduce">
+        <div className="service-contain course-introduce" id="services">
             <div className="container">
                 <h4 className="course-introduce-subtitle">SERVICES</h4>
                 <h1 className="course-introduce-title">Amazing Services <br /> For You</h1>

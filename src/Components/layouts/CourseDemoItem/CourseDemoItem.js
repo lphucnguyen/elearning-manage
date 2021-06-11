@@ -7,7 +7,7 @@ function CourseDemoItem() {
             <img src="/images/php.jpg" alt="Image of Course" />
             <div className="video-play-contain">
                 <div className="video-play"><i class="fa fa-play"></i></div>
-                <div className="video-text">Lern PHP</div>
+                <div className="video-text">Learn PHP</div>
             </div>
         </div>
     )

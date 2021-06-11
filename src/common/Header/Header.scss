@@ -7,7 +7,13 @@
 
 
 .header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background: c("bgSecondary");
     border-bottom: 1px solid tc('textSecondary');
+    z-index: 20;
 
     .header-contain {
         width: 100%;

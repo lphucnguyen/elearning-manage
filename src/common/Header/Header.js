@@ -30,16 +30,16 @@ function Header() {
                                 <NavLink activeClassname="active" to="/courses">Courses</NavLink>
                             </li>
                             <li>
-                                <a href="">How it Works</a>
+                                <a href="#carousel">How it Works</a>
                             </li>
                             <li>
-                                <a href="">Demos</a>
+                                <a href="#courseDemo">Demos</a>
                             </li>
                             <li>
-                                <a href="">Services</a>
+                                <a href="#services">Services</a>
                             </li>
                             <li>
-                                <a href="">Placement</a>
+                                <a href="#footer">Placement</a>
                             </li>
                             <li>
                                 <a href="">Offers</a>

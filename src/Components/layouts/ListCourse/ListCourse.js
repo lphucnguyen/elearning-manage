@@ -8,50 +8,38 @@ import "./ListCourse.scss"
 function ListCourse() {
 
     let [data, setData] = useState({
-        typeCoure: "",
-        typeGroup: ""
-    })
+        typeCoure: "All",
+        typeGroup: "GP01"
+    });
 
-    const arrCourse = useSelector(state => state.CourseReducer.arrCourse);
+    let [dataSearch, setDataSearch] = useState({
+        inputSearch: "",
+        arrSearch: []
+    });
+    
+    const {arrCourse} = useSelector(state => state.CourseReducer);
 
     const dispatch =  useDispatch();
 
     useEffect(() => {
-
         dispatch(layDanhSachKhoaHocAction());
-        console.log("run", data);
+        dispatch(xoaDanhSachKhoaHocAction());
+    }, []);
+
+    useEffect(() => {
         dispatch(layKhoaHocTheoDanhMucAction(data.typeCourse, data.typeGroup));
         dispatch(xoaDanhSachKhoaHocAction());
-      
     }, [data]);
 
-    const getTypeCourses = (evt) => {
-        if(evt) {
-            setData({
-                typeCourse: evt.target.value
-            })
-        }else {
-            setData({
-                typeCourse: evt.target.value
-            })
-        }
-    }
+    useEffect(() => {
+        setDataSearch({
+            ...dataSearch,
+            arrSearch: arrCourse
+        });
 
-    const getTypeGroup = (evt) => {
-        if(evt) {
-            setData({
-                typeGroup: evt.target.value
-            })
-        }else {
-            setData({
-                typeGroup: evt.target.value
-            })
-        }
-    }
-
+    }, []);
 
     const renderCourses = () => {
-        
         return arrCourse.map((item, index) => {
             return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
                     <CourseItem name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
@@ -59,13 +47,67 @@ function ListCourse() {
         })
     };
 
+    const getTypeCourses = (evt) => {
+        let {value} = evt.target;
+        if(evt) {
+            setData({
+                ...data,
+                typeCourse: value
+            })
+        }else {
+            setData({
+                ...data,
+                typeCourse: "All"
+            })
+        }
+    }
+
+    const getTypeGroup = (evt) => {
+        let {value} = evt.target;
+        if(evt) {
+            setData({
+                ...data,
+                typeGroup: value
+            })
+        }else {
+            setData({
+                ...data,
+                typeGroup: "GP01"
+            })
+        }
+    }
+
+    const handeSearch = (evt) => {
+        let {value} = evt.target;
+        console.log(value);
+
+        setDataSearch({
+            ...dataSearch,
+            inputSearch: value
+        })
+        // if (value == '')  setDataSearch(arrCourse); 
+        // else setDataSearch(arrCourse.filter(item => {
+        //     return item.tenKhoaHoc.includes(value);
+        // }));
+    }
+
+    const searchCourse = () => {
+        let value = dataSearch.inputSearch;
+
+        if (value == '')  setDataSearch(arrCourse); 
+        else setDataSearch(arrCourse.filter(item => {
+            return item.tenKhoaHoc.includes(value);
+        }));
+    }
+
+
     return (
         <div className="main-list-course">
             <div className="container">
                 <h1 className="title">Our Courses</h1>
                 <div className="search my-shadow mx-auto">
-                    <input type="text" name="search" id="search" placeholder="Search Course" />
-                    <button className="btn btn-search">Search</button>
+                    <input onKeyUp = {handeSearch} type="text" name="search" id="search" placeholder="Search Course" />
+                    <button onClick = {searchCourse} className="btn btn-search">Search</button>
                 </div>
                 <div className="list-type-course mx-auto">
                     <div className="row">

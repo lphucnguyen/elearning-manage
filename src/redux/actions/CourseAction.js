@@ -37,7 +37,7 @@ export const xoaDanhSachKhoaHocAction = () => {
     }
 }
 
-export const layKhoaHocTheoDanhMucAction = () => {
+export const layKhoaHocTheoDanhMucAction = (data, group) => {
     return (dispatch) => {
         // Call loading open
         dispatch({
@@ -46,7 +46,7 @@ export const layKhoaHocTheoDanhMucAction = () => {
 
         setTimeout(() => {
             courseServices
-            .layKhoaHocTheoDanhMuc()
+            .layKhoaHocTheoDanhMuc(data, group)
             .then((res) => {
                 dispatch({
                         type: 'LAY_KHOA_HOC_THEO_DANH_MUC',
@@ -62,5 +62,14 @@ export const layKhoaHocTheoDanhMucAction = () => {
                 type: 'closeLoading'
             })
         },2000)
+    }
+}
+
+export const timKiemKhoaHoc = (tenKhoaHoc) => {
+    return (dispatch) => {
+        dispatch({
+            type: "TIM_KIEM_KHOA_HOC",
+            data: tenKhoaHoc
+        })
     }
 }

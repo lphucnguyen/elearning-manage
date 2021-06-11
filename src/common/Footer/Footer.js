@@ -19,7 +19,7 @@ function Footer() {
     }, [])
 
     return (
-        <div className="footer-contain">
+        <div className="footer-contain" id="footer">
             <div className="container">
                 <div className="row">
                     <div className="col-md-3">
