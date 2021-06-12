@@ -26,6 +26,7 @@ export const layDanhSachKhoaHocAction = (tenKH) => {
     }
 }
 
+
 export const xoaDanhSachKhoaHocAction = () => {
     return (dispatch) => {
         dispatch({
@@ -33,7 +34,6 @@ export const xoaDanhSachKhoaHocAction = () => {
         })
     }
 }
-
 
 export const layKhoaHocTheoDanhMucAction = (data, group) => {
     return (dispatch) => {

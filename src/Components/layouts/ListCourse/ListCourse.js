@@ -21,7 +21,6 @@ function ListCourse() {
     const dispatch =  useDispatch();
 
     useEffect(() => {
-
         dispatch(layDanhSachKhoaHocAction(data.search));
         dispatch(xoaDanhSachKhoaHocAction());
         
@@ -45,6 +44,7 @@ function ListCourse() {
         dispatch(layDanhSachKhoaHocAction(data.search));
         dispatch(xoaDanhSachKhoaHocAction());
     }
+
 
     const getTypeCourses = (evt) => {
         if(evt) {
