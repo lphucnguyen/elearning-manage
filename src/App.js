@@ -22,7 +22,7 @@ function App() {
       <div className="App">
         <Switch>
           <HomeTemplate exact path="/courses" Component={Courses} /> 
-          <HomeTemplate exact path="/details/:id" Component={Details} /> 
+          <HomeTemplate exact path="/details/:maKH" Component={Details} /> 
           <HomeTemplate exact path="/home" Component={Home} /> 
           <HomeTemplate exact path="/" Component={Home} /> 
           <AdminTemplate exact path="/admin/course-manage" Component={CourseManage} /> 

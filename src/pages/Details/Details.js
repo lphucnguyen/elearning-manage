@@ -10,6 +10,7 @@ import CourseIntroduce from '../../Components/layouts/CourseIntroduce/CourseIntr
 
 function Details(props) {
     const maKH = props.match.params.maKH;
+    console.log(maKH)
 
     return (
         <Fragment >

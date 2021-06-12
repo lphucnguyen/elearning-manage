@@ -47,14 +47,6 @@ function ListCourse() {
     }
 
 
-    useEffect(() => {
-        setDataSearch({
-            ...dataSearch,
-            arrSearch: arrCourse
-        });
-
-    }, []);
-
     const renderCourses = () => {
         return arrCourse.map((item, index) => {
             return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
@@ -65,6 +57,12 @@ function ListCourse() {
 
     const getTypeCourses = (evt) => {
         let {value} = evt.target;
+        
+        if(value == "All"){
+            dispatch(layDanhSachKhoaHocAction(""));
+            dispatch(xoaDanhSachKhoaHocAction());
+        }
+
         if(evt) {
             setData({
                 ...data,
@@ -76,13 +74,7 @@ function ListCourse() {
                 typeCourse: evt.target.value
             })
         }
-        if(evt.target.value == "All"){
-            dispatch(layDanhSachKhoaHocAction(data.search));
-            dispatch(xoaDanhSachKhoaHocAction());
-        }else{
-            changeType();
-        }
-        
+        changeType();
     }
 
     const getTypeGroup = (evt) => {
@@ -104,28 +96,6 @@ function ListCourse() {
     const handeSearch = (evt) => {
         let {value} = evt.target;
         console.log(value);
-
-    const renderCourses = () => {
-        return arrCourse.map((item, index) => {
-
-            return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
-                    <CourseItem name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
-                </div>
-        })
-        // if (value == '')  setDataSearch(arrCourse); 
-        // else setDataSearch(arrCourse.filter(item => {
-        //     return item.tenKhoaHoc.includes(value);
-        // }));
-    }
-
-    const searchCourse = () => {
-        let value = dataSearch.inputSearch;
-
-        if (value == '')  setDataSearch(arrCourse); 
-        else setDataSearch(arrCourse.filter(item => {
-            return item.tenKhoaHoc.includes(value);
-        }));
-        console.log("run")
     }
 
 
@@ -187,7 +157,6 @@ function ListCourse() {
                 </div>
             </div>
         </div>
-
     )
 }
 
