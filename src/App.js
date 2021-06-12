@@ -8,6 +8,8 @@ import Details from './pages/Details/Details';
 
 import { createBrowserHistory } from 'history'
 import { Route, Router, Switch } from 'react-router';
+import { HomeTemplate } from './templates/HomeTemplate';
+import AdminTemplate from './templates/AdminTemplate';
 export const history = createBrowserHistory();
 
 function App() {
@@ -19,9 +21,10 @@ function App() {
     <Router history = {history}>
       <div className="App">
         <Switch>
-          <Route exact path="/courses" component={Courses} /> 
-          <Route exact path="/home" component={Home} /> 
-          <Route exact path="/" component={Home} /> 
+          <HomeTemplate exact path="/courses" Component={Courses} /> 
+          <HomeTemplate exact path="/home" Component={Home} /> 
+          <HomeTemplate exact path="/" Component={Home} /> 
+          <AdminTemplate exact path="/admin" Component={CourseManage} /> 
           <Route exact path="/course/:maKH" component={Details} /> 
         </Switch>
       </div>

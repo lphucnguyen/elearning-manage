@@ -25,7 +25,17 @@ export const CourseReducer = (state = stateDefault, action) => {
         }
         case 'XOA_DANH_SACH_KHOA_HOC': {
             state.arrCourse = [];
+
             return {...state};
+        }
+        case 'TIM_KIEM_KHOA_HOC': {
+            let arrCourseUpdate = [...state.arrCourse];
+    
+            let arrSearch = arrCourseUpdate.filter((item) => {
+                return item.tenKhoaHoc.includes(action.data);
+            });
+
+            return {...state, arrCourse: arrSearch};
         }
         default: return {...state};
     }

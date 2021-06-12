@@ -9,7 +9,7 @@ function HeaderAdmin() {
     };
 
     return (
-        <div className="header my-shadow">
+        <div className="header-admin my-shadow">
             <div className="header-menu">
                 <h1 className="title">
                     Cyber Education
