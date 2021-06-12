@@ -3,16 +3,16 @@ import {domain, token} from '../configs/settings';
 
 export class CourseServices {
 
-    layDanhSachKhoaHoc = () => {
+    layDanhSachKhoaHoc = (tenKH) => {
         return axios ({
-            url: `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc`,
+            url: `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${tenKH}`,
             method: 'GET'
         });
     }
 
-    layDanhSachKhoaHoc_PhanTrang = (group,page) => {
+    layDanhSachKhoaHoc_PhanTrang = (group, page, search, pageSize) => {
       return axios({
-        url: `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc_PhanTrang?page=${page}&pageSize=6&MaNhom=${group}`,
+        url: `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc_PhanTrang?page=${page}&pageSize=${pageSize}&MaNhom=${group}&tenKhoaHoc=${search}`,
         method: "GET",
       });
     };

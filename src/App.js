@@ -14,6 +14,10 @@ export const history = createBrowserHistory();
 
 function App() {
   return (
+    // <div className="App">
+    //   <Loading />
+    // </div>
+    
     <Router history = {history}>
       <div className="App">
         <Switch>
@@ -21,6 +25,7 @@ function App() {
           <HomeTemplate exact path="/home" Component={Home} /> 
           <HomeTemplate exact path="/" Component={Home} /> 
           <AdminTemplate exact path="/admin" Component={CourseManage} /> 
+          <Route exact path="/course/:maKH" component={Details} /> 
         </Switch>
       </div>
     </Router>
