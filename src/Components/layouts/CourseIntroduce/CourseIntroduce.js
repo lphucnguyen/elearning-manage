@@ -11,6 +11,9 @@ import { NavLink } from 'react-router-dom'
 SwiperCore.use([Navigation]);
 
 function CourseIntroduce() {
+
+
+
     return (
         <div className="course-introduce">
             <div className="container">

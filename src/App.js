@@ -14,6 +14,10 @@ export const history = createBrowserHistory();
 
 function App() {
   return (
+    // <div className="App">
+    //   <Loading />
+    // </div>
+    
     <Router history = {history}>
       <div className="App">
         <Switch>

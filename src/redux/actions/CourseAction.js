@@ -1,15 +1,14 @@
 import {courseServices} from '../../services/CourseServices';
 
-export const layDanhSachKhoaHocAction = () => {
+export const layDanhSachKhoaHocAction = (tenKH) => {
     return (dispatch) => {
         // Call loading open
         dispatch({
             type: 'openLoading'
         })
 
-        setTimeout(() => {
             courseServices
-            .layDanhSachKhoaHoc()
+            .layDanhSachKhoaHoc(tenKH)
             .then((res) => {
                 dispatch({
                         type: 'LAY_DANH_SACH_KHOA_HOC',
@@ -24,7 +23,6 @@ export const layDanhSachKhoaHocAction = () => {
             dispatch({
                 type: 'closeLoading'
             })
-        },2000)
     }
 }
 
@@ -64,8 +62,7 @@ export const layKhoaHocTheoDanhMucAction = (data, group) => {
         },2000)
     }
 }
-
-export const layChiTietKhoaHoc = (group) => {
+export const layChiTietKhoaHoc = (maKH) => {
     return (dispatch) => {
         // Call loading open
         dispatch({
@@ -74,7 +71,7 @@ export const layChiTietKhoaHoc = (group) => {
 
         setTimeout(() => {
             courseServices
-            .layChiTietKhoaHoc(group)
+            .layChiTietKhoaHoc(maKH)
             .then((res) => {
                 dispatch({
                         type: 'LAY_CHI_TIET_KHOA_HOC',
@@ -90,15 +87,6 @@ export const layChiTietKhoaHoc = (group) => {
                 type: 'closeLoading'
             })
         },2000)
-    }
-}
-
-export const timKiemKhoaHoc = (tenKhoaHoc) => {
-    return (dispatch) => {
-        dispatch({
-            type: "TIM_KIEM_KHOA_HOC",
-            data: tenKhoaHoc
-        })
     }
 }
 
