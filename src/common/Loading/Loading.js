@@ -14,6 +14,7 @@ export default function Loading() {
     return (
         <Fragment>
             {rederLoading()}
+            {/* <div class="lds-dual-ring"></div> */}
         </Fragment>
     )
 }

@@ -8,51 +8,84 @@ import "./ListCourse.scss"
 function ListCourse() {
 
     let [data, setData] = useState({
-        typeCoure: "",
-        typeGroup: ""
+        typeCourse: "",
+        typeGroup: "",
+        page: "",
+        pageSize: "",
+        search: ""
     })
 
-    const arrCourse = useSelector(state => state.CourseReducer.arrCourse);
+    let arrCourse = useSelector(state => state.CourseReducer.arrCourse);
+    let page = useSelector(state => state.CourseReducer.currentPage)
 
     const dispatch =  useDispatch();
 
     useEffect(() => {
-
-        dispatch(layDanhSachKhoaHocAction());
-        console.log("run", data);
-        dispatch(layKhoaHocTheoDanhMucAction(data.typeCourse, data.typeGroup));
+        dispatch(layDanhSachKhoaHocAction(data.search));
         dispatch(xoaDanhSachKhoaHocAction());
-      
-    }, [data]);
+        
+    }, [])
+
+    const changeType = () => {
+        dispatch(layKhoaHocTheoDanhMucAction(data.typeCourse ,data.typeGroup));
+        dispatch(xoaDanhSachKhoaHocAction());
+    }
+
+    const searchCourse = (e) => {
+        const keyWorkd = e.target.value
+
+        setData({
+            ...data,
+            search: keyWorkd
+        })
+
+        document.getElementById("courses-select").getElementsByTagName('option')[0].selected = 'selected';
+
+        dispatch(layDanhSachKhoaHocAction(data.search));
+        dispatch(xoaDanhSachKhoaHocAction());
+    }
+
 
     const getTypeCourses = (evt) => {
         if(evt) {
             setData({
+                ...data,
                 typeCourse: evt.target.value
             })
         }else {
             setData({
+                ...data,
                 typeCourse: evt.target.value
             })
         }
+        if(evt.target.value == "All"){
+            dispatch(layDanhSachKhoaHocAction(data.search));
+            dispatch(xoaDanhSachKhoaHocAction());
+        }else{
+            changeType();
+        }
+        
     }
 
     const getTypeGroup = (evt) => {
         if(evt) {
             setData({
+                ...data,
                 typeGroup: evt.target.value
             })
         }else {
             setData({
+                ...data,
                 typeGroup: evt.target.value
             })
         }
+        changeType();
     }
 
 
     const renderCourses = () => {
-        
         return arrCourse.map((item, index) => {
+
             return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
                     <CourseItem name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
                 </div>
@@ -64,8 +97,7 @@ function ListCourse() {
             <div className="container">
                 <h1 className="title">Our Courses</h1>
                 <div className="search my-shadow mx-auto">
-                    <input type="text" name="search" id="search" placeholder="Search Course" />
-                    <button className="btn btn-search">Search</button>
+                    <input type="text" name="search" id="search" placeholder="Search Course" onKeyUp={searchCourse} />
                 </div>
                 <div className="list-type-course mx-auto">
                     <div className="row">
@@ -81,7 +113,7 @@ function ListCourse() {
                         </div>
                         <div className="col-md-4 pr-5">
                             <div className="select-group mb-3 mb-md-0">
-                                <select name="courses" id="courses" onChange={(e) => getTypeCourses(e)}>
+                                <select name="courses" id="courses-select" onChange={(e) => getTypeCourses(e)}>
                                     <option value = "All" checked>All Topic</option>
                                     <option value = "BackEnd">Lập trình Backend</option>
                                     <option value = "Design">Thiết kế Web</option>
@@ -115,17 +147,6 @@ function ListCourse() {
                         <Loading />
                         {renderCourses()}
                     </div>
-                </div>
-                <div className="list-pagination d-flex justify-content-center mt-5">
-                    <nav aria-label="Page navigation example">
-                        <ul className="pagination">
-                            <li className="page-item"><a className="page-link p-3" href="#">Previous</a></li>
-                            <li className="page-item"><a className="page-link p-3" href="#">1</a></li>
-                            <li className="page-item"><a className="page-link p-3" href="#">2</a></li>
-                            <li className="page-item"><a className="page-link p-3" href="#">3</a></li>
-                            <li className="page-item"><a className="page-link p-3" href="#">Next</a></li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>

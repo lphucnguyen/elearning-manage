@@ -8,7 +8,7 @@ function CourseItem(props) {
     return (
         <div className="product-item my-shadow">
             <div className="card-img-top p-3">
-                <img src={img} alt={name} />
+                <img src={img} alt={name}/>
             </div>
             <div className="card-body">
                 <div className="rate">
