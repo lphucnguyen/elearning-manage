@@ -6,7 +6,7 @@ import './CourseManage.scss'
 
 function CourseManage() {
     return (
-        <div className="wrapper">
+        <div className="wrapper collapse-slide">
             <HeaderAdmin/>
             <SliderbarAdmin/>
             <MainCourseManage/>

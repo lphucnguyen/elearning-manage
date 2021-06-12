@@ -94,7 +94,8 @@
         display: flex;
         justify-content: space-between;
         
-        span {
+        span,
+        .read-more {
             cursor: pointer;
             @include sizeIcon(35px, 35px, 35px);
             @include fontIcon(fs("subtitle"), tc("textPrimary"));
