@@ -101,32 +101,29 @@ function ListCourse() {
         changeType();
     }
 
-    const handeSearch = (evt) => {
-        let {value} = evt.target;
-        console.log(value);
+    // const handeSearch = (evt) => {
+    //     let {value} = evt.target;
+    //     console.log(value);
+    // }
 
-    const renderCourses = () => {
-        return arrCourse.map((item, index) => {
+    // const renderCourses = () => {
+    //     return arrCourse.map((item, index) => {
 
-            return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
-                    <CourseItem name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
-                </div>
-        })
-        // if (value == '')  setDataSearch(arrCourse); 
-        // else setDataSearch(arrCourse.filter(item => {
-        //     return item.tenKhoaHoc.includes(value);
-        // }));
-    }
+    //         return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
+    //                 <CourseItem name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
+    //             </div>
+    //     })
+    // }
 
-    const searchCourse = () => {
-        let value = dataSearch.inputSearch;
+    // const searchCourse = () => {
+    //     let value = dataSearch.inputSearch;
 
-        if (value == '')  setDataSearch(arrCourse); 
-        else setDataSearch(arrCourse.filter(item => {
-            return item.tenKhoaHoc.includes(value);
-        }));
-        console.log("run")
-    }
+    //     if (value == '')  setDataSearch(arrCourse); 
+    //     else setDataSearch(arrCourse.filter(item => {
+    //         return item.tenKhoaHoc.includes(value);
+    //     }));
+    //     console.log("run")
+    // }
 
 
     return (
