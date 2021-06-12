@@ -62,7 +62,6 @@ export const layKhoaHocTheoDanhMucAction = (data, group) => {
         },2000)
     }
 }
-
 export const layChiTietKhoaHoc = (maKH) => {
     return (dispatch) => {
         // Call loading open
@@ -90,3 +89,4 @@ export const layChiTietKhoaHoc = (maKH) => {
         },2000)
     }
 }
+

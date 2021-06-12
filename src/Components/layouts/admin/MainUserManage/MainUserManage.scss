@@ -9,8 +9,10 @@
     margin-top: 70px;
     margin-left: 250px;
     padding-left: 15px;
+    // min-height: calc(100% - 9%);
     min-height: 100vh;
     background: c("bgSecondary");
+    overflow: hidden;
     transition: all 0.3s linear;
 
     .list-users {
@@ -26,6 +28,7 @@
                 border-radius: 50%;
                 background: c("bgGreen");
                 border: none;
+                outline: none;
                 transition: all 0.3s linear;
 
                 i {
@@ -185,67 +188,6 @@
                     background:  rgba(255, 255, 255, 0.2);
                 }
             }
-
-            .user {
-                cursor: pointer;
-                position: relative;
-                transition: all 0.3s linear;
-
-                &:hover {
-                    background:  rgba(255, 255, 255, 0.1);
-                }
-
-                .avatar-user {
-                    width: 45px;
-                    height: 45px;
-                    border-radius: 50%;
-                    overflow: hidden;
-                }
-
-                .info-user {
-                    margin-right: auto;
-                    @include text(fs("subtitle"), tc("textWhite"), fw("fwLight"), 0);
-                    padding: 0px 10px;
-
-                    .email {
-                        color: tc("textSecondary");
-                    }
-                }
-
-                .type-user {
-                    position: absolute;
-                    top: -3px;
-                    left: 35px;
-                    width: 30px;
-                    height: 20px;
-                    line-height: 20px;
-                    text-align: center;
-                    border-radius: 50%;
-                    background: orangered;
-                    @include text(fs("body1"), tc("textWhite"), fw("fwRegular"), 0);
-                }
-
-                .options {
-                    font-size: fs("h5");
-                    color: tc("textWhite");
-                    flex-basis: 15%;
-
-                    span {
-                        width: 45px;
-                        height: 45px;
-                        line-height: 45px;
-                        border-radius: 50%;
-                        cursor: pointer;
-                        text-align: center;
-                        transition: all 0.3s linear;
-
-                        &:hover {
-                            background: c("bgGreenLight");
-                            color: tc("textPrimary");
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -254,7 +196,7 @@
         min-height: 200px;
         background: c("bgGrayBlack");
         padding: 15px;
-        // display: none !important;
+        display: none;
 
         .modal-user--course {
             background: transparent;
@@ -451,7 +393,7 @@
         border-radius: 7px;
         padding: 15px;
         position: relative;
-        display: none !important;
+        display: none;
 
         .form-user {
             box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 20px 0px;

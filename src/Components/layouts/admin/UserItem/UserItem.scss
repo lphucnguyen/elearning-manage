@@ -1,0 +1,70 @@
+@import "../../../../styles/helpers/function";
+@import "../../../../styles/helpers/mixin";
+@import "../../../../styles/helpers/theme";
+@import "../../../../styles/base/reset";
+@import "../../../../styles/components/button";
+
+.user {
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s linear;
+
+    &:hover {
+        background:  rgba(255, 255, 255, 0.1);
+    }
+
+    .avatar-user {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    .info-user {
+        flex-basis: 50%;
+        margin-right: auto;
+        @include text(fs("subtitle"), tc("textWhite"), fw("fwLight"), 0);
+        padding: 0px 10px;
+
+        .email {
+            color: tc("textSecondary");
+        }
+    }
+
+    .type-user {
+        position: absolute;
+        top: -3px;
+        left: 35px;
+        width: 30px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        border-radius: 50%;
+        background: orangered;
+        @include text(fs("body1"), tc("textWhite"), fw("fwRegular"), 0);
+    }
+
+    .options {
+        font-size: fs("h5");
+        flex-basis: 15%;
+
+        button {
+            width: 45px;
+            height: 45px;
+            line-height: 45px;
+            border-radius: 50%;
+            color: tc("textWhite");
+            background: transparent;
+            cursor: pointer;
+            text-align: center;
+            outline: none;
+            border: 0px;
+            transition: all 0.3s linear;
+
+            &:hover {
+                background: c("bgGreenLight");
+                color: tc("textPrimary");
+            }
+        }
+    }
+}

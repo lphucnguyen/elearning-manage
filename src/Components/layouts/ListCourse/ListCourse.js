@@ -58,7 +58,7 @@ function ListCourse() {
     const renderCourses = () => {
         return arrCourse.map((item, index) => {
             return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
-                    <CourseItem name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
+                    <CourseItem maKhoaHoc={item.maKhoaHoc} name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
                 </div>
         })
     };
@@ -125,6 +125,7 @@ function ListCourse() {
         else setDataSearch(arrCourse.filter(item => {
             return item.tenKhoaHoc.includes(value);
         }));
+        console.log("run")
     }
 
 

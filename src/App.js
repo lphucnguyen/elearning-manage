@@ -22,10 +22,11 @@ function App() {
       <div className="App">
         <Switch>
           <HomeTemplate exact path="/courses" Component={Courses} /> 
+          <HomeTemplate exact path="/details/:id" Component={Details} /> 
           <HomeTemplate exact path="/home" Component={Home} /> 
           <HomeTemplate exact path="/" Component={Home} /> 
-          <AdminTemplate exact path="/admin" Component={CourseManage} /> 
-          <Route exact path="/course/:maKH" component={Details} /> 
+          <AdminTemplate exact path="/admin/course-manage" Component={CourseManage} /> 
+          <AdminTemplate exact path="/admin/user-manage" Component={UserManage} /> 
         </Switch>
       </div>
     </Router>

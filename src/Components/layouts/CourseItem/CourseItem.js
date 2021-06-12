@@ -1,9 +1,10 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 import './CourseItem.scss'
 
 function CourseItem(props) {
 
-    const {name, views, img} = props;
+    const {name, views, img, maKhoaHoc} = props;
 
     return (
         <div className="product-item my-shadow">
@@ -28,7 +29,7 @@ function CourseItem(props) {
                 <div className="footer">
                     <span><i className="fa fa-share-alt" /></span>
                     <span><i className="fa fa-heart" /></span>
-                    <span className="read-more btn-read-more">Read more...</span>
+                    <NavLink className="read-more btn-read-more" to={`/details/:${maKhoaHoc}`}>Read more...</NavLink>
                 </div>
             </div>
         </div>
