@@ -17,7 +17,6 @@ function ListCourse() {
     })
 
     let arrCourse = useSelector(state => state.CourseReducer.arrCourse);
-    let page = useSelector(state => state.CourseReducer.currentPage)
 
     const dispatch =  useDispatch();
 

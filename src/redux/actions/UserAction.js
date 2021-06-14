@@ -1,6 +1,6 @@
 import { userServices } from "../../services/UserServices";
 
-export const layDanhSachNguoiDung = (group) => {
+export const layDanhSachNguoiDungAction = (group, setUserList) => {
     return (dispatch) => {
         // Call loading open
         dispatch({
@@ -11,10 +11,7 @@ export const layDanhSachNguoiDung = (group) => {
             userServices
             .layDanhSachNguoiDung(group)
             .then((res) => {
-                dispatch({
-                        type: 'LAY_DANH_SACH_NGUOI_DUNG',
-                        data: res.data
-                    })
+                setUserList(res.data);
             })
             .catch((err) => {
                 console.log("errors:", err);
@@ -25,32 +22,94 @@ export const layDanhSachNguoiDung = (group) => {
                 type: 'closeLoading'
             })
         },2000)
+
+        return setUserList;
     }
 }
 
-export const themNguoiDung = (user) => {
+export const clickGroupAction = (group) => {
     return (dispatch) => {
         dispatch({
-            type: "THEM_NGUOI_DUNG",
-            data: user
+            type: "CHON_NHOM",
+            data: group
         })
     }
 }
 
-export const capNhatThongTinNguoiDung = (value) => {
-    return (dispatch) => {
-        dispatch({
-            type: "CAP_NHAT_NGUOI_DUNG",
-            data: value
-        })
-    }
+export const thongTinNguoiDungAction = (setUserInfo, user) => {
+    userServices
+    .thongTinTaiKhoan(user)
+    .then((res) => {
+        setUserInfo(res.data);
+    })
+    .catch((err) => {
+        console.log("errors:", err.response.data);
+    })
+    return setUserInfo; 
 }
 
-export const xoaNguoiDung = (id) => {
+export const layDanhSachNguoiDung_PhanTrangAction = (group, page, setUserListPage) => {
+    userServices
+    .layDanhSachNguoiDung_PhanTrang(group, page)
+    .then((res) => {
+        setUserListPage(res.data);
+    })
+    .catch((err) => {
+        console.log("errors:", err.response.data);
+    })
+    return setUserListPage; 
+}
+
+export const xoaDanhSachNguoiDungAction = (setListUser) => {
+    return setListUser([]);
+}
+
+export const themNguoiDungAction = (user) => {
+    return userServices
+    .themNguoiDung(user)
+    .then((res) => {
+        alert("Thêm người dùng thành công");
+    })
+    .catch((err) => {
+        console.log("errors:", err.response.data);
+    });
+}
+
+export const capNhatThongTinNguoiDungAction = (value) => {
     return (dispatch) => {
-        dispatch({
-            type: "XOA_NGUOI_DUNG",
-            data: id
+        userServices
+        .capNhatThongTinNguoiDung(value)
+        .then((res) => {
+            dispatch({
+                type: "CAP_NHAT_NGUOI_DUNG",
+                data: res.data
+            })
+            alert("Cập nhật người dùng thành công");
         })
-    }
+        .catch((err) => {
+            console.log("errors:", err.response.data);
+        });
+        } 
+}
+
+export const xoaNguoiDungAction = (id) => {
+    return userServices
+    .xoaNguoiDungAction(id)
+    .then((res) => {
+        alert("Xóa người dùng thành công");
+    })
+    .catch((err) => {
+        console.log("errors:", err.response.data);
+    });
+}
+
+export const chonNhomNguoiDungAction = (group) => {
+    return userServices
+    .xoaNguoiDungAction(group)
+    .then((res) => {
+        alert("Xóa người dùng thành công");
+    })
+    .catch((err) => {
+        console.log("errors:", err.response.data);
+    });
 }
