@@ -47,7 +47,7 @@ function Header() {
                         </ul>
                     </div>
                     <a className="a-teacher" href="">Are you a Teacher</a>
-                    <a className="btn--common btn--login" href="">Login</a>
+                    <NavLink to="/login" className="btn--common btn--login" href="">Login</NavLink>
                 </div>
             </div>
         </div>

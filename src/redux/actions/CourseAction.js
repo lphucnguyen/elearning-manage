@@ -1,6 +1,6 @@
 import {courseServices} from '../../services/CourseServices';
 
-export const layDanhSachKhoaHocAction = (tenKH) => {
+export const layDanhSachKhoaHocAction = (tenKH, maNhom) => {
     return (dispatch) => {
         // Call loading open
         dispatch({
@@ -8,7 +8,7 @@ export const layDanhSachKhoaHocAction = (tenKH) => {
         })
 
             courseServices
-            .layDanhSachKhoaHoc(tenKH)
+            .layDanhSachKhoaHoc(tenKH, maNhom)
             .then((res) => {
                 dispatch({
                         type: 'LAY_DANH_SACH_KHOA_HOC',
