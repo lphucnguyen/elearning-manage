@@ -1,50 +1,79 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { layDanhSachNguoiDung, themNguoiDung } from '../../../../redux/actions/UserAction';
+import Loading from '../../../../common/Loading/Loading';
+import { 
+    capNhatThongTinNguoiDungAction, 
+    layDanhSachNguoiDungAction, 
+    layDanhSachNguoiDung_PhanTrangAction, 
+    themNguoiDungAction, 
+    thongTinNguoiDungAction, 
+    xoaDanhSachNguoiDungAction, 
+    clickGroupAction
+} from '../../../../redux/actions/UserAction';
 import UserItem from '../UserItem/UserItem';
 import'./MainUserManage.scss'
 
 function MainUserManage() {
 
+    let [userList, setUserList] = useState([]);
+    let [user, setUser] = useState({});
+    let [notRegisterd, setNotRegistered] = useState([]);
+    let [unRegisterd, setUnRegistered] = useState([]);
+    let [Registerd, setRegistered] = useState([]);
     let [data, setData] = useState({
         title: "",
-        group: "GP01",
         values: {
-            username: "",
-            email: "",
-            password: "",
-            type: "Sinh Viên",
-            name: "",
-            numGroup: "GP01"
-        }
+            taiKhoan: "",
+            matKhau: "",
+            hoTen: "",
+            soDT: "",
+            maLoaiNguoiDung: "HV",
+            maNhom: "GP01",
+            email: ""
+        },
+        arrUserUpdate: []
     });
 
     let [dataEdit, setDataEdit] = useState({
-        values: {
-            username: "",
+            taiKhoan: "",
             email: "",
-            password: "",
-            type: "",
-            name: "",
-            numGroup: ""
-        }
+            soDT: "",
+            maLoaiNguoiDung: "",
+            hoTen: ""
     })
 
     let arrInput = document.querySelectorAll(".modal-form form input, .modal-form form select");
-    
-    const {arrUser} = useSelector(state => state.UserReducer);
-    const dispatch = useDispatch();
+
+
+    let userGroup = useSelector(state => state.UserReducer.group);
+    let dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(layDanhSachNguoiDung("GP01"));
-    },[])
+        dispatch(layDanhSachNguoiDungAction(userGroup, setUserList));
+    },[userGroup])
 
-    const handleGroup = (evt) => {
-        let {value} = evt.target;
-        setData({
-            ...data,
-            group: value
+    useEffect(() => {
+        // console.log(dataEdit);
+        
+        arrInput.forEach((item, index) => {
+            let {id} = item;
+
+            if(id === "maLoaiNguoiDung"){
+                (dataEdit.maLoaiNguoiDung === "HV") ? 
+                document.querySelector(`#${id}`).selectedIndex = 0 : 
+                document.querySelector(`#${id}`).selectedIndex = 1;
+            }
+            else if (id === "password")
+                document.querySelector(`#${id}`).value = "";
+            else
+                document.querySelector(`#${id}`).value = dataEdit[id];
         })
+    },[dataEdit])
+
+    const handleClickGroup = (evt) => {
+        let {value} = evt.target;
+        setUserList([]);
+        dispatch(clickGroupAction(value));
     }
 
     const handleChange = (evt) => {
@@ -62,42 +91,63 @@ function MainUserManage() {
     const showAdd = () => {
         let formAdd = document.querySelector("#modalForm");
         let formDetail = document.querySelector("#modalFormDetails");
+        let btnAdd = document.querySelector("#btnAdd");
+        let btnUpdate = document.querySelector("#btnUpdate");
 
         formAdd.classList.add("d-block");
         if(document.querySelector("#modalFormDetails.d-block")) 
             formDetail.classList.remove("d-block");
+
+        btnAdd.classList.add("d-block");
+        if(document.querySelector("#btnUpdate.d-block"))
+            btnUpdate.classList.remove("d-block");
 
         setData({
             ...data,
             title: "Add User"
         })
+
+        resetFunc();
     };
 
     const addUser = () => {
         const user = {...data.values};
-        dispatch(themNguoiDung(user));
         console.log(user);
+        // dispatch(themNguoiDungAction(user));
     };
 
-    const editUser = () => {
+    const editUser = (user) => {
         let formAdd = document.querySelector("#modalForm");
         let formDetail = document.querySelector("#modalFormDetails");
+        let btnAdd = document.querySelector("#btnAdd");
+        let btnUpdate = document.querySelector("#btnUpdate");
 
         formAdd.classList.add("d-block");
         if(document.querySelector("#modalFormDetails.d-block")) 
             formDetail.classList.remove("d-block");
  
+        btnUpdate.classList.add("d-block");
+        if(document.querySelector("#btnUpdate.d-block"))
+            btnAdd.classList.remove("d-block");
+
         setData({
             ...data,
             title: "Edit User"
         })
 
-        // let editUser = arrUser.find(item => item.maKhoaHoc === maMaKhoa);
-        // setDataEdit({
-        //     values: editUser
-        // })
-        console.log(dataEdit.values)
+        thongTinNguoiDungAction(setUser, user);
     };
+
+    const updateUser = () => {
+        let editUser= {...user};
+        console.log('editUser: ', editUser)
+        arrInput.forEach(input => {
+            const {id,value} = input;
+            editUser = {...editUser,[id]:value};
+        })
+
+        dispatch(capNhatThongTinNguoiDungAction(editUser));
+    }
 
     const showDetail = () => {
         let formAdd = document.querySelector("#modalForm");
@@ -106,17 +156,43 @@ function MainUserManage() {
         formDetail.classList.add("d-block");
         if(document.querySelector("#modalForm.d-block")) 
             formAdd.classList.remove("d-block");
-
         
     };
 
+    const deleteUser = (taiKhoan) => {
+        xoaDanhSachNguoiDungAction(taiKhoan);
+    } 
+
+    const resetFunc = () => {
+        arrInput.forEach((item,index) => {
+            const {id,value} = item;
+            if(id === 'maLoaiNguoiDung'){
+                document.getElementById(id).selectedIndex = 0;
+            }else{
+                document.getElementById(id).value = '';
+            }
+        });
+    }
+
     const renderListUser = () => {
-        return arrUser.map((item, index) => {
+        return userList?.map((item, index) => {
             return <Fragment key={index}>
-                <UserItem user={item} editUser={editUser} showDetail={showDetail}/>
+                <UserItem user={item} deleteUser={deleteUser} editUser={editUser} showDetail={showDetail}/>
             </Fragment>
         })
     };
+
+    const renderPages = () => {
+        let content = [];
+        for(let idx = 1; idx <= 16; idx++) {
+            (idx<10) 
+            ? 
+            content.push(<option key={idx} value={`GP0${idx}`}>{`Group 0${idx}`}</option>)
+            :
+            content.push(<option key={idx} value={`GP${idx}`}>{`Group ${idx}`}</option>)
+        }
+        return content;
+    }
 
     return (
         <main className="main-container">
@@ -127,19 +203,12 @@ function MainUserManage() {
                                 <button className="btn-add shadow" onClick={showAdd}><i className="fa fa-plus" /></button>
                                 <div className="count-user d-flex justify-content-center align-items-center">
                                     <span className="icon-avatar"><i className="fa fa-user-circle" /></span>
-                                    <span className="content">179 users was found!!</span>
+                                    <span className="content">{userList.length} users was found!!</span>
                                     <span className="icon-check"><i className="fa fa-check" /></span>
                                 </div>
-                                <div className="select-group" onChange={(e) => handleGroup(e)}>
+                                <div className="select-group" onChange={(e) => handleClickGroup(e)}>
                                     <select>
-                                        <option value="GP01">Group 01</option>
-                                        <option value="GP02">Group 02</option>
-                                        <option value="GP03">Group 03</option>
-                                        <option value="GP04">Group 04</option>
-                                        <option value="GP05">Group 05</option>
-                                        <option value="GP06">Group 06</option>
-                                        <option value="GP07">Group 07</option>
-                                        <option value="GP08">Group 08</option>
+                                        {renderPages()}
                                     </select>
                                     <div className="custom-arrow" />
                                 </div>
@@ -150,6 +219,7 @@ function MainUserManage() {
                                 </div>
                             </div>
                             <div className="list-user--item">
+                                <Loading/>
                                 {renderListUser()}
                             </div>
                         </div>
@@ -162,7 +232,7 @@ function MainUserManage() {
                                     <div className="modal-user--course">
                                         <div className="modal-user--course__avatar d-flex flex-column justify-content-center align-items-center">
                                             <div className="avatar-img">
-                                                <img className="w-100 h-100" src="./images/user.jpg" alt />
+                                                <img className="w-100 h-100" src="/images/user.jpg" alt />
                                             </div>
                                             <p className="avatar-id m-0">12311</p>
                                         </div>
@@ -215,11 +285,11 @@ function MainUserManage() {
                                         <form>
                                             <div className="form-group">
                                                 <label htmlFor="username">Username</label>
-                                                <input className="form-control" type="text" id="username" defaultValue={123123} />
+                                                <input className="form-control" type="text" id="username"/>
                                             </div>
                                             <div className="form-group">
-                                                <label htmlFor="email">Email</label>
-                                                <input className="form-control" type="email" id="email" defaultValue="12312@gmail.com" />
+                                                <label htmlFor="emailDetail">Email</label>
+                                                <input className="form-control" type="email" id="emailDetail"/>
                                             </div>
                                             <div className="form-group d-flex flex-column">
                                                 <label>Accout type</label>
@@ -230,7 +300,7 @@ function MainUserManage() {
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="name">Name</label>
-                                                <input className="form-control" type="text" id="name" defaultValue={123} />
+                                                <input className="form-control" type="text" id="name"/>
                                             </div>
                                         </form>
                                     </div>
@@ -242,31 +312,37 @@ function MainUserManage() {
                                 <form>
                                     <h1>{data.title}</h1>
                                     <div className="form-group">
-                                        <label htmlFor="username">Username</label>
-                                        <input onChange={handleChange} className="form-control" type="text" id="username" placeholder="Enter username"/>
+                                        <label htmlFor="taiKhoan">Username</label>
+                                        <input onChange={handleChange} className="form-control" type="text" id="taiKhoan" placeholder="Enter username"/>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="email">Email</label>
-                                        <input onChange={handleChange} className="form-control" type="email" id="email" placeholder="Enter email"/>
+                                        <input onChange={handleChange} className="form-control" type="text" id="email" placeholder="Enter email"/>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="password">Password</label>
-                                        <input onChange={handleChange} className="form-control" type="password" id="password" placeholder="Enter password"/>
+                                        <span className="eye-appear"><i class="fa fa-eye"></i></span>
+                                        <span className="eye-hidden"><i class="fa fa-eye-slash"></i></span>
+                                        <label htmlFor="matKhau">Password</label>
+                                        <input onChange={handleChange} className="form-control" type="password" id="matKhau" placeholder="Enter password"/>
                                     </div>
                                     <div className="form-group d-flex flex-column">
                                         <label>Accout type</label>
-                                        <select onChange={(e) => handleChange(e)} id="type">
-                                            <option>Sinh viên</option>
-                                            <option>Giảng viên</option>
+                                        <select id="maLoaiNguoiDung" onChange={(e) => handleChange(e)}>
+                                            <option value="HV">Học viên</option>
+                                            <option value="GV">Giảng viên</option>
                                         </select>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="name">Name</label>
-                                        <input onChange={handleChange} className="form-control" type="text" id="name" placeholder="Enter name"/>
+                                        <label htmlFor="hoTen">Name</label>
+                                        <input onChange={handleChange} className="form-control" type="text" id="hoTen" placeholder="Enter name"/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="soDT">Phone</label>
+                                        <input onChange={handleChange} className="form-control" type="text" id="soDT" placeholder="Enter phone"/>
                                     </div>
                                     <div className="form-group d-flex flex-column" id="numGroup">
                                         <label>Choose a group</label>
-                                        <select onChange={(e) => handleChange(e)}>
+                                        <select id="numGroup" onChange={(e) => handleChange(e)}>
                                             <option value="GP01">Group 01</option>
                                             <option value="GP02">Group 02</option>
                                             <option value="GP03">Group 03</option>
@@ -277,7 +353,8 @@ function MainUserManage() {
                                             <option value="GP08">Group 08</option>
                                         </select>
                                     </div>
-                                    <button type="button" onClick={addUser} className="btn btn--green">Submit</button>
+                                    <button id="btnAdd" type="button" onClick={addUser} className="btn btn--green">Submit</button>
+                                    <button id="btnUpdate" type="button" onClick={updateUser} className="btn btn--green">Update</button>
                                 </form>
                             </div>
                         </div>

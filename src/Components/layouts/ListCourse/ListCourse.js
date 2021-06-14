@@ -17,7 +17,6 @@ function ListCourse() {
     })
 
     let arrCourse = useSelector(state => state.CourseReducer.arrCourse);
-    let page = useSelector(state => state.CourseReducer.currentPage)
 
     const dispatch =  useDispatch();
 
@@ -47,14 +46,6 @@ function ListCourse() {
     }
 
 
-    useEffect(() => {
-        setDataSearch({
-            ...dataSearch,
-            arrSearch: arrCourse
-        });
-
-    }, []);
-
     const renderCourses = () => {
         return arrCourse.map((item, index) => {
             return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
@@ -65,24 +56,24 @@ function ListCourse() {
 
     const getTypeCourses = (evt) => {
         let {value} = evt.target;
+        
+        if(value == "All"){
+            dispatch(layDanhSachKhoaHocAction(""));
+            dispatch(xoaDanhSachKhoaHocAction());
+        }
+
         if(evt) {
             setData({
                 ...data,
-                typeCourse: evt.target.value
+                typeCourse: value
             })
         }else {
             setData({
                 ...data,
-                typeCourse: evt.target.value
+                typeCourse: value
             })
         }
-        if(evt.target.value == "All"){
-            dispatch(layDanhSachKhoaHocAction(data.search));
-            dispatch(xoaDanhSachKhoaHocAction());
-        }else{
-            changeType();
-        }
-        
+        changeType();
     }
 
     const getTypeGroup = (evt) => {
@@ -90,41 +81,16 @@ function ListCourse() {
         if(evt) {
             setData({
                 ...data,
-                typeGroup: evt.target.value
+                typeGroup: value
             })
         }else {
             setData({
                 ...data,
-                typeGroup: evt.target.value
+                typeGroup: value
             })
         }
         changeType();
     }
-
-    // const handeSearch = (evt) => {
-    //     let {value} = evt.target;
-    //     console.log(value);
-    // }
-
-    // const renderCourses = () => {
-    //     return arrCourse.map((item, index) => {
-
-    //         return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
-    //                 <CourseItem name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
-    //             </div>
-    //     })
-    // }
-
-    // const searchCourse = () => {
-    //     let value = dataSearch.inputSearch;
-
-    //     if (value == '')  setDataSearch(arrCourse); 
-    //     else setDataSearch(arrCourse.filter(item => {
-    //         return item.tenKhoaHoc.includes(value);
-    //     }));
-    //     console.log("run")
-    // }
-
 
     return (
         <div className="main-list-course">
@@ -184,7 +150,6 @@ function ListCourse() {
                 </div>
             </div>
         </div>
-
     )
 }
 

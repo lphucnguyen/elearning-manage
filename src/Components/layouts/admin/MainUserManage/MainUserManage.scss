@@ -407,10 +407,6 @@
             left: 35%;
             transition: all 0.3s linear;
 
-            &:hover {
-                top: 10px;
-            }
-
             form {
 
                 h1 {
@@ -419,6 +415,8 @@
                 }
 
                 .form-group {
+                    position: relative;
+
                     label {
                         @include text(fs("h6"), tc("textSecondary"), fw("fwLight"), 0);
                     }
@@ -445,6 +443,29 @@
                             color: tc("textWhite");
                         }
                     }
+
+                    .eye-appear {
+                        position: absolute;
+                        bottom: 3px;
+                        right: 0px;
+                        font-size: 20px;
+                        color: tc("textWhite");
+                        cursor: pointer;
+                        // display: none;
+                    }
+
+                    .eye-hidden {
+                        position: absolute;
+                        bottom: 3px;
+                        right: 0px;
+                        font-size: 20px;
+                        color: tc("textWhite");
+                        cursor: pointer;
+                    }
+                }
+
+                button {
+                    display: none;
                 }
             }
         }

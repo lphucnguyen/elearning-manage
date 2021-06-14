@@ -29,7 +29,7 @@ function CourseItem(props) {
                 <div className="footer">
                     <span><i className="fa fa-share-alt" /></span>
                     <span><i className="fa fa-heart" /></span>
-                    <NavLink className="read-more btn-read-more" to={`/details/:${maKhoaHoc}`}>Read more...</NavLink>
+                    <NavLink className="read-more btn-read-more" to={`/details/${maKhoaHoc}`}>Read more...</NavLink>
                 </div>
             </div>
         </div>

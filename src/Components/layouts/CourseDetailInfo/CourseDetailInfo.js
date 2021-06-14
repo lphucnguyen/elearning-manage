@@ -12,6 +12,7 @@ function CourseDetailInfo(props) {
     const courseDetail = useSelector(state => state.CourseReducer.courseDetail)
 
     useEffect(() => {
+        console.log(maKH)
         dispatch(layChiTietKhoaHoc(maKH));
     }, [])
 
