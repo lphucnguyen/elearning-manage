@@ -3,9 +3,9 @@ import {domain, token} from '../configs/settings';
 
 export class CourseServices {
 
-    layDanhSachKhoaHoc = (tenKH) => {
+    layDanhSachKhoaHoc = (tenKH, maNhom) => {
         return axios ({
-            url: `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${tenKH}`,
+            url: `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${tenKH}&maNhom=${maNhom}`,
             method: 'GET'
         });
     }

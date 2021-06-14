@@ -10,7 +10,7 @@ function ListCourse() {
     let [data, setData] = useState({
 
         typeCourse: "",
-        typeGroup: "",
+        typeGroup: "GP01",
         page: "",
         pageSize: "",
         search: ""
@@ -22,10 +22,21 @@ function ListCourse() {
     const dispatch =  useDispatch();
 
     useEffect(() => {
-        dispatch(layDanhSachKhoaHocAction(data.search));
+        dispatch(layDanhSachKhoaHocAction(data.search, data.typeCourse));
         dispatch(xoaDanhSachKhoaHocAction());
-        
     }, [])
+
+    useEffect(() => {
+        if(data.typeCourse == "All"){
+            document.getElementById("groupCourses").getElementsByTagName('option')[0].selected = 'selected';
+
+            dispatch(layDanhSachKhoaHocAction("", ""));
+            dispatch(xoaDanhSachKhoaHocAction());
+        }else{
+            changeType()
+        }
+        
+    }, [data.typeCourse, data.typeGroup])
 
     const changeType = () => {
         dispatch(layKhoaHocTheoDanhMucAction(data.typeCourse ,data.typeGroup));
@@ -42,7 +53,7 @@ function ListCourse() {
 
         document.getElementById("courses-select").getElementsByTagName('option')[0].selected = 'selected';
 
-        dispatch(layDanhSachKhoaHocAction(data.search));
+        dispatch(layDanhSachKhoaHocAction(data.search, data.typeCourse));
         dispatch(xoaDanhSachKhoaHocAction());
     }
 
@@ -57,40 +68,21 @@ function ListCourse() {
 
     const getTypeCourses = (evt) => {
         let {value} = evt.target;
-        
-        if(value == "All"){
-            dispatch(layDanhSachKhoaHocAction(""));
-            dispatch(xoaDanhSachKhoaHocAction());
-        }
-
-        if(evt) {
-            setData({
-                ...data,
-                typeCourse: evt.target.value
-            })
-        }else {
-            setData({
-                ...data,
-                typeCourse: evt.target.value
-            })
-        }
-        changeType();
+ 
+        setData({
+            ...data,
+            typeCourse: value
+        })
     }
 
     const getTypeGroup = (evt) => {
         let {value} = evt.target;
-        if(evt) {
-            setData({
-                ...data,
-                typeGroup: evt.target.value
-            })
-        }else {
-            setData({
-                ...data,
-                typeGroup: evt.target.value
-            })
-        }
-        changeType();
+
+        setData({
+            ...data,
+            typeGroup: value
+        })
+
     }
 
     const handeSearch = (evt) => {
