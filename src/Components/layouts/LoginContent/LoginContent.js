@@ -3,12 +3,10 @@ import './LoginContent.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, register } from '../../../redux/actions/AuthAction';
 import { useToasts } from 'react-toast-notifications'
-import { history } from '../../../App';
 import auth from '../../layouts/admin/Auth/Auth';
-import { Redirect } from 'react-router-dom';
+import { history } from '../../../App';
 
 function LoginContent() {
-
 
     const changeSignUp = () => {
         document.querySelector('.form .tab-header #signIn').classList.remove('active');
@@ -27,8 +25,8 @@ function LoginContent() {
 
     const dispatch = useDispatch()
     const { addToast } = useToasts()
-    const isLogin = useSelector(state => state.AuthReducer.login);
     const isError = useSelector(state => state.AuthReducer.error);
+    const isLogin = useSelector(state => state.AuthReducer.login);
 
     const submitLogin = (e) => {
         e.preventDefault()
@@ -49,7 +47,6 @@ function LoginContent() {
         dispatch(login(username, password))
     }
 
-
     useEffect(() => {
         if(isError){
             addToast("Dang nhap that bai", {
@@ -58,17 +55,6 @@ function LoginContent() {
             })            
         }
     }, [isError])
-
-    useEffect(() => {
-        if(isLogin){
-            addToast("Dang nhap thanh cong", {
-                appearance: 'success',
-                autoDismiss: true,
-            })  
-            
-            history.push("/admin")
-        }
-    }, [isLogin])
 
     const submitRegister = (e) => {
         e.preventDefault()

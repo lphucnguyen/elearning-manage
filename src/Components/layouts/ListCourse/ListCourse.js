@@ -9,7 +9,7 @@ function ListCourse() {
 
     let [data, setData] = useState({
 
-        typeCourse: "",
+        typeCourse: "All",
         typeGroup: "GP01",
         page: "",
         pageSize: "",
@@ -22,26 +22,39 @@ function ListCourse() {
     const dispatch =  useDispatch();
 
     useEffect(() => {
-        dispatch(layDanhSachKhoaHocAction(data.search, data.typeCourse));
+        dispatch(layDanhSachKhoaHocAction(data.search, data.typeGroup));
         dispatch(xoaDanhSachKhoaHocAction());
     }, [])
 
     useEffect(() => {
-        if(data.typeCourse == "All"){
-            document.getElementById("groupCourses").getElementsByTagName('option')[0].selected = 'selected';
-
-            dispatch(layDanhSachKhoaHocAction("", ""));
+        if(data.typeCourse !== ""){
+            dispatch(layKhoaHocTheoDanhMucAction(data.typeCourse ,data.typeGroup));
             dispatch(xoaDanhSachKhoaHocAction());
         }else{
-            changeType()
-        }
-        
-    }, [data.typeCourse, data.typeGroup])
+            dispatch(layDanhSachKhoaHocAction(data.search, data.typeGroup));
+            dispatch(xoaDanhSachKhoaHocAction());
+        }        
+    }, [data.typeCourse])
 
-    const changeType = () => {
-        dispatch(layKhoaHocTheoDanhMucAction(data.typeCourse ,data.typeGroup));
+    useEffect(() => {
+        dispatch(layDanhSachKhoaHocAction(data.search, data.typeGroup));
         dispatch(xoaDanhSachKhoaHocAction());
-    }
+        
+    }, [data.typeGroup])
+
+    useEffect(() => {
+
+        setData({
+            ...data,
+            typeCourse: ""
+        })
+
+        document.getElementById("courses-select").getElementsByTagName('option')[0].selected = 'selected';
+
+        dispatch(layDanhSachKhoaHocAction(data.search, data.typeGroup));
+        dispatch(xoaDanhSachKhoaHocAction());
+        
+    }, [data.search])
 
     const searchCourse = (e) => {
         const keyWorkd = e.target.value
@@ -50,11 +63,6 @@ function ListCourse() {
             ...data,
             search: keyWorkd
         })
-
-        document.getElementById("courses-select").getElementsByTagName('option')[0].selected = 'selected';
-
-        dispatch(layDanhSachKhoaHocAction(data.search, data.typeCourse));
-        dispatch(xoaDanhSachKhoaHocAction());
     }
 
 
@@ -113,7 +121,7 @@ function ListCourse() {
                         <div className="col-md-4 pr-5">
                             <div className="select-group mb-3 mb-md-0">
                                 <select name="courses" id="courses-select" onChange={(e) => getTypeCourses(e)}>
-                                    <option value = "All" checked>All Topic</option>
+                                    <option value = "" checked>All Topic</option>
                                     <option value = "BackEnd">Lập trình Backend</option>
                                     <option value = "Design">Thiết kế Web</option>
                                     <option value = "DiDong">Lập trình di động</option>

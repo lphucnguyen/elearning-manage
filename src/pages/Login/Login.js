@@ -7,13 +7,13 @@ import Auth from '../../Components/layouts/admin/Auth/Auth';
 
 function Login() {
 
-    const history = useHistory();
-
-    if(Auth.isAuth()) {
-        history.push("/admin")
-    }
 
     const renderLogin = () => {
+
+        if(Auth.isAuth()){
+            return <Redirect to="/admin" />
+        }
+
         return(
             <Fragment>
                 <ToastProvider
@@ -30,7 +30,7 @@ function Login() {
     }
 
     return (
-        
+
         renderLogin()
 
     )
