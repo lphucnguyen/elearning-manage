@@ -443,7 +443,7 @@
                             color: tc("textWhite");
                         }
                     }
-
+                    
                     .eye-appear {
                         position: absolute;
                         bottom: 3px;
@@ -461,6 +461,19 @@
                         font-size: 20px;
                         color: tc("textWhite");
                         cursor: pointer;
+                        z-index: 20;
+                    }
+
+                    .opt-0 {
+                        opacity: 0;
+                        visibility: hidden;
+                        z-index: 10;
+                    }
+
+                    .opt-1 {
+                        opacity: 1;
+                        visibility: visible;
+                        z-index: 20;
                     }
                 }
 
