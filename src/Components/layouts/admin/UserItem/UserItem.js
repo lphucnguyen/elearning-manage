@@ -10,13 +10,13 @@ function UserItem(props) {
             <div className="avatar-user">
                 <img className="w-100 h-100" src="/images/user.png" alt="user" />
             </div>
-            <div onClick={props.showDetail} className="info-user d-flex justify-content-center flex-column">
+            <div onClick={() => {props.showDetail(user)}} className="info-user d-flex justify-content-center flex-column">
                 <span className="id">{user.taiKhoan}</span>
                 <span className="email">{user.email}</span>
             </div>
             {(user.maLoaiNguoiDung === "GV") ? <div className="type-user">{user.maLoaiNguoiDung}</div> : <div className="type-user bg-primary">{user.maLoaiNguoiDung}</div>}
             <div className="options d-flex justify-content-between align-items-center">
-                <button onClick={() => {props.editUser(`${user}`)}}><i className="fa fa-edit" /></button>
+                <button onClick={() => {props.editUser(user)}}><i className="fa fa-edit" /></button>
                 <button onClick={() => {props.deleteUser(`${user.taiKhoan}`)}}><i className="fa fa-trash" /></button>
             </div>
         </div>

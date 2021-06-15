@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react'
+import { NavLink } from 'react-router-dom';
 import './HeaderAdmin.scss'
 
 function HeaderAdmin() {
@@ -18,7 +19,7 @@ function HeaderAdmin() {
                     <i className="fas fa-bars" />
                 </div>
                 <ul>
-                    <li><a href="#" title="Đăng xuất"><i className="fas fa-power-off" /></a></li>
+                    <li><NavLink to="/" title="Đăng xuất"><i className="fas fa-power-off" /></NavLink></li>
                 </ul>
             </div>
         </div>

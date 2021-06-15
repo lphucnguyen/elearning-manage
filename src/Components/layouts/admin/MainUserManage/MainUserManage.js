@@ -8,7 +8,8 @@ import {
     themNguoiDungAction, 
     thongTinNguoiDungAction, 
     xoaDanhSachNguoiDungAction, 
-    clickGroupAction
+    clickGroupAction,
+    xoaNguoiDungAction
 } from '../../../../redux/actions/UserAction';
 import UserItem from '../UserItem/UserItem';
 import'./MainUserManage.scss'
@@ -26,7 +27,7 @@ function MainUserManage() {
             taiKhoan: "",
             matKhau: "",
             hoTen: "",
-            soDT: "",
+            soDt: "",
             maLoaiNguoiDung: "HV",
             maNhom: "GP01",
             email: ""
@@ -37,7 +38,7 @@ function MainUserManage() {
     let [dataEdit, setDataEdit] = useState({
             taiKhoan: "",
             email: "",
-            soDT: "",
+            soDt: "",
             maLoaiNguoiDung: "",
             hoTen: ""
     })
@@ -63,12 +64,38 @@ function MainUserManage() {
                 document.querySelector(`#${id}`).selectedIndex = 0 : 
                 document.querySelector(`#${id}`).selectedIndex = 1;
             }
-            else if (id === "password")
+            else if (id === "matKhau")
                 document.querySelector(`#${id}`).value = "";
+            else if (id === "numGroup"){
+                document.querySelector(`#${id}`).value = userGroup;
+                for(let index = 1; index<=16; index++) {
+                    if (document.querySelector(`#${id}`).value === `GP0${index}`)
+                        document.querySelector(`#${id}`).selectedIndex = index-1;
+                    else if (document.querySelector(`#${id}`).value === `GP${index}`)
+                        document.querySelector(`#${id}`).selectedIndex = index-1;
+                    else 
+                        console.log('Mã nhóm không xác định');
+                }
+            }
             else
                 document.querySelector(`#${id}`).value = dataEdit[id];
         })
-    },[dataEdit])
+    },[dataEdit,userGroup])
+
+    useEffect(() => {
+        setData({
+            ...data,
+            values: {
+                taiKhoan: "",
+                matKhau: "",
+                hoTen: "",
+                soDt: "",
+                maLoaiNguoiDung: "HV",
+                maNhom: "GP01",
+                email: ""
+            }
+        })
+    },[user])
 
     const handleClickGroup = (evt) => {
         let {value} = evt.target;
@@ -102,6 +129,8 @@ function MainUserManage() {
         if(document.querySelector("#btnUpdate.d-block"))
             btnUpdate.classList.remove("d-block");
 
+        document.querySelector(".eye-hidden").classList.add("d-block");    
+        
         setData({
             ...data,
             title: "Add User"
@@ -111,12 +140,12 @@ function MainUserManage() {
     };
 
     const addUser = () => {
-        const user = {...data.values};
-        console.log(user);
-        // dispatch(themNguoiDungAction(user));
+        setUser(data.values)
+        // console.log(user);
+        dispatch(themNguoiDungAction(user));
     };
 
-    const editUser = (user) => {
+    const editUser = (userInfo) => {
         let formAdd = document.querySelector("#modalForm");
         let formDetail = document.querySelector("#modalFormDetails");
         let btnAdd = document.querySelector("#btnAdd");
@@ -130,12 +159,15 @@ function MainUserManage() {
         if(document.querySelector("#btnUpdate.d-block"))
             btnAdd.classList.remove("d-block");
 
+        document.querySelector(".eye-hidden").classList.add("d-block");    
+
         setData({
             ...data,
             title: "Edit User"
         })
-
-        thongTinNguoiDungAction(setUser, user);
+        
+        thongTinNguoiDungAction(setUser, userInfo);
+        setDataEdit(userInfo);
     };
 
     const updateUser = () => {
@@ -149,7 +181,7 @@ function MainUserManage() {
         dispatch(capNhatThongTinNguoiDungAction(editUser));
     }
 
-    const showDetail = () => {
+    const showDetail = (userDetail) => {
         let formAdd = document.querySelector("#modalForm");
         let formDetail = document.querySelector("#modalFormDetails");
 
@@ -157,10 +189,16 @@ function MainUserManage() {
         if(document.querySelector("#modalForm.d-block")) 
             formAdd.classList.remove("d-block");
         
+        setUser(userDetail);
+        (userDetail.maLoaiNguoiDung === "HV") 
+        ? 
+        document.querySelector("#maLoaiNguoiDungDetail").selectedIndex = 0
+        :
+        document.querySelector("#maLoaiNguoiDungDetail").selectedIndex = 1
     };
 
     const deleteUser = (taiKhoan) => {
-        xoaDanhSachNguoiDungAction(taiKhoan);
+        xoaNguoiDungAction(taiKhoan);
     } 
 
     const resetFunc = () => {
@@ -232,9 +270,9 @@ function MainUserManage() {
                                     <div className="modal-user--course">
                                         <div className="modal-user--course__avatar d-flex flex-column justify-content-center align-items-center">
                                             <div className="avatar-img">
-                                                <img className="w-100 h-100" src="/images/user.jpg" alt />
+                                                <img className="w-100 h-100" src="/images/user.png" alt />
                                             </div>
-                                            <p className="avatar-id m-0">12311</p>
+                                            <p className="avatar-id m-0">{user.taiKhoan}</p>
                                         </div>
                                         <div className="modal-user--course__pending d-flex justify-content-center align-items-center flex-column">
                                             <div className="content d-flex justify-content-between align-items-center">
@@ -285,22 +323,26 @@ function MainUserManage() {
                                         <form>
                                             <div className="form-group">
                                                 <label htmlFor="username">Username</label>
-                                                <input className="form-control" type="text" id="username"/>
+                                                <input disabled className="form-control" type="text" id="username" value={user.taiKhoan}/>
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="emailDetail">Email</label>
-                                                <input className="form-control" type="email" id="emailDetail"/>
+                                                <input disabled className="form-control" type="email" id="emailDetail"  value={user.email}/>
                                             </div>
                                             <div className="form-group d-flex flex-column">
                                                 <label>Accout type</label>
-                                                <select>
-                                                    <option>Sinh viên</option>
-                                                    <option>Giảng viên</option>
+                                                <select id="maLoaiNguoiDungDetail">
+                                                    <option value="HV">Sinh viên</option>
+                                                    <option value="GV">Giảng viên</option>
                                                 </select>
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="name">Name</label>
-                                                <input className="form-control" type="text" id="name"/>
+                                                <input disabled className="form-control" type="text" id="name" value={user.hoTen}/>
+                                            </div>
+                                            <div className="form-group">
+                                                <label htmlFor="phone">Phone</label>
+                                                <input disabled className="form-control" type="text" id="phone" value={user.soDt}/>
                                             </div>
                                         </form>
                                     </div>
@@ -320,10 +362,18 @@ function MainUserManage() {
                                         <input onChange={handleChange} className="form-control" type="text" id="email" placeholder="Enter email"/>
                                     </div>
                                     <div className="form-group">
-                                        <span className="eye-appear"><i class="fa fa-eye"></i></span>
-                                        <span className="eye-hidden"><i class="fa fa-eye-slash"></i></span>
+                                        <span onClick={() => {
+                                             document.querySelector(".eye-appear").classList.toggle("opt-1");
+                                             document.querySelector(".eye-hidden").classList.toggle("opt-0");
+                                             document.querySelector(".matKhau").type = "password";
+                                        }} className="eye-appear opt-0"><i class="fa fa-eye"></i></span>
+                                        <span onClick={() => {
+                                             document.querySelector(".eye-appear").classList.toggle("opt-1");
+                                             document.querySelector(".eye-hidden").classList.toggle("opt-0");
+                                             document.querySelector(".matKhau").type = "text";
+                                        }} className="eye-hidden"><i class="fa fa-eye-slash"></i></span>
                                         <label htmlFor="matKhau">Password</label>
-                                        <input onChange={handleChange} className="form-control" type="password" id="matKhau" placeholder="Enter password"/>
+                                        <input onChange={handleChange} className="form-control matKhau " type="password" id="matKhau" placeholder="Enter password"/>
                                     </div>
                                     <div className="form-group d-flex flex-column">
                                         <label>Accout type</label>
@@ -337,20 +387,13 @@ function MainUserManage() {
                                         <input onChange={handleChange} className="form-control" type="text" id="hoTen" placeholder="Enter name"/>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="soDT">Phone</label>
-                                        <input onChange={handleChange} className="form-control" type="text" id="soDT" placeholder="Enter phone"/>
+                                        <label htmlFor="soDt">Phone</label>
+                                        <input onChange={handleChange} className="form-control" type="text" id="soDt" placeholder="Enter phone"/>
                                     </div>
                                     <div className="form-group d-flex flex-column" id="numGroup">
                                         <label>Choose a group</label>
                                         <select id="numGroup" onChange={(e) => handleChange(e)}>
-                                            <option value="GP01">Group 01</option>
-                                            <option value="GP02">Group 02</option>
-                                            <option value="GP03">Group 03</option>
-                                            <option value="GP04">Group 04</option>
-                                            <option value="GP05">Group 05</option>
-                                            <option value="GP06">Group 06</option>
-                                            <option value="GP07">Group 07</option>
-                                            <option value="GP08">Group 08</option>
+                                            {renderPages()}
                                         </select>
                                     </div>
                                     <button id="btnAdd" type="button" onClick={addUser} className="btn btn--green">Submit</button>
