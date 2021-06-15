@@ -1,5 +1,6 @@
 import React, {useRef, useLayoutEffect} from 'react'
 import { NavLink } from 'react-router-dom';
+import Auth from '../../Components/layouts/admin/Auth/Auth';
 import './Header.scss';
 
 function Header() {
@@ -46,8 +47,12 @@ function Header() {
                             </li>
                         </ul>
                     </div>
-                    <a className="a-teacher" href="">Are you a Teacher</a>
-                    <NavLink to="/login" className="btn--common btn--login" href="">Login</NavLink>
+                    {Auth.isAuth() ? 
+                        <NavLink to="/admin" className="btn--common btn--login" href="">Go to dashboard</NavLink>
+                    :   
+                        <NavLink to="/login" className="btn--common btn--login" href="">Login</NavLink>
+                    }
+                    
                 </div>
             </div>
         </div>

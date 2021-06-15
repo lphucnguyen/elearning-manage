@@ -38,7 +38,6 @@ function App() {
               <AdminTemplate exact path="/admin" Component={CourseManage} />               
             </Fragment>
             :
-            // history.push("/login")
             <Redirect to="/login" />
           }           
 
