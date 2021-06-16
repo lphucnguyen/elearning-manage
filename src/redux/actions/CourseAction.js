@@ -63,30 +63,12 @@ export const layKhoaHocTheoDanhMucAction = (data, group) => {
     }
 }
 export const layChiTietKhoaHoc = (maKH) => {
-    return (dispatch) => {
-        // Call loading open
-        dispatch({
-            type: 'openLoading'
-        })
 
-        setTimeout(() => {
-            courseServices
-            .layChiTietKhoaHoc(maKH)
-            .then((res) => {
-                dispatch({
-                        type: 'LAY_CHI_TIET_KHOA_HOC',
-                        data: res.data
-                    })
-            })
-            .catch((err) => {
-                console.log("errors:", err);
-            });
-
-            // Turn off loading
-            dispatch({
-                type: 'closeLoading'
-            })
-        },2000)
-    }
+    return courseServices
+    .layChiTietKhoaHoc(maKH)
 }
 
+export const xoaKhoaHoc = (maKH) => {
+    return courseServices
+    .xoaKhoaHoc(maKH)
+}

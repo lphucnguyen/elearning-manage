@@ -51,6 +51,13 @@ export const CourseReducer = (state = stateDefault, action) => {
 
             return {...state};
         }
+        case 'XOA_KHOA_HOC': {
+            let arrCourse = state.arrCourse.filter((course) => {
+                return course.maKhoaHoc != action.data
+            })
+            return {...state, arrCourse: arrCourse};
+        }
+
         case 'TIM_KIEM_KHOA_HOC': {
             let arrCourseUpdate = [...state.arrCourse];
     

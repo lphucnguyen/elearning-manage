@@ -86,4 +86,3 @@ export const register = (username, password, hoTen, sdt, maNhom, email) => {
     }
 }
 
-

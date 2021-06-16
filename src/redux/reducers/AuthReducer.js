@@ -30,9 +30,9 @@ export const AuthReducer = (state = stateDefault, action) => {
             return {...state};
         }
         case 'DANG_XUAT': {
-            state.login = action.data;
-
-            return {...state};
+            if(localStorage.getItem("accessToken")){
+                localStorage.removeItem('accessToken')
+            }
         }
         default: return {...state};
     }
