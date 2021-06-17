@@ -32,7 +32,14 @@ export class UserServices {
             method: "GET",
         });
     };
-
+  
+    timKiemDanhSachNguoiDung = (group) => {
+        return axios({
+          url: `${domain}/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=${group}`,
+          method: "GET",
+        });
+      };
+    
     layDanhSachNguoiDung_PhanTrang = (group,page) => {
         return axios({
             url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDung_PhanTrang?MaNhom=${group}&page=${page}&pageSize=20`,

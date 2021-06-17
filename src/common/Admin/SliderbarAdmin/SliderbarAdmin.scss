@@ -7,6 +7,9 @@
 .wrapper {
 
     .slidebar {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         background: c("bgGrayBlack");
         position: fixed;
         top: 70px;
@@ -41,6 +44,65 @@
                 }
             }
         }
+
+        .slidebar-profile {
+            background: transparent;
+            opacity: 1;
+            transition: all 0.5s linear;
+
+            .profile-info {
+                text-align: center;
+
+                .img {
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;
+                    margin: 10px auto;
+                    cursor: pointer;
+                    overflow: hidden;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                .username {
+                    @include text(fs("h6"), tc("textWhite"), fw("fwMedium"), 0);
+                }
+
+                .code-group {
+                    @include text(fs("subtitle"), tc("textSecondary"), fw("fwRegular"), 0);
+                }
+
+                .email {
+                    @include text(fs("body2"), tc("textSecondary"), fw("fwRegular"), 0);
+                    margin-bottom: 20px;
+                }
+            }
+
+            .profile-contact {
+                border-top: 1px solid bc("borderSecondary");
+                @include text(fs("subtitle"), tc("textSecondary"), fw("fwRegular"), 0);
+                margin: 10px 0px;
+                text-align: center;
+                
+                p {
+                    margin: 5px 0px;
+
+                    span, a {
+                        padding: 5px;
+                        
+                        i {font-size: 20px;}
+                    }
+
+                    .icon-copy {
+                        padding: 0px;
+
+                        i {font-size: 15px;}
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -50,11 +112,6 @@
         width: 70px;
         transition: all 0.3s linear;
 
-        .profile img, 
-        .profile p {
-            display: none;
-        }
-
         a span {
             display: none;
         }
@@ -63,6 +120,17 @@
 
             .menu-btn{
                 font-size: fs("h4");
+            }
+        }
+
+        .slidebar-profile {
+
+            .img {
+                margin: 25px auto;
+            }
+
+            p, a, span, .profile-contact {
+                display: none;
             }
         }
     }
