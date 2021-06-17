@@ -3,3 +3,21 @@
 @import "../../../../styles/helpers/theme";
 @import "../../../../styles/base/reset";
 @import "../../../../styles/components/product-item";
+
+.modal-user {
+
+    .avatar-course {
+        width: 100%;
+        height: 200px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+.modal-user.active {
+    display: block;
+}

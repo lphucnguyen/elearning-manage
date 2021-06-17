@@ -32,7 +32,7 @@ function MainUserManage() {
             taiKhoan: "",
             matKhau: "",
             hoTen: "",
-            soDt: "",
+            soDT: "",
             maLoaiNguoiDung: "HV",
             maNhom: "GP01",
             email: ""
@@ -421,7 +421,7 @@ function MainUserManage() {
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="phone">Phone</label>
-                                                <input disabled className="form-control" type="text" id="phone" value={user.soDt}/>
+                                                <input disabled className="form-control" type="text" id="phone" value={user.soDT}/>
                                             </div>
                                         </form>
                                     </div>
@@ -466,8 +466,8 @@ function MainUserManage() {
                                         <input onChange={handleChange} className="form-control" type="text" id="hoTen" placeholder="Enter name"/>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="soDt">Phone</label>
-                                        <input onChange={handleChange} className="form-control" type="text" id="soDt" placeholder="Enter phone"/>
+                                        <label htmlFor="T">Phone</label>
+                                        <input onChange={handleChange} className="form-control" type="text" id="soDT" placeholder="Enter phone"/>
                                     </div>
                                     <div className="form-group d-flex flex-column" id="numGroup">
                                         <label>Choose a group</label>
