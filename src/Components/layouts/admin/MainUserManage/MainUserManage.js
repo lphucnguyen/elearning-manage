@@ -27,7 +27,7 @@ function MainUserManage() {
             taiKhoan: "",
             matKhau: "",
             hoTen: "",
-            soDt: "",
+            soDT: "",
             maLoaiNguoiDung: "HV",
             maNhom: "GP01",
             email: ""
@@ -38,7 +38,7 @@ function MainUserManage() {
     let [dataEdit, setDataEdit] = useState({
             taiKhoan: "",
             email: "",
-            soDt: "",
+            soDT: "",
             maLoaiNguoiDung: "",
             hoTen: ""
     })
@@ -83,18 +83,22 @@ function MainUserManage() {
     },[dataEdit,userGroup])
 
     useEffect(() => {
-        setData({
-            ...data,
-            values: {
-                taiKhoan: "",
-                matKhau: "",
-                hoTen: "",
-                soDt: "",
-                maLoaiNguoiDung: "HV",
-                maNhom: "GP01",
-                email: ""
-            }
-        })
+        // setData({
+        //     ...data,
+        //     values: {
+        //         taiKhoan: "",
+        //         matKhau: "",
+        //         hoTen: "",
+        //         soDt: "",
+        //         maLoaiNguoiDung: "HV",
+        //         maNhom: "GP01",
+        //         email: ""
+        //     }
+        // })
+        console.log("User change")
+        console.log(user)
+        // dispatch(themNguoiDungAction(user))
+        
     },[user])
 
     const handleClickGroup = (evt) => {
@@ -140,9 +144,11 @@ function MainUserManage() {
     };
 
     const addUser = () => {
-        setUser(data.values)
-        // console.log(user);
-        dispatch(themNguoiDungAction(user));
+
+        // console.log(data.values)
+        // setUser(data.values)
+
+        themNguoiDungAction(data.values)
     };
 
     const editUser = (userInfo) => {
@@ -342,7 +348,7 @@ function MainUserManage() {
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="phone">Phone</label>
-                                                <input disabled className="form-control" type="text" id="phone" value={user.soDt}/>
+                                                <input disabled className="form-control" type="text" id="phone" value={user.soDT}/>
                                             </div>
                                         </form>
                                     </div>
@@ -387,8 +393,8 @@ function MainUserManage() {
                                         <input onChange={handleChange} className="form-control" type="text" id="hoTen" placeholder="Enter name"/>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="soDt">Phone</label>
-                                        <input onChange={handleChange} className="form-control" type="text" id="soDt" placeholder="Enter phone"/>
+                                        <label htmlFor="T">Phone</label>
+                                        <input onChange={handleChange} className="form-control" type="text" id="soDT" placeholder="Enter phone"/>
                                     </div>
                                     <div className="form-group d-flex flex-column" id="numGroup">
                                         <label>Choose a group</label>
