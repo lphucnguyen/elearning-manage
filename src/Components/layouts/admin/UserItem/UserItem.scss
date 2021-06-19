@@ -25,6 +25,9 @@
         margin-right: auto;
         @include text(fs("subtitle"), tc("textWhite"), fw("fwLight"), 0);
         padding: 0px 10px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
 
         .email {
             color: tc("textSecondary");

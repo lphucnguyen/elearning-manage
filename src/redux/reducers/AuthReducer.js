@@ -11,8 +11,12 @@ export const AuthReducer = (state = stateDefault, action) => {
             
             if(action.isLogin) {
                 let accessToken = action.data.accessToken;
+                let {taiKhoan, maNhom, email} = action.data;
 
                 localStorage.setItem("accessToken", accessToken)
+                localStorage.setItem("taiKhoan", taiKhoan)
+                localStorage.setItem("maNhom", maNhom)
+                localStorage.setItem("email", email)
             }
 
             return {...state};

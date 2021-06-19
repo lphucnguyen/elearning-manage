@@ -1,5 +1,7 @@
+import { useFormik, yupToFormErrors } from 'formik';
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useToasts } from 'react-toast-notifications';
 import Loading from '../../../../common/Loading/Loading';
 import { 
     capNhatThongTinNguoiDungAction, 
@@ -13,14 +15,17 @@ import {
     timKiemDanhSachNguoiDungAction,
     layDanhSachKhoaHocChoXetDuyetAction,
     layDanhSachKhoaHocChuaGhiDanhAction,
-    layDanhSachKhoaHocDaXetDuyetAction
+    layDanhSachKhoaHocDaXetDuyetAction,
+    xoaDanhSachNguoiDungAction
 } from '../../../../redux/actions/UserAction';
 import UserItem from '../UserItem/UserItem';
 import'./MainUserManage.scss'
 
 function MainUserManage() {
-
-    let [userList, setUserList] = useState([]);
+    let [dataControl, setDataControl] = useState({
+        taiKhoan: "",
+        maNhom: "GP01"
+    });
     let [userListSearch, setUserListSearch] = useState([]);
     let [user, setUser] = useState({});
     let [notRegisterd, setNotRegistered] = useState([]);
@@ -36,30 +41,31 @@ function MainUserManage() {
             maLoaiNguoiDung: "HV",
             maNhom: "GP01",
             email: ""
-        },
-        arrUserUpdate: []
+        }, 
+        isClickSubmit: false,
+        isClickEdit: false,
     });
 
     let [dataEdit, setDataEdit] = useState({})
 
     let arrInput = document.querySelectorAll(".modal-form form input, .modal-form form select");
 
-
+    let {arrListUser} = useSelector(state => state.UserReducer);
     let userGroup = useSelector(state => state.UserReducer.group);
+    const {addToast} = useToasts();
     let dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(layDanhSachNguoiDungAction(userGroup, setUserList));
+        searchUser();
         timKiemDanhSachNguoiDungAction(setUserListSearch, userGroup);
 
         if(document.querySelector("#modalForm.d-block")) 
             document.querySelector("#modalForm").classList.remove("d-block");
         if(document.querySelector("#modalFormDetails.d-block")) 
-        document.querySelector("#modalFormDetails").classList.remove("d-block");
-    },[userGroup])
+            document.querySelector("#modalFormDetails").classList.remove("d-block");
+    },[userGroup, dataControl])
 
     useEffect(() => {
-        
         arrInput.forEach((item, index) => {
             let {id} = item;
 
@@ -68,8 +74,6 @@ function MainUserManage() {
                 document.querySelector(`#${id}`).selectedIndex = 0 : 
                 document.querySelector(`#${id}`).selectedIndex = 1;
             }
-            // else if (id === "matKhau")
-            //     document.querySelector(`#${id}`).value = "";
             else if (id === "numGroup"){
                 document.querySelector(`#${id}`).value = userGroup;
                 for(let index = 1; index<=16; index++) {
@@ -78,30 +82,48 @@ function MainUserManage() {
                     else if (document.querySelector(`#${id}`).value == `GP${index}`)
                         document.querySelector(`#${id}`).getElementsByTagName("option")[index-1].selected = "selected";
                     else 
-                        console.log('Mã nhóm không xác định');
+                        console.log('');
                 }
             }
             else
                 document.querySelector(`#${id}`).value = dataEdit[id];
         })
-    },[dataEdit,userGroup])
+    },[data.isClickEdit])
+
+    useEffect(() => {
+        dispatch(layDanhSachNguoiDungAction(userGroup, dataControl.taiKhoan));
+        dispatch(xoaDanhSachNguoiDungAction());
+    },[data.isClickSubmit])
 
     const handleClickGroup = (evt) => {
         let {value} = evt.target;
-        setUserList([]);
+        setDataControl({
+            ...dataControl,
+            maNhom: value
+        })
         dispatch(clickGroupAction(value));
+    }
+
+    const handleKeySearch = (evt) => {
+        let {value} = evt.target;
+        setDataControl({
+            ...dataControl,
+            taiKhoan: value
+        })
+    }
+
+    const searchUser = () => {
+        dispatch(layDanhSachNguoiDungAction(userGroup, dataControl.taiKhoan));
+        dispatch(xoaDanhSachNguoiDungAction());
     }
 
     const handleChange = (evt) => {
         const {value, id} = evt.target;
-        
         let newValues = {...data.values};
         newValues[id] = value;
 
-        setData({
-            ...data,
-            values: newValues
-        })
+        setData({...data,values: newValues});
+        setDataEdit({...dataEdit,[id]: value});
     }
 
     const showAdd = () => {
@@ -119,21 +141,19 @@ function MainUserManage() {
             btnUpdate.classList.remove("d-block");
 
         document.querySelector(".eye-hidden").classList.add("d-block");    
-        
-        setData({
-            ...data,
-            title: "Add User"
-        })
+        document.querySelector("#taiKhoan").disabled = false;
+        document.querySelector("#matKhau").disabled = false;
 
         setData({
             ...data,
+            title: "Add User",
             values: {
                 taiKhoan: "",
                 matKhau: "",
                 hoTen: "",
                 soDt: "",
                 maLoaiNguoiDung: "HV",
-                maNhom: "GP01",
+                maNhom: userGroup,
                 email: ""
             }
         })
@@ -142,8 +162,54 @@ function MainUserManage() {
     };
 
     const addUser = () => {
-        console.log(data.values);
-        themNguoiDungAction(data.values);
+        let isConfirm = true;
+        arrInput.forEach((item, index) => {
+            let {value, id} = item;
+            if(value === "") {
+                isConfirm = false;
+                if(id === "taiKhoan") {
+                    addToast('Tài khoản không được để trống', {
+                        appearance: 'error',
+                        autoDismiss: true
+                    })
+                }
+                else if(id === "matKhau") {
+                    addToast('Mật khẩu không được để trống', {
+                        appearance: 'error',
+                        autoDismiss: true
+                    })
+                }
+                else if(id === "hoTen") {
+                    addToast('Họ tên không được để trống', {
+                        appearance: 'error',
+                        autoDismiss: true
+                    })
+                }
+                else if(id === "soDt") {
+                    addToast('Số điện thoại không được để trống', {
+                        appearance: 'error',
+                        autoDismiss: true
+                    })
+                }
+                else if(id === "email") {
+                    addToast('Email không được để trống', {
+                        appearance: 'error',
+                        autoDismiss: true
+                    })
+                }
+                else console.log('Hợp lệ');
+            }
+            else {
+                if (id === "maNhom") 
+                    isConfirm = true;
+            }
+        });
+        // console.log(isConfirm);
+        if(isConfirm === true){
+            console.log(data.values);
+            dispatch(themNguoiDungAction({...data.values, maNhom: userGroup}));
+            (data.isClickSubmit === false) ? setData({isClickSubmit: true}) : setData({isClickSubmit: false})
+        }
     };
 
     const editUser = (userInfo) => {
@@ -161,33 +227,68 @@ function MainUserManage() {
             btnAdd.classList.remove("d-block");
 
         document.querySelector(".eye-hidden").classList.add("d-block");    
-
+        document.querySelector("#taiKhoan").disabled = true;
+        document.querySelector("#matKhau").disabled = true;
         setData({
             ...data,
             title: "Edit User"
         })
 
         const user = userListSearch.find((item) => item.taiKhoan === userInfo.taiKhoan);
+        
         setDataEdit(user);
+        
+        (data.isClickEdit === false) ? setData({isClickEdit: true}) : setData({isClickEdit: false})
     };
 
     const updateUser = () => {
-        let editUser= {
-            taiKhoan: "",
-            matKhau: "",
-            hoTen: "",
-            soDt: "",
-            maLoaiNguoiDung: "HV",
-            maNhom: "GP01",
-            email: ""
-        };
-        arrInput.forEach(input => {
-            const {id,value} = input;
-            editUser = {...editUser,[id]:value};
-        })
-        console.log('editUser: ', editUser)
-
-        dispatch(capNhatThongTinNguoiDungAction(editUser));
+        let isConfirm = true;
+        arrInput.forEach((item, index) => {
+            let {value, id} = item;
+            if(value === "") {
+                isConfirm = false;
+                if(id === "hoTen") {
+                    addToast('Họ tên không được để trống', {
+                        appearance: 'error',
+                        autoDismiss: true
+                    })
+                }
+                else if(id === "soDt") {
+                    addToast('Số điện thoại không được để trống', {
+                        appearance: 'error',
+                        autoDismiss: true
+                    })
+                }
+                else if(id === "email") {
+                    addToast('Email không được để trống', {
+                        appearance: 'error',
+                        autoDismiss: true
+                    })
+                }
+                else console.log('Hợp lệ');
+            }
+            else {
+                if (id === "maNhom") 
+                    isConfirm = true;
+            }
+        });
+        // console.log(isConfirm);
+        if(isConfirm === true){
+            let editUser= {
+                taiKhoan: dataEdit.taiKhoan,
+                matKhau: dataEdit.matKhau,
+                hoTen: dataEdit.hoTen,
+                soDt: dataEdit.soDt,
+                maLoaiNguoiDung: dataEdit.maLoaiNguoiDung,
+                maNhom: userGroup,
+                email: dataEdit.email
+            };
+            console.log('editUser: ', editUser)
+    
+            dispatch(capNhatThongTinNguoiDungAction(editUser));
+            
+            (data.isClickSubmit === false) ? setData({isClickSubmit: true}) : setData({isClickSubmit: false})
+        }
     }
 
     const showDetail = (userDetail) => {
@@ -213,7 +314,7 @@ function MainUserManage() {
     };
 
     const deleteUser = (taiKhoan) => {
-        xoaNguoiDungAction(taiKhoan);
+        dispatch(xoaNguoiDungAction(taiKhoan));
     } 
 
     const courseUnregistered = (user) => {
@@ -242,14 +343,26 @@ function MainUserManage() {
             const {id,value} = item;
             if(id === 'maLoaiNguoiDung'){
                 document.getElementById(id).selectedIndex = 0;
-            }else{
+            }
+            else if (id === "numGroup"){
+                document.querySelector(`#${id}`).value = userGroup;
+                for(let index = 1; index<=16; index++) {
+                    if (document.querySelector(`#${id}`).value == `GP0${index}`)
+                        document.querySelector(`#${id}`).getElementsByTagName("option")[index-1].selected = "selected";
+                    else if (document.querySelector(`#${id}`).value == `GP${index}`)
+                        document.querySelector(`#${id}`).getElementsByTagName("option")[index-1].selected = "selected";
+                    else 
+                        console.log('');
+                }
+            }
+            else{
                 document.getElementById(id).value = '';
             }
         });
     }
 
     const renderListUser = () => {
-        return userList?.map((item, index) => {
+        return arrListUser?.map((item, index) => {
             return <Fragment key={index}>
                 <UserItem user={item} deleteUser={deleteUser} editUser={editUser} showDetail={showDetail}/>
             </Fragment>
@@ -273,14 +386,14 @@ function MainUserManage() {
                 <div className="row">
                     <div className="col-md-5 pl-0">
                         <div className="list-users">
-                            <div className="group-select-info d-flex justify-content-between  align-items-center p-3">
-                                <button className="btn-add shadow" onClick={showAdd}><i className="fa fa-plus" /></button>
-                                <div className="count-user d-flex justify-content-center align-items-center">
+                            <div className="group-select-info d-flex justify-content-between  align-items-center flex-wrap p-3">
+                                <button className="btn-add shadow mb-2" onClick={showAdd}><i className="fa fa-plus" /></button>
+                                <div className="count-user d-flex justify-content-center align-items-center mb-2">
                                     <span className="icon-avatar"><i className="fa fa-user-circle" /></span>
-                                    <span className="content">{userList.length} users was found!!</span>
+                                    <span className="content">{arrListUser.length} users was found!!</span>
                                     <span className="icon-check"><i className="fa fa-check" /></span>
                                 </div>
-                                <div className="select-group" onChange={(e) => handleClickGroup(e)}>
+                                <div className="select-group mb-2" onChange={(e) => handleClickGroup(e)}>
                                     <select>
                                         {renderPages()}
                                     </select>
@@ -289,7 +402,7 @@ function MainUserManage() {
                             </div>
                             <div className="search-user">
                                 <div className="search-user--input d-flex p-3">
-                                    <input type="text" placeholder="Search User..."/>
+                                    <input onKeyUp={handleKeySearch} type="text" placeholder="Search User..."/>
                                 </div>
                             </div>
                             <div className="list-user--item">
@@ -452,7 +565,7 @@ function MainUserManage() {
                                              document.querySelector(".matKhau").type = "text";
                                         }} className="eye-hidden"><i class="fa fa-eye-slash"></i></span>
                                         <label htmlFor="matKhau">Password</label>
-                                        <input disabled onChange={handleChange} className="form-control matKhau " type="password" id="matKhau" placeholder="Enter password"/>
+                                        <input onChange={handleChange} className="form-control matKhau " type="password" id="matKhau" placeholder="Enter password"/>
                                     </div>
                                     <div className="form-group d-flex flex-column">
                                         <label>Accout type</label>
@@ -466,12 +579,12 @@ function MainUserManage() {
                                         <input onChange={handleChange} className="form-control" type="text" id="hoTen" placeholder="Enter name"/>
                                     </div>
                                     <div className="form-group">
-                                        <label htmlFor="T">Phone</label>
-                                        <input onChange={handleChange} className="form-control" type="text" id="soDT" placeholder="Enter phone"/>
+                                        <label htmlFor="soDt">Phone</label>
+                                        <input onChange={handleChange} className="form-control" type="text" id="soDt" placeholder="Enter phone"/>
                                     </div>
                                     <div className="form-group d-flex flex-column" id="numGroup">
-                                        <label>Choose a group</label>
-                                        <select id="numGroup" onChange={(e) => handleChange(e)}>
+                                        <label htmlFor="numGroup">Choose a group</label>
+                                        <select disabled id="numGroup" onChange={(e) => handleChange(e)}>
                                             {renderPages()}
                                         </select>
                                     </div>
