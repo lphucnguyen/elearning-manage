@@ -6,7 +6,7 @@ function UserItem(props) {
     const {user} = props;
 
     return (
-        <div className="user d-flex justify-content-between align-items-center px-3 py-2" data-toggle="modal" data-target="#exampleModal">
+        <div className="user d-flex justify-content-between align-items-center px-3 py-2 flex-wrap" data-toggle="modal" data-target="#exampleModal">
             <div className="avatar-user">
                 <img className="w-100 h-100" src="/images/user.png" alt="user" />
             </div>

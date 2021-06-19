@@ -37,7 +37,7 @@ function LoginContent() {
         password = e.target.querySelector("#password").value;
 
         if(username == "" || password == ""){
-            addToast("Chua nhap tai khoan hoac mat khau", {
+            addToast("Chưa nhập tài khoản hoặc mặt khẩu", {
                 appearance: 'error',
                 autoDismiss: true,
             })    
@@ -49,7 +49,7 @@ function LoginContent() {
 
     useEffect(() => {
         if(isError){
-            addToast("Dang nhap that bai", {
+            addToast("Đăng nhập thất bại", {
                 appearance: 'error',
                 autoDismiss: true,
             })            
@@ -66,7 +66,7 @@ function LoginContent() {
         let email = e.target.querySelector("#email").value;
 
         if(username == "" || password == "" || fullname == "" || phone == "" || email == ""){
-            addToast("Thong tin chua day du", {
+            addToast("Thông tin chưa đầy đủ", {
                 appearance: 'error',
                 autoDismiss: true,
             })    

@@ -42,9 +42,6 @@ function Header() {
                             <li>
                                 <a href="#footer">Placement</a>
                             </li>
-                            <li>
-                                <a href="">Offers</a>
-                            </li>
                         </ul>
                     </div>
                     {Auth.isAuth() ? 

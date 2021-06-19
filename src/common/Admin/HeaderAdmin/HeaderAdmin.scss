@@ -74,3 +74,26 @@
         }
     }
 }
+// Responsive
+@media (max-width: rp("small")) {
+        .header-admin {
+
+            .header-menu {
+
+                .title {
+                    opacity: 0;
+                    visibility: hidden;
+                }
+
+                .slidebar-btn {
+                    margin-left: 0px !important;
+                }
+            }
+        }
+
+        .main-container {
+            width: calc(100% - 70px) !important;
+            margin-left: 70px !important;
+        }
+        
+}
