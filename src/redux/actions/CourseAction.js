@@ -72,3 +72,13 @@ export const xoaKhoaHoc = (maKH) => {
     return courseServices
     .xoaKhoaHoc(maKH)
 }
+
+export const uploadHinhAnhKhoaHoc = (image) => {
+    return courseServices
+    .uploadHinhAnhKhoaHoc(image)
+}
+
+export const themKhoaHoc = (form) => {
+    return courseServices
+    .themKhoaHoc(form)
+}

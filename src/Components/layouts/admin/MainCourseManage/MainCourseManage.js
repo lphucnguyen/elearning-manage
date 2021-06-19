@@ -1,12 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Loading from '../../../../common/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux'
-import { layDanhSachKhoaHocAction, xoaKhoaHoc } from '../../../../redux/actions/CourseAction'
+import { layDanhSachKhoaHocAction, xoaKhoaHoc, uploadHinhAnhKhoaHoc, themKhoaHoc } from '../../../../redux/actions/CourseAction'
 import { layChiTietKhoaHoc } from '../../../../redux/actions/CourseAction';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { useToasts } from 'react-toast-notifications'
+import ImageUploader from 'react-images-upload';
 import './MainCourseManage.scss'
+import { Form, Input, Button, Checkbox } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { DatePicker, Space } from 'antd';
+import moment from 'moment';
+import { Select } from 'antd';
+import { Typography } from 'antd';
+
 
 function MainCourseManage(props) {
 
@@ -14,7 +20,15 @@ function MainCourseManage(props) {
 
     const modalBox = useRef()
 
-    const { addToast } = useToasts()
+    const { Option } = Select;
+    const { Title, Paragraph, Text, Link } = Typography;
+    const { TextArea } = Input;
+
+    const onFinish = (values) => {
+        console.log('Received values of form: ', values);
+    };
+
+    const { addToast, toastStack } = useToasts()
 
     let [dataControl, setDataControl] = useState({
         tenKH: "",
@@ -24,15 +38,23 @@ function MainCourseManage(props) {
     const courseList = useSelector(state => state.CourseReducer.arrCourse);
     const courseDetail = useSelector(state => state.CourseReducer.courseDetail)
 
-    let [disable, setDisabled] = useState("disabled");
-    let [user, setUser] = useState({})
+    let [disable, setDisabled] = useState({});
+    let [course, setCourse] = useState({})
+    let [pageTitle, setPageTitle] = useState()
+    let [pictures, setPictures] = useState(null)
+
     let [addUser, setAddUser] = useState({})
     let [updateUser, setUpdateUser] = useState({})
 
     let [startDate, setStartDate] = useState(new Date());
 
-    const handleChange = () => {
-        console.log("hello")
+    const handleChange = (e) => {
+        const value = e.target.id
+
+        setCourse({
+            ...course,
+            [value]: e.target.value
+        });
     }
 
     const renderPages = () => {
@@ -46,60 +68,87 @@ function MainCourseManage(props) {
     const viewCourse = (maKH) => {
         console.log(maKH)
         layChiTietKhoaHoc(maKH)
-        .then((res) => {
-            dispatch({
+            .then((res) => {
+                dispatch({
                     type: 'LAY_CHI_TIET_KHOA_HOC',
                     data: res.data
                 })
-        })
-        .catch((err) => {
-            addToast("Loi load du lieu", {
-                appearance: 'error',
-                autoDismiss: true,
-              })
-        });
+
+            })
+            .catch((err) => {
+                addToast("Loi load du lieu", {
+                    appearance: 'error',
+                    autoDismiss: true,
+                })
+            });
 
         modalBox.current.classList.add("active")
+
+        setDisabled({ disabled: "disabled" })
+
+        setPageTitle({ mode: "view", "title": "Course Information" })
     }
 
     const editCourse = (maKH) => {
         console.log(maKH)
         layChiTietKhoaHoc(maKH)
-        .then((res) => {
-            dispatch({
+            .then((res) => {
+                dispatch({
                     type: 'LAY_CHI_TIET_KHOA_HOC',
                     data: res.data
                 })
-        })
-        .catch((err) => {
-            addToast("Loi load du lieu", {
-                appearance: 'error',
-                autoDismiss: true,
-              })
-        });
+            })
+            .catch((err) => {
+                addToast("Loi load du lieu", {
+                    appearance: 'error',
+                    autoDismiss: true,
+                })
+            });
 
         modalBox.current.classList.add("active")
+        setDisabled({})
+        setPageTitle({ mode: "edit", "title": "Edit Course Information" })
+    }
+
+    const addCourse = () => {
+        modalBox.current.classList.add("active")
+        console.log(course)
+        setCourse({})
+        setDisabled({})
+        setPageTitle("Add Course Information")
+
+        setStartDate(new Date())
+
+        setPageTitle({ mode: "add", "title": "Add Course Information" })
+
+
+        // document.getElementById("maKhoaHoc").value = ""
+        // document.getElementById("tenKhoaHoc").value = ""
+        // document.getElementById("hoTen").value = ""
+        // document.getElementById("luotXem").value = ""
+        // document.getElementById("maLoaiNguoiDung").getElementsByTagName("option")[0].selected = true;
+        // document.getElementById("moTa").value = ""
     }
 
     const deleteCourse = (maKH) => {
         xoaKhoaHoc(maKH)
-        .then((res) => {
-            dispatch({
+            .then((res) => {
+                dispatch({
                     type: 'XOA_KHOA_HOC',
                     data: maKH
                 })
-            addToast("Xoa khoa hoc thanh cong", {
-                appearance: 'success',
-                autoDismiss: true,
+                addToast("Xóa khóa học thành công", {
+                    appearance: 'success',
+                    autoDismiss: true,
+                })
             })
-        })
-        .catch((err) => {
-            console.log("errors:", err);
-            addToast("Xoa khoa hoc that bai", {
-                appearance: 'error',
-                autoDismiss: true,
-            })
-        });
+            .catch((err) => {
+                console.log("errors:", err);
+                addToast("Xóa khóa học thất bại", {
+                    appearance: 'error',
+                    autoDismiss: true,
+                })
+            });
     }
 
     const renderCourses = () => {
@@ -137,6 +186,70 @@ function MainCourseManage(props) {
         })
     }
 
+    const onDrop = (picture) => {
+        setPictures(picture)
+
+        console.log(pictures)
+    }
+
+
+    const submitAddCourse = async (e) => {
+        e.preventDefault()
+
+        let error = false
+        let errorStr = ""
+
+        if (pictures == null) {
+            addToast("Them hinh anh", {
+                appearance: 'error',
+                autoDismiss: true,
+            })
+
+            return
+        }
+
+        let form = new FormData()
+
+        form.append("file", pictures[pictures.length - 1])
+        form.append("tenKhoaHoc", course?.tenKhoaHoc)
+        form.append("maNhom", course?.maNhom)
+
+        const imageUpload = await uploadHinhAnhKhoaHoc(form)
+
+        if (imageUpload.status == "200") {
+
+            let addCourseJson = {
+                "maKhoaHoc": course.maKhoaHoc,
+                "biDanh": course.tenKhoaHoc,
+                "tenKhoaHoc": course.tenKhoaHoc,
+                "moTa": course.moTa,
+                "luotXem": course.luotXem,
+                "danhGia": course.danhGia,
+                "hinhAnh": pictures[0].name,
+                "maNhom": course.maNhom,
+                "ngayTao": course.ngayTao,
+                "maDanhMucKhoaHoc": course.maDanhMucKhoaHoc,
+                "taiKhoanNguoiTao": course.nguoiTao?.taiKhoan
+            }
+
+            const formUpload = await themKhoaHoc(addCourseJson)
+
+            if (formUpload.status == "200") {
+                addToast("Them khoa hoc thanh cong", {
+                    appearance: 'success',
+                    autoDismiss: true,
+                })
+            }
+        }
+
+        addToast("Them khoa hoc that bai", {
+            appearance: 'error',
+            autoDismiss: true,
+        })
+
+        console.log(e)
+    }
+
     useEffect(() => {
         searchCourse()
     }, [dataControl])
@@ -146,19 +259,10 @@ function MainCourseManage(props) {
     }, [courseList])
 
     useEffect(() => {
-        console.log(courseDetail.moTa)
-
-        if(courseDetail.nguoiTao?.maLoaiNguoiDung == "HV"){
-            document.getElementById("maLoaiNguoiDungDetail").getElementsByTagName("option")[0].selected  = true;
-        }else{
-            document.getElementById("maLoaiNguoiDungDetail").getElementsByTagName("option")[1].selected  = true;
-        }
-
-        if(courseDetail?.ngayTao != null && courseDetail?.ngayTao != "null"){
-            let dateParts = courseDetail.ngayTao.split("/");
-            setStartDate(new Date(dateParts[2], dateParts[1] - 1, dateParts[0]))
-            console.log(dateParts)
-        }
+        console.log(courseDetail)
+        setCourse({
+            ...courseDetail
+        });
     }, [courseDetail])
 
     return (
@@ -167,7 +271,7 @@ function MainCourseManage(props) {
                 <div className="col-md-5 pl-0">
                     <div className="list-users">
                         <div className="group-select-info d-flex justify-content-between  align-items-center p-3">
-                            <button className="btn-add shadow"><i className="fa fa-plus" /></button>
+                            <button onClick={addCourse} className="btn-add shadow"><i className="fa fa-plus" /></button>
                             <div className="count-user d-flex justify-content-center align-items-center">
                                 <span className="icon-avatar"><i className="fa fa-user-circle" /></span>
                                 <span className="content">179 users was found!!</span>
@@ -204,94 +308,101 @@ function MainCourseManage(props) {
                 <div className="col-md-7">
                     <div className="modal-user pb-3" ref={modalBox} id="modalFormDetails">
                         <div className="row">
-                            <div className="col-lg-8">
-                                <div className="modal-user--course">
-                                    <div className="modal-user--course__avatar d-flex flex-column justify-content-center align-items-center">
-                                        <div className="avatar-course">
-                                            <img className="w-100 h-100" src={courseDetail.hinhAnh} alt />
-                                        </div>
-                                    </div>
-                                    <div className="modal-user--course__pending d-flex justify-content-center align-items-center flex-column">
-                                        <div className="content d-flex justify-content-between align-items-center">
-                                            <p className="content-title">Pending Courses</p>
-                                            <p className="note">Need approved to allow the user accessing</p>
-                                            <div className="custom-arrow-content">
-                                                <span className="arrow-down"><i className="fa fa-angle-down" /></span>
-                                            </div>
-                                        </div>
-                                        <div className="details">
-                                            <div className="list-details">
-                                                <ul>
-                                                    <li className="list-details--item">
-                                                        <div className="d-flex justify-content-center align-items-center">
-                                                            <span className="icon-user"><i className="fa fa-id-card-alt" /></span>
-                                                            <span className="content">Best Java Practice Project From Basic to Advance</span>
-                                                            <span className="icon-delete"><i className="fa fa-circle-notch" /></span>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="modal-user--course__approved d-flex justify-content-center align-items-center flex-column">
-                                        <div className="content d-flex justify-content-between align-items-center">
-                                            <p className="content-title">Approved Courses</p>
-                                            <p className="note">The courses have already accessed by user</p>
-                                            <div className="custom-arrow-content">
-                                                <span className="arrow-down"><i className="fa fa-angle-down" /></span>
-                                            </div>
-                                        </div>
-                                        <div className="details" />
-                                    </div>
-                                    <div className="modal-user--course__available d-flex justify-content-center align-items-center flex-column">
-                                        <div className="content d-flex justify-content-between align-items-center">
-                                            <p className="content-title">Available Courses</p>
-                                            <p className="note">Registing a course quickly for user</p>
-                                            <div className="custom-arrow-content">
-                                                <span className="arrow-down"><i className="fa fa-angle-down" /></span>
-                                            </div>
-                                        </div>
-                                        <div className="details" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-4">
+                            <div className="col-12">
                                 <div className="modal-user--form">
-                                    <form>
-                                        <div className="form-group">
-                                            <label htmlFor="username">Course ID</label>
-                                            <input disabled className="form-control" type="text" id="username" value={courseDetail.maKhoaHoc} />
+                                    <h1>{pageTitle?.title}</h1>
+                                    {(pageTitle?.mode != "add") ?
+                                        <div className="image-course">
+                                            <img src={courseDetail.hinhAnh} alt="image course" />
                                         </div>
-                                        <div className="form-group">
-                                            <label htmlFor="emailDetail">Course Name</label>
-                                            <input disabled className="form-control" type="text" id="emailDetail" value={courseDetail.tenKhoaHoc} />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="emailDetail">Creator</label>
-                                            <input disabled className="form-control" type="text" id="emailDetail" value={courseDetail.nguoiTao?.hoTen} />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="emailDetail">View</label>
-                                            <input disabled className="form-control" type="text" id="emailDetail" value={courseDetail.luotXem} />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="emailDetail">Date create</label>
-                                            <DatePicker disabled selected={startDate} className="form-control" onChange={(date) => setStartDate(date)} />
-                                        </div>
-                                        <div className="form-group d-flex flex-column">
-                                            <label>Accout type</label>
-                                            <select id="maLoaiNguoiDungDetail">
-                                                <option value="HV" >Sinh viên</option>
-                                                <option value="GV" >Giảng viên</option>
-                                            </select>
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="emailDetail">Description</label>
-                                            <textarea disabled className="form-control" id="emailDetail" rows="10" value={courseDetail.moTa}>
-                                                {courseDetail.moTa}
-                                            </textarea>
-                                        </div>
-                                    </form>
+                                        : ""}
+
+                                    <Form
+                                        name="normal_login"
+                                        className="login-form"
+                                        initialValues={{ remember: true }}
+                                        onFinish={onFinish}
+
+                                    >
+                                        <Form.Item
+                                            name="username"
+                                            rules={[{ required: true, message: 'Please input your Username!' }]}
+                                        >
+                                            <Input placeholder="Ma khoc hoc" onChange={handleChange} {...disable} id="maKhoaHoc" defaultValue={courseDetail.maKhoaHoc} />
+                                        </Form.Item>
+                                        <Form.Item
+                                            name="text"
+                                            rules={[{ required: true, message: 'Please input your Password!' }]}
+                                        >
+                                            <Input
+                                                type="text"
+                                                placeholder="Ten khoa hoc"
+                                                onChange={handleChange} {...disable} id="tenKhoaHoc"
+                                                defaultValue={courseDetail.tenKhoaHoc}
+                                            />
+                                        </Form.Item>
+                                        <Form.Item>
+                                            <DatePicker onChange={handleChange} {...disable} className="form-control" id="ngayTao" defaultValue={moment(new Date(), 'DD/MM/YYYY')} format={'DD/MM/YYYY'} />
+                                        </Form.Item>
+                                        <Form.Item>
+                                            <Select defaultValue="HV" id="maLoaiNguoiDung" className="form-control" style={{ width: 120 }} {...disable}>
+                                                <Option value="HV" className="form-control" >Sinh Vien</Option>
+                                                <Option value="GV" className="form-control"  >Giao Vu</Option>
+                                            </Select>
+                                        </Form.Item>
+                                        <Form.Item
+                                            name="luotXem"
+                                            rules={[{ required: true, message: 'Please input your Password!' }]}
+                                        >
+                                            <Input
+                                                type="text"
+                                                placeholder="Luot xem"
+                                                onChange={handleChange} {...disable} id="luotXem"
+                                                defaultValue={courseDetail.luotXem}
+                                            />
+                                        </Form.Item>
+                                        <Form.Item
+                                            name="danhGia"
+                                            rules={[{ required: true, message: 'Please input your Password!' }]}
+                                        >
+                                            <Input
+                                                type="text"
+                                                placeholder="Danh gia"
+                                                onChange={handleChange} {...disable} id="danhGia"
+                                                defaultValue={courseDetail.luotXem}
+                                            />
+                                        </Form.Item>
+                                        <Form.Item>
+                                            <Select defaultValue="GP01" id="maLoaiNguoiDung" className="form-control" style={{ width: 120 }} {...disable}>
+                                                <Option value="GP01">Group 01</Option>
+                                                <Option value="GP02">Group 02</Option>
+                                                <Option value="GP03">Group 03</Option>
+                                                <Option value="GP04">Group 04</Option>
+                                                <Option value="GP05">Group 05</Option>
+                                                <Option value="GP06">Group 06</Option>
+                                                <Option value="GP07">Group 07</Option>
+                                                <Option value="GP08">Group 08</Option>
+                                            </Select>
+                                        </Form.Item>
+                                        <Form.Item>
+                                            <TextArea rows={4} onChange={handleChange} {...disable} id="moTa" value={courseDetail.moTa} />
+                                        </Form.Item>
+                                        {(pageTitle?.mode == "add") ? <Form.Item><ImageUploader
+                                            withIcon={true}
+                                            buttonText='Choose images'
+                                            onChange={onDrop}
+                                            imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                                            maxFileSize={5242880}
+                                            singleImage={false}
+                                        /></Form.Item> : ""}
+                                        {(pageTitle?.mode == "add" || pageTitle?.mode == "edit") ?
+                                            <Form.Item>
+                                                <Button type="primary" htmlType="submit" className="form-control">
+                                                    Submit
+                                                </Button>
+                                            </Form.Item>
+                                        : ""}
+                                    </Form>
                                 </div>
                             </div>
                         </div>
