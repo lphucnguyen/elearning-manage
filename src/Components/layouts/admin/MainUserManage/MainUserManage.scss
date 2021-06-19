@@ -198,6 +198,10 @@
         padding: 15px;
         display: none;
 
+        textarea {
+            font-size: fs("body2");
+        }
+
         .modal-user--course {
             background: transparent;
             width: 100%;

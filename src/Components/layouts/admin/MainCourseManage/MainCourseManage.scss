@@ -18,6 +18,41 @@
     }
 }
 
+.modal-user--form {
+    h1 {
+        color: tc("textWhite");
+        text-align: center;
+    }
+
+    input[type='text'] {
+        display: block !important;
+    }
+
+    .image-course {
+        width: 100%;
+        height: 300px;
+        margin-bottom: 20px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .react-datepicker-wrapper {
+        width: 100% !important;
+    }
+
+    .react-datepicker__month-container {
+        font-size: fs("body1");
+    }
+
+    .react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header {
+        font-size: fs("body1");
+    }
+}
+
 .modal-user.active {
     display: block;
 }

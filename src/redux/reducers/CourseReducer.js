@@ -41,16 +41,19 @@ export const CourseReducer = (state = stateDefault, action) => {
             console.log("reducer " + action.data)
             return {...state};
         }
+
         case 'LAY_CHI_TIET_KHOA_HOC': {
             state.arrCourse = [...action.data];
             
             return {...state};
         }
+
         case 'XOA_DANH_SACH_KHOA_HOC': {
             state.arrCourse = [];
 
             return {...state};
         }
+        
         case 'XOA_KHOA_HOC': {
             let arrCourse = state.arrCourse.filter((course) => {
                 return course.maKhoaHoc != action.data
