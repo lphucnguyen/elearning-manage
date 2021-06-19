@@ -46,6 +46,7 @@
         }
 
         .slidebar-profile {
+            margin-bottom: 70px;
             background: transparent;
             opacity: 1;
             transition: all 0.5s linear;
@@ -138,5 +139,26 @@
     .main-container {
         width: calc(100% - 70px);
         margin-left: 70px;
+    }
+}
+
+// Responsive
+@media (max-width: rp("small")) {
+    .wrapper {
+        .slidebar {
+            width: 100% !important;
+            .slidebar-menu {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }       
+        }
+
+    }
+    .wrapper.collapse-slide {
+        .slidebar {
+            width: 70px !important;
+        }
     }
 }

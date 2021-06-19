@@ -26,9 +26,17 @@ export class UserServices {
         });
     };
     
-    layDanhSachNguoiDung = (group) => {
+    layDanhSachNguoiDung = (group, username) => {
+        
+        if (username === "") {
+            return axios({
+                url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${group}`,
+                method: "GET",
+            });
+        }
+
         return axios({
-            url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${group}`,
+            url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${group}&tuKhoa=${username}`,
             method: "GET",
         });
     };
@@ -56,6 +64,7 @@ export class UserServices {
         });
     };
     capNhatThongTinNguoiDung = (value) => {
+        console.log(value.maNhom);
         return axios({
             url: `${domain}/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
             method: "PUT",
