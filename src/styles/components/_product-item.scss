@@ -11,7 +11,8 @@
     color: #fff;
     border-radius: 5px;
     overflow: hidden;
-    margin: 0px 10px;
+    margin: 0px 5px;
+    border: 1px solid #fff;
 
     .item-body {
         position: relative;
@@ -56,6 +57,7 @@
         align-items: center;
         font-size: 18px;
         padding: 5px;
+        border-top: 1px solid #fff;
 
         span {
             width: 45px;

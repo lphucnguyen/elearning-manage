@@ -1,17 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Loading from '../../../../common/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux'
-import { layDanhSachKhoaHocAction, xoaKhoaHoc, uploadHinhAnhKhoaHoc, themKhoaHoc } from '../../../../redux/actions/CourseAction'
+import { layDanhSachKhoaHocAction, xoaKhoaHoc, uploadHinhAnhKhoaHoc, themKhoaHoc, capNhatKhoaHoc } from '../../../../redux/actions/CourseAction'
 import { layChiTietKhoaHoc } from '../../../../redux/actions/CourseAction';
 import { useToasts } from 'react-toast-notifications'
 import ImageUploader from 'react-images-upload';
 import './MainCourseManage.scss'
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { DatePicker, Space } from 'antd';
 import moment from 'moment';
-import { Select } from 'antd';
-import { Typography } from 'antd';
+import { Select, Upload, Typography } from 'antd';
 
 
 function MainCourseManage(props) {
@@ -38,8 +37,20 @@ function MainCourseManage(props) {
     const courseList = useSelector(state => state.CourseReducer.arrCourse);
     const courseDetail = useSelector(state => state.CourseReducer.courseDetail)
 
-    let [disable, setDisabled] = useState({});
-    let [course, setCourse] = useState({})
+    let [disable, setDisabled] = useState({})
+    let [course, setCourse] = useState({
+        "maKhoaHoc": "",
+        "biDanh": "123124",
+        "tenKhoaHoc": "",
+        "moTa": "",
+        "luotXem": "",
+        "danhGia": "0",
+        "hinhAnh": "",
+        "maNhom": "GP01",
+        "ngayTao": new Date().toString(),
+        "maDanhMucKhoaHoc": "BackEnd",
+        "taiKhoanNguoiTao": ""
+    })
     let [pageTitle, setPageTitle] = useState()
     let [pictures, setPictures] = useState(null)
 
@@ -49,12 +60,17 @@ function MainCourseManage(props) {
     let [startDate, setStartDate] = useState(new Date());
 
     const handleChange = (e) => {
-        const value = e.target.id
+
+        const value = e.target?.id
 
         setCourse({
             ...course,
             [value]: e.target.value
         });
+    }
+
+    const selectChange = (e) => {
+        console.log(e)
     }
 
     const renderPages = () => {
@@ -76,7 +92,7 @@ function MainCourseManage(props) {
 
             })
             .catch((err) => {
-                addToast("Loi load du lieu", {
+                addToast("Loi load khoa hoc", {
                     appearance: 'error',
                     autoDismiss: true,
                 })
@@ -113,7 +129,19 @@ function MainCourseManage(props) {
     const addCourse = () => {
         modalBox.current.classList.add("active")
         console.log(course)
-        setCourse({})
+        setCourse({
+            "maKhoaHoc": "",
+            "biDanh": "41215",
+            "tenKhoaHoc": "",
+            "moTa": "",
+            "luotXem": "",
+            "danhGia": "0",
+            "hinhAnh": "",
+            "maNhom": "GP01",
+            "ngayTao": new Date().toString(),
+            "maDanhMucKhoaHoc": "BackEnd",
+            "taiKhoanNguoiTao": ""
+        })
         setDisabled({})
         setPageTitle("Add Course Information")
 
@@ -121,13 +149,6 @@ function MainCourseManage(props) {
 
         setPageTitle({ mode: "add", "title": "Add Course Information" })
 
-
-        // document.getElementById("maKhoaHoc").value = ""
-        // document.getElementById("tenKhoaHoc").value = ""
-        // document.getElementById("hoTen").value = ""
-        // document.getElementById("luotXem").value = ""
-        // document.getElementById("maLoaiNguoiDung").getElementsByTagName("option")[0].selected = true;
-        // document.getElementById("moTa").value = ""
     }
 
     const deleteCourse = (maKH) => {
@@ -186,68 +207,120 @@ function MainCourseManage(props) {
         })
     }
 
-    const onDrop = (picture) => {
-        setPictures(picture)
+    const getBase64 = (img, callback) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => callback(reader.result));
+        reader.readAsDataURL(img);
+    }
 
+    const changePicture = (info) => {
         console.log(pictures)
+        setPictures(info.file)
     }
 
 
     const submitAddCourse = async (e) => {
         e.preventDefault()
 
-        let error = false
-        let errorStr = ""
-
         if (pictures == null) {
-            addToast("Them hinh anh", {
-                appearance: 'error',
-                autoDismiss: true,
-            })
-
+            message.error("Them hinh anh")
             return
+        }
+
+        if (!course.maKhoaHoc) {
+            message.error("Them ma khoa hoc")
+            return;
+        }
+        if (!course.tenKhoaHoc) {
+            message.error("Them ten khoa hoc")
+            return;
+        }
+        if (!course.luotXem) {
+            message.error("Them ma luot xem")
+            return;
+        }
+        if (!course.moTa) {
+            message.error("Them mo ta")
+            return;
+        }
+        if (!course.taiKhoanNguoiTao) {
+            message.error("Them nguoi tao")
+            return;
         }
 
         let form = new FormData()
 
-        form.append("file", pictures[pictures.length - 1])
+        form.append("file", pictures.originFileObj)
         form.append("tenKhoaHoc", course?.tenKhoaHoc)
         form.append("maNhom", course?.maNhom)
 
-        const imageUpload = await uploadHinhAnhKhoaHoc(form)
+        course.hinhAnh = pictures.name
 
-        if (imageUpload.status == "200") {
+        try {
+            const formUpload = await themKhoaHoc(course)
+            const imageUpload = await uploadHinhAnhKhoaHoc(form)
 
-            let addCourseJson = {
-                "maKhoaHoc": course.maKhoaHoc,
-                "biDanh": course.tenKhoaHoc,
-                "tenKhoaHoc": course.tenKhoaHoc,
-                "moTa": course.moTa,
-                "luotXem": course.luotXem,
-                "danhGia": course.danhGia,
-                "hinhAnh": pictures[0].name,
-                "maNhom": course.maNhom,
-                "ngayTao": course.ngayTao,
-                "maDanhMucKhoaHoc": course.maDanhMucKhoaHoc,
-                "taiKhoanNguoiTao": course.nguoiTao?.taiKhoan
-            }
+            dispatch(layDanhSachKhoaHocAction(dataControl.tenKH, dataControl.maNhom))
 
-            const formUpload = await themKhoaHoc(addCourseJson)
+            addToast("Them khoa hoc thanh cong", {
+                appearance: 'success',
+                autoDismiss: true,
+            })
+        } catch (err) {
+            console.log(err)
 
-            if (formUpload.status == "200") {
-                addToast("Them khoa hoc thanh cong", {
-                    appearance: 'success',
-                    autoDismiss: true,
-                })
-            }
+            addToast(err.response.data, {
+                appearance: 'error',
+                autoDismiss: true,
+            })
+        }
+    }
+
+    const submitEditCourse = async (e) => {
+        e.preventDefault()
+
+        if (!course.maKhoaHoc) {
+            message.error("Them ma khoa hoc")
+            return;
+        }
+        if (!course.tenKhoaHoc) {
+            message.error("Them ten khoa hoc")
+            return;
+        }
+        if (!course.luotXem) {
+            message.error("Them ma luot xem")
+            return;
+        }
+        if (!course.moTa) {
+            message.error("Them mo ta")
+            return;
+        }
+        if (!course.taiKhoanNguoiTao) {
+            message.error("Them nguoi tao")
+            return;
         }
 
-        addToast("Them khoa hoc that bai", {
-            appearance: 'error',
-            autoDismiss: true,
-        })
+        console.log(course)
 
-        console.log(e)
+        try {
+            const formUpload = await capNhatKhoaHoc(course)
+
+            dispatch(layDanhSachKhoaHocAction(dataControl.tenKH, dataControl.maNhom))
+
+            addToast("Cap nhat khoa hoc thanh cong", {
+                appearance: 'success',
+                autoDismiss: true,
+            })
+        } catch (err) {
+            console.log(err)
+
+            addToast(err.response.data, {
+                appearance: 'error',
+                autoDismiss: true,
+            })
+        }
+
+
     }
 
     useEffect(() => {
@@ -261,7 +334,17 @@ function MainCourseManage(props) {
     useEffect(() => {
         console.log(courseDetail)
         setCourse({
-            ...courseDetail
+            "maKhoaHoc": courseDetail?.maKhoaHoc,
+            "biDanh": courseDetail?.tenKhoaHoc,
+            "tenKhoaHoc": courseDetail?.tenKhoaHoc,
+            "moTa": courseDetail?.moTa,
+            "luotXem": courseDetail?.luotXem,
+            "danhGia": "0",
+            "hinhAnh": courseDetail?.hinhAnh,
+            "maNhom": courseDetail?.maNhom,
+            "ngayTao": courseDetail?.ngayTao,
+            "maDanhMucKhoaHoc": courseDetail.danhMucKhoaHoc?.maDanhMucKhoahoc,
+            "taiKhoanNguoiTao": courseDetail?.nguoiTao?.taiKhoan
         });
     }, [courseDetail])
 
@@ -309,100 +392,93 @@ function MainCourseManage(props) {
                     <div className="modal-user pb-3" ref={modalBox} id="modalFormDetails">
                         <div className="row">
                             <div className="col-12">
+                                <h1 className="page-title">{pageTitle?.title}</h1>
                                 <div className="modal-user--form">
-                                    <h1>{pageTitle?.title}</h1>
-                                    {(pageTitle?.mode != "add") ?
-                                        <div className="image-course">
-                                            <img src={courseDetail.hinhAnh} alt="image course" />
+                                    <div className="row">
+                                        <div className={(pageTitle?.mode == "add") ? 'col-12' : 'col-lg-6'}>
+                                            {(pageTitle?.mode != "add") ?
+                                            <div className="image-course w-100">
+                                                <img src={courseDetail.hinhAnh} alt="image course" />
+                                            </div>
+                                            : ""}
                                         </div>
-                                        : ""}
-
-                                    <Form
-                                        name="normal_login"
-                                        className="login-form"
-                                        initialValues={{ remember: true }}
-                                        onFinish={onFinish}
-
-                                    >
-                                        <Form.Item
-                                            name="username"
-                                            rules={[{ required: true, message: 'Please input your Username!' }]}
-                                        >
-                                            <Input placeholder="Ma khoc hoc" onChange={handleChange} {...disable} id="maKhoaHoc" defaultValue={courseDetail.maKhoaHoc} />
-                                        </Form.Item>
-                                        <Form.Item
-                                            name="text"
-                                            rules={[{ required: true, message: 'Please input your Password!' }]}
-                                        >
-                                            <Input
-                                                type="text"
-                                                placeholder="Ten khoa hoc"
-                                                onChange={handleChange} {...disable} id="tenKhoaHoc"
-                                                defaultValue={courseDetail.tenKhoaHoc}
-                                            />
-                                        </Form.Item>
-                                        <Form.Item>
-                                            <DatePicker onChange={handleChange} {...disable} className="form-control" id="ngayTao" defaultValue={moment(new Date(), 'DD/MM/YYYY')} format={'DD/MM/YYYY'} />
-                                        </Form.Item>
-                                        <Form.Item>
-                                            <Select defaultValue="HV" id="maLoaiNguoiDung" className="form-control" style={{ width: 120 }} {...disable}>
-                                                <Option value="HV" className="form-control" >Sinh Vien</Option>
-                                                <Option value="GV" className="form-control"  >Giao Vu</Option>
-                                            </Select>
-                                        </Form.Item>
-                                        <Form.Item
-                                            name="luotXem"
-                                            rules={[{ required: true, message: 'Please input your Password!' }]}
-                                        >
-                                            <Input
-                                                type="text"
-                                                placeholder="Luot xem"
-                                                onChange={handleChange} {...disable} id="luotXem"
-                                                defaultValue={courseDetail.luotXem}
-                                            />
-                                        </Form.Item>
-                                        <Form.Item
-                                            name="danhGia"
-                                            rules={[{ required: true, message: 'Please input your Password!' }]}
-                                        >
-                                            <Input
-                                                type="text"
-                                                placeholder="Danh gia"
-                                                onChange={handleChange} {...disable} id="danhGia"
-                                                defaultValue={courseDetail.luotXem}
-                                            />
-                                        </Form.Item>
-                                        <Form.Item>
-                                            <Select defaultValue="GP01" id="maLoaiNguoiDung" className="form-control" style={{ width: 120 }} {...disable}>
-                                                <Option value="GP01">Group 01</Option>
-                                                <Option value="GP02">Group 02</Option>
-                                                <Option value="GP03">Group 03</Option>
-                                                <Option value="GP04">Group 04</Option>
-                                                <Option value="GP05">Group 05</Option>
-                                                <Option value="GP06">Group 06</Option>
-                                                <Option value="GP07">Group 07</Option>
-                                                <Option value="GP08">Group 08</Option>
-                                            </Select>
-                                        </Form.Item>
-                                        <Form.Item>
-                                            <TextArea rows={4} onChange={handleChange} {...disable} id="moTa" value={courseDetail.moTa} />
-                                        </Form.Item>
-                                        {(pageTitle?.mode == "add") ? <Form.Item><ImageUploader
-                                            withIcon={true}
-                                            buttonText='Choose images'
-                                            onChange={onDrop}
-                                            imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                                            maxFileSize={5242880}
-                                            singleImage={false}
-                                        /></Form.Item> : ""}
-                                        {(pageTitle?.mode == "add" || pageTitle?.mode == "edit") ?
-                                            <Form.Item>
-                                                <Button type="primary" htmlType="submit" className="form-control">
-                                                    Submit
-                                                </Button>
-                                            </Form.Item>
-                                        : ""}
-                                    </Form>
+                                        <div className={(pageTitle?.mode == "add") ? 'col-12' : 'col-lg-6'}>
+                                            <form onSubmit={(pageTitle?.mode != "add") ? submitEditCourse : submitAddCourse}>
+                                                <Form.Item>
+                                                    <Input placeholder="Ma khoc hoc" onChange={handleChange} {...disable} id="maKhoaHoc" value={course.maKhoaHoc} />
+                                                </Form.Item>
+                                                <Form.Item>
+                                                    <Input
+                                                        type="text"
+                                                        onChange={handleChange} {...disable} id="tenKhoaHoc"
+                                                        placeholder="Ten khoa hoc"
+                                                        value={course.tenKhoaHoc}
+                                                    />
+                                                </Form.Item>
+                                                <Form.Item >
+                                                    <Input
+                                                        type="text"
+                                                        onChange={handleChange} {...disable} id="taiKhoanNguoiTao"
+                                                        placeholder="Nguoi tao"
+                                                        value={course.taiKhoanNguoiTao}
+                                                    />
+                                                </Form.Item>
+                                                <Form.Item>
+                                                    <DatePicker className="form-control" onChange={(date, dateStr) => { setCourse({ ...course, "ngayTao": dateStr }) }} {...disable} defaultValue={moment(new Date(), 'DD/MM/YYYY')} format={'DD/MM/YYYY'} />
+                                                </Form.Item>
+                                                <Form.Item>
+                                                    <Input
+                                                        type="text"
+                                                        placeholder="Luot xem"
+                                                        onChange={handleChange} {...disable} id="luotXem"
+                                                        value={course.luotXem}
+                                                        className="mt-2"
+                                                    />
+                                                </Form.Item>
+                                                <Form.Item>
+                                                    <Select className="form-control" value={course.maNhom} onChange={(value) => setCourse({ ...course, "maNhom": value })} id="maLoaiNguoiDung" style={{ width: '100%' }} {...disable}>
+                                                        <Option value="GP01">Group 01</Option>
+                                                        <Option value="GP02">Group 02</Option>
+                                                        <Option value="GP03">Group 03</Option>
+                                                        <Option value="GP04">Group 04</Option>
+                                                        <Option value="GP05">Group 05</Option>
+                                                        <Option value="GP06">Group 06</Option>
+                                                        <Option value="GP07">Group 07</Option>
+                                                        <Option value="GP08">Group 08</Option>
+                                                    </Select>
+                                                </Form.Item>
+                                                <Form.Item>
+                                                    <Select value={course.maDanhMucKhoaHoc} onChange={(value) => setCourse({ ...course, "maDanhMucKhoaHoc": value })} id="maLoaiNguoiDung" style={{ width: '100%' }} {...disable}>
+                                                        <Option value="BackEnd">Lập trình Backend</Option>
+                                                        <Option value="Design">Thiết kế Web</Option>
+                                                        <Option value="DiDong">Lập trình di động</Option>
+                                                        <Option value="FrontEnd">Lập trình Front end</Option>
+                                                        <Option value="FullStack">Lập trình Full Stack</Option>
+                                                        <Option value="TuDuy">Tư duy lập trình</Option>
+                                                    </Select>
+                                                </Form.Item>
+                                                <Form.Item>
+                                                    <TextArea placeholder="Mo ta" rows={4} onChange={handleChange} {...disable} id="moTa" className="mt-2" value={course.moTa} />
+                                                </Form.Item>
+                                                {(pageTitle?.mode == "add") ? <Form.Item><Upload
+                                                    name="avatar"
+                                                    listType="picture-card"
+                                                    className="avatar-uploader"
+                                                    showUploadList={false}
+                                                    onChange={changePicture}
+                                                >
+                                                    +
+                                                </Upload></Form.Item> : ""}
+                                                {(pageTitle?.mode == "add" || pageTitle?.mode == "edit") ?
+                                                    <Form.Item>
+                                                        <Button type="submit" htmlType="submit" className="form-control">
+                                                            Submit
+                                                        </Button>
+                                                    </Form.Item>
+                                                    : ""}
+                                            </form>    
+                                        </div>                                                      
+                                    </div>
                                 </div>
                             </div>
                         </div>

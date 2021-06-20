@@ -82,3 +82,8 @@ export const themKhoaHoc = (form) => {
     return courseServices
     .themKhoaHoc(form)
 }
+
+export const capNhatKhoaHoc = (form) => {
+    return courseServices
+    .capNhatKhoaHoc(form)
+}

@@ -4,6 +4,10 @@
 @import "../../../../styles/base/reset";
 @import "../../../../styles/components/product-item";
 
+.user {
+    background: none !important;
+}
+
 .modal-user {
 
     .avatar-course {
@@ -18,15 +22,13 @@
     }
 }
 
-.modal-user--form {
-    h1 {
-        color: tc("textWhite");
-        text-align: center;
-    }
+.page-title {
+    color: tc("textWhite");
+    text-align: center;
+    margin-top: 20px;
+}
 
-    input[type='text'] {
-        display: block !important;
-    }
+.modal-user--form {
 
     .image-course {
         width: 100%;
