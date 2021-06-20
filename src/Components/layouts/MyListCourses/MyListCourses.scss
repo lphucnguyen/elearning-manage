@@ -1,0 +1,175 @@
+@import "../../../styles/helpers/function";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/theme";
+@import "../../../styles/base/reset";
+@import "../../../styles/components/button";
+@import "../../../styles/components/shadow";
+
+.my-courses {
+    width: 100%;
+    min-height: 100vh;
+    background: c("bgSecondary");
+    position: relative;
+
+    .list-courses-of-user {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate((-50%, -50%));
+        min-width: 600px;
+        min-height: 300px;
+        background: transparent;
+
+        .logo-title {
+            width: 100%;
+            height: 150px;
+            position: relative;
+            
+            .title-my-courses {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                min-width: 300px;
+                @include text(fs("h1"), tc("textOrange"), fw("fwMedium"), 0.5);
+                font-family: 'Poppins', sans-serif;
+                  
+                &::before {
+                content: "My Courses";
+                position: absolute;
+                color: transparent;
+                background-image: repeating-linear-gradient(
+                    45deg,
+                    transparent 0,
+                    transparent 2px,
+                    tc("textSecondary") 2px,
+                    tc("textSecondary") 4px
+                );
+                background-clip: text;
+                top: 0px;
+                left: 0;
+                z-index: -1;
+                transition: 1s;
+                }
+                
+                &::after {
+                content: "My Courses";
+                position: absolute;
+                color: transparent;
+                background-image: repeating-linear-gradient(
+                    135deg,
+                    transparent 0,
+                    transparent 2px,
+                    tc("textSecondary") 2px,
+                    tc("textSecondary") 4px
+                );
+                background-clip: text;
+                top: 0px;
+                left: 0px;
+                transition: 1s;
+                }
+                
+                &:hover:before {
+                top: 10px;
+                left: 10px;
+                }
+                
+                &:hover:after {
+                top: -10px;
+                left: -10px;
+                }
+            }
+        }
+
+        .count-user {
+            width: 210px;
+            height: 35px;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.23);
+            border-radius: 200px;
+            padding: 0px 5px;
+            background: c("bgGreen");
+            cursor: pointer;    
+            margin: 0px auto;
+            transition: all 0.3s linear;
+
+            span {
+                padding: 0px 5px;
+            }
+
+            .icon-avatar {
+                font-size: 20px;
+            }
+
+            .content {
+                @include text(fs("body1"), tc("textWhite"), fw("fwLight"), 0);
+                font-size: 12px;
+                font-weight: 300;
+            }
+
+            .icon-check {
+                font-size: 17px;
+                color: #fff;
+
+                &:hover {
+                    color: rgba(255, 255, 255, 0.4);
+                }
+            }
+        }
+
+        .list-box {
+            margin: 0px auto;
+            width: 100%;
+
+            .list-item {
+                width: 100%;
+                height: 100%;
+                padding: 20px;
+
+                .list-details--item {
+
+                    .icon-user {
+                        font-size: 20px;
+                        width: 45px;
+                        height: 40px;
+                        line-height: 40px;
+                        text-align: center;
+                        border-radius: 50%;
+                        background: c("bgGreenLight");
+                        color: tc("textPrimary");
+                    }
+
+                    .content {
+                        padding: 0px 10px;
+                        flex-basis: 40%;
+                        font-size: 17px;
+                        font-weight: 300;
+                        transition: all 0.3s linear;
+                        cursor: pointer;
+
+                        &:hover {
+                            color: tc("textGreen");
+                        }
+                    }
+                    
+                    .icon-delete {
+                        font-size: 20px;
+                        color: tc("textPrimary");
+                        width: 35px;
+                        height: 35px;
+                        line-height: 35px;
+                        text-align: center;
+                        border-radius: 50%;
+                        transition: all 0.3s linear;
+                        cursor: pointer;
+
+                        &:hover {
+                            color: tc("textGreen");
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+}

@@ -25,26 +25,23 @@ function Footer() {
                     <div className="col-md-3">
                         <h5 className="title">Contact Us</h5>
                         <ul className="list-footer">
-                            <li><a href="">Course</a></li>
-                            <li><a href="">Course</a></li>
-                            <li><a href="">Course</a></li>
-                            <li><a href="">Course</a></li>
-                            <li><a href="">Course</a></li>
+                            <li className="d-flex justify-content-left align-items-center"><i class="fa fa-map-marker-alt"></i><a href="">2746 Victoria  Part Avenue, Toronto, Ontario, MS2j Australia</a></li>
+                            <li className="d-flex justify-content-left align-items-center"><i class="fa fa-envelope"></i><a href="">course_abc@gmail.com</a></li>
                         </ul>
                     </div>
                     <div className="col-md-3">
                         <h5 className="title">Company</h5>
-                        <ul className="list-footer">
-                            <li><a href="">Course</a></li>
-                            <li><a href="">Course</a></li>
-                            <li><a href="">Course</a></li>
-                            <li><a href="">Course</a></li>
-                            <li><a href="">Course</a></li>
+                        <ul className="list-footer-company">
+                            <li><a href="">About</a></li>
+                            <li><a href="">Blog</a></li>
+                            <li><a href="">Press</a></li>
+                            <li><a href="">Policy</a></li>
+                            <li><a href="">Support</a></li>
                         </ul>
                     </div>
                     <div className="col-md-3">
                         <h5 className="title">Newsletter</h5>
-                        <p>To subscribe to our newsletter</p>
+                        <p className="mb-3">To subscribe to our newsletter</p>
                     </div>
                     <div className="col-md-3">
                         <h5 className="title">Contact Us</h5>

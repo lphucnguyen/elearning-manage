@@ -1,5 +1,6 @@
 import React from 'react'
 import "./Carousel.scss"
+import { NavLink } from 'react-router-dom';
 
 function Carousel() {
     return (
@@ -11,7 +12,7 @@ function Carousel() {
                         <h4 className="slider-head-subtitle">Online Course from the world</h4>
                     </div>
                     <div className="slider-body">
-                        <a href="" className="slider-body-btn">Get started <i class="fa fa-long-arrow-alt-right"></i></a>
+                        <NavLink to="/courses" className="slider-body-btn">Get started <i class="fa fa-long-arrow-alt-right"></i></NavLink>
                         <div className="slider-body-video">
                             <div className="slider-body-watch-video"><i class="fa fa-play"></i></div>
                             <div className="slider-body-video-text">How it work</div>

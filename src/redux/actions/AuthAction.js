@@ -19,7 +19,7 @@ export const login = (username, password) => {
                         error: false,
                         isLogin: true
                     })
-                    window.location = "/admin"
+                    window.location = "/home"
             })
             .catch((err) => {
                 console.log("errors:", err.message);

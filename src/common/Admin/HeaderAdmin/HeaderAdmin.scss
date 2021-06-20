@@ -24,9 +24,20 @@
         align-items: center;
         padding: 0px 25px;
 
-        .title {
-            @include text(fs("h3"), tc("textPrimary"), fw("fwRegular"), 0);
-            margin-left: 20px;
+        .logo {
+            padding-left: 35px; 
+            @include text(fs("h4"), tc("textPrimary"), fw("fwMedium"), 0);
+            background: linear-gradient(
+                to right, 
+                tc("textOrange"), tc("textGreen")
+            );
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            img {
+                width: 60px;
+                max-width: 100%;
+            }
         }
 
         .slidebar-btn {

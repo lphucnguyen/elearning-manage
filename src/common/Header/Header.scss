@@ -30,9 +30,16 @@
         }
 
         .logo {
-            font-size: fs("h6");
+            font-size: fs("h4");
+            background: linear-gradient(
+                to right, 
+                tc("textOrange"), tc("textGreen")
+            );
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
             img {
-                width: 30px;
+                width: 60px;
                 max-width: 100%;
             }
         }
