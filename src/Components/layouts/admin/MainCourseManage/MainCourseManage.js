@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, Fragment } from 'react'
 import Loading from '../../../../common/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux'
-import { layDanhSachKhoaHocAction, xoaKhoaHoc, uploadHinhAnhKhoaHoc, themKhoaHoc, capNhatKhoaHoc } from '../../../../redux/actions/CourseAction'
-import { layChiTietKhoaHocManage } from '../../../../redux/actions/CourseAction';
+import { layDanhSachKhoaHocAction, xoaKhoaHoc, uploadHinhAnhKhoaHoc, themKhoaHoc, capNhatKhoaHoc, layChiTietKhoaHocManage } from '../../../../redux/actions/CourseAction'
+import { layDanhSachNguoiDungChuaGhiDanhAction, layDanhSachHocVienChoXetDuyetAction, layDanhSachHocVienKhoaHocAction } from '../../../../redux/actions/UserAction';
 import { useToasts } from 'react-toast-notifications'
 import ImageUploader from 'react-images-upload';
 import './MainCourseManage.scss'
@@ -58,6 +58,10 @@ function MainCourseManage(props) {
     let [updateUser, setUpdateUser] = useState({})
 
     let [startDate, setStartDate] = useState(new Date());
+
+    let [pendingUsers, setPendingUsers] = useState([])
+    let [approvedUsers, setApprovedUsers] = useState([])
+    let [availableUsers, setAvailableUsers] = useState([])
 
     const handleChange = (e) => {
 
@@ -319,8 +323,47 @@ function MainCourseManage(props) {
                 autoDismiss: true,
             })
         }
+    }
 
+    const availableUser = (maKH, e) => {
 
+        document.querySelector(".details-course.not-registered").classList.toggle("show-list")
+
+        layDanhSachNguoiDungChuaGhiDanhAction(maKH)
+            .then((res) => {
+                setAvailableUsers(res.data)
+
+            })
+            .catch((err) => {
+                message.error(err.response.data)
+            })
+    }
+
+    const approvedUser = (maKH, e) => {
+
+        document.querySelector(".details-course.registered").classList.toggle("show-list")
+
+        layDanhSachHocVienKhoaHocAction(maKH)
+            .then((res) => {
+                setApprovedUsers(res.data)
+            })
+            .catch((err) => {
+                message.error(err.response.data)
+            })
+    }
+
+    const pendingUser = (maKH, e) => {
+
+        document.querySelector(".details-course.un-registered").classList.toggle("show-list")
+
+        layDanhSachHocVienChoXetDuyetAction(maKH)
+            .then((res) => {
+                setPendingUsers(res.data)
+                console.log(res.data)
+            })
+            .catch((err) => {
+                message.error(err.response.data)
+            })
     }
 
     useEffect(() => {
@@ -397,10 +440,96 @@ function MainCourseManage(props) {
                                     <div className="row">
                                         <div className={(pageTitle?.mode == "add") ? 'col-12' : 'col-lg-6'}>
                                             {(pageTitle?.mode != "add") ?
-                                            <div className="image-course w-100">
-                                                <img src={courseDetail.hinhAnh} alt="image course" />
-                                            </div>
-                                            : ""}
+                                                <div className="image-course w-100">
+                                                    <img src={courseDetail.hinhAnh} alt="image course" />
+                                                    <div className="modal-user--course mt-3">
+                                                        <div className="modal-user--course__pending d-flex justify-content-center align-items-center flex-column">
+                                                            <div className="content d-flex justify-content-between align-items-center"
+                                                                onClick={(e) => pendingUser(course.maKhoaHoc, e)}>
+                                                                <p className="content-title">Pending Users</p>
+                                                                <p className="note">Need approved to allow the user accessing</p>
+                                                                <div className="custom-arrow-content un-registered">
+                                                                    <span className="arrow-down"><i className="fa fa-angle-down" /></span>
+                                                                </div>
+                                                            </div>
+                                                            <div className="details-course un-registered">
+                                                                <div className="list-details">
+                                                                    <ul>
+                                                                        {pendingUsers.map((user, index) => {
+                                                                            return <Fragment>
+                                                                                <li className="list-details--item">
+                                                                                    <div className="d-flex justify-content-center align-items-center">
+                                                                                        <span className="icon-user"><i class="fa fa-folder"></i></span>
+                                                                                        <span className="content">{user.taiKhoan}</span>
+                                                                                        <div className="d-flex">
+                                                                                            <span title="Ban" className="icon-delete"><i class="fa fa-ban"></i></span>
+                                                                                            <span title="Approve" className="icon-like"><i class="fa fa-thumbs-up"></i></span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </Fragment>
+                                                                        })}
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="modal-user--course__approved d-flex justify-content-center align-items-center flex-column">
+                                                            <div className="content d-flex justify-content-between align-items-center"
+                                                                onClick={(e) => approvedUser(course.maKhoaHoc, e)}>
+                                                                <p className="content-title">Approved User</p>
+                                                                <p className="note">The courses have already accessed by user</p>
+                                                                <div className="custom-arrow-content registered">
+                                                                    <span className="arrow-down"><i className="fa fa-angle-down" /></span>
+                                                                </div>
+                                                            </div>
+                                                            <div className="details-course registered">
+                                                                <div className="list-details">
+                                                                    <ul>
+                                                                        {approvedUsers.map((user, index) => {
+                                                                            return <Fragment>
+                                                                                <li className="list-details--item">
+                                                                                    <div className="d-flex justify-content-center align-items-center">
+                                                                                        <span className="icon-user"><i class="fa fa-folder"></i></span>
+                                                                                        <span className="content">{user.taiKhoan}</span>
+                                                                                        <span title="Ban" className="icon-delete"><i class="fa fa-ban"></i></span>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </Fragment>
+                                                                        })}
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="modal-user--course__available d-flex justify-content-center align-items-center flex-column">
+                                                            <div className="content d-flex justify-content-between align-items-center"
+                                                                onClick={(e) => availableUser(course.maKhoaHoc, e)}>
+                                                                <p className="content-title">Available Users</p>
+                                                                <p className="note">Registing a course quickly for user</p>
+                                                                <div className="custom-arrow-content not-registered">
+                                                                    <span className="arrow-down"><i className="fa fa-angle-down" /></span>
+                                                                </div>
+                                                            </div>
+                                                            <div className="details-course not-registered">
+                                                                <div className="list-details">
+                                                                    <ul>
+                                                                        {availableUsers.map((user, index) => {
+                                                                            return <Fragment>
+                                                                                <li className="list-details--item">
+                                                                                    <div className="d-flex justify-content-center align-items-center">
+                                                                                        <span className="icon-user"><i class="fa fa-folder"></i></span>
+                                                                                        <span className="content">{user.taiKhoan}</span>
+                                                                                        <span title="Approve" className="icon-like"><i class="fa fa-thumbs-up"></i></span>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </Fragment>
+                                                                        })}
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                : ""}
                                         </div>
                                         <div className={(pageTitle?.mode == "add") ? 'col-12' : 'col-lg-6'}>
                                             <form onSubmit={(pageTitle?.mode != "add") ? submitEditCourse : submitAddCourse}>
@@ -476,8 +605,8 @@ function MainCourseManage(props) {
                                                         </Button>
                                                     </Form.Item>
                                                     : ""}
-                                            </form>    
-                                        </div>                                                      
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

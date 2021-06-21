@@ -66,24 +66,8 @@ return (
                             slidesPerView: 4,
                             spaceBetween: 20,
                             centeredSlides: false
-                        }
-                        breakpoints={{
-                            300: {
-                                slidesPerView: 1,
-                                centeredSlides: false
-                            },
-                            768: {
-                                slidesPerView: 2,
-                                spaceBetween: 20,
-                                centeredSlides: false
-                            },
-                            1024: {
-                                slidesPerView: 4,
-                                spaceBetween: 20,
-                                centeredSlides: false
-                            }
                         }}
-                    >
+                    }>
                         {renderCourses()}
                     </Swiper>
 

@@ -106,6 +106,33 @@ export class UserServices {
             headers: { Authorization: `Bearer ${token}` },
         });
     };
+
+    layDanhSachNguoiDungChuaGhiDanh = (maKhoaHoc) => {
+        return axios({
+            url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh`,
+            method: "POST",
+            data: {maKhoaHoc},
+            headers: { Authorization: `Bearer ${token}` },
+        });
+    }
+
+    layDanhSachHocVienChoXetDuyet = (maKhoaHoc) => {
+        return axios({
+            url: `${domain}/api/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet`,
+            method: "POST",
+            data: {maKhoaHoc},
+            headers: { Authorization: `Bearer ${token}` },
+        });
+    }
+    
+    LayDanhSachHocVienKhoaHoc = (maKhoaHoc) => {
+        return axios({
+            url: `${domain}/api/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc`,
+            method: "POST",
+            data: {maKhoaHoc},
+            headers: { Authorization: `Bearer ${token}` },
+        });
+    }
 }
 
 // export default UserServices;
