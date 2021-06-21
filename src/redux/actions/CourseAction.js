@@ -62,7 +62,41 @@ export const layKhoaHocTheoDanhMucAction = (data, group) => {
         },2000)
     }
 }
+
 export const layChiTietKhoaHoc = (maKH) => {
+    return (dispatch) => {
+        // Call loading open
+        dispatch({
+            type: 'openLoading'
+        })
+
+        setTimeout(() => {
+            courseServices
+            .layChiTietKhoaHoc(maKH)
+            .then((res) => {
+                dispatch({
+                    type: 'LAY_CHI_TIET_KHOA_HOC',
+                    data: res.data
+                })
+            })
+            .catch((err) => {
+                console.log("errors:", err);
+            });
+
+            // Turn off loading
+            dispatch({
+                type: 'closeLoading'
+            })
+        },2000)
+    }
+}
+
+export const ghiDanhKhoaHoc = (maKH, taiKhoan) => {
+    return courseServices
+            .ghiDanhKhoaHoc(maKH, taiKhoan)
+}
+
+export const layChiTietKhoaHocManage = (maKH) => {
 
     return courseServices
     .layChiTietKhoaHoc(maKH)
@@ -81,4 +115,9 @@ export const uploadHinhAnhKhoaHoc = (image) => {
 export const themKhoaHoc = (form) => {
     return courseServices
     .themKhoaHoc(form)
+}
+
+export const capNhatKhoaHoc = (form) => {
+    return courseServices
+    .capNhatKhoaHoc(form)
 }

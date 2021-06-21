@@ -119,15 +119,17 @@
     }
 } 
 
-// // responsive
-// @media (max-width: rp("small")) {
-//     .carousel {
+@media only screen and (max-width: 768px) {
+    .carousel {
+        .slider-contain {
 
-//         .slider-image {
-    
-//             img {
-//                 max-width: 260px;
-//             }
-//         }
-//     }
-// }
+            .slider-item {
+                margin-top: 100px;
+            }
+
+            .slider-image {
+                margin-top: 50px;
+            }
+        }
+    }
+}

@@ -19,6 +19,8 @@
         width: 100%;
         align-items: center;
         justify-content: space-between;
+        padding: 10px 0px;
+        
         a {
             @include text(fs("body2"), tc("textPrimary"), fw("fwMedium"), 0);
             text-decoration: none;
@@ -83,4 +85,20 @@
 
 .header.my-shadow {
     transition: all 0.4s ease;
+}
+
+@media only screen and (max-width: 768px) {
+    .header {
+        .menu {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            background: c("bgSecondary");
+            width: 100%;
+
+            .menu-list {
+                justify-content: center;
+            }
+        }
+    }
 }

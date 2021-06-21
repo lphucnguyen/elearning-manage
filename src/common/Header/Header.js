@@ -43,18 +43,6 @@ function Header() {
                             <li>
                                 <NavLink activeClassname="active" to="/courses">Courses</NavLink>
                             </li>
-                            <li>
-                                <a href="/home#carousel">How it Works</a>
-                            </li>
-                            <li>
-                                <a href="/home#courseDemo">Demos</a>
-                            </li>
-                            <li>
-                                <a href="/home#services">Services</a>
-                            </li>
-                            <li>
-                                <a href="#footer">Placement</a>
-                            </li>
                         </ul>
                     </div>
                     {(typeStorage === "GV") ? 

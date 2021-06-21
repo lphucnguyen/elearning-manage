@@ -10,6 +10,7 @@ export const AuthReducer = (state = stateDefault, action) => {
             state.error = action.error;
             
             if(action.isLogin) {
+
                 let accessToken = action.data.accessToken;
                 let {taiKhoan, maNhom, email, maLoaiNguoiDung} = action.data;
 

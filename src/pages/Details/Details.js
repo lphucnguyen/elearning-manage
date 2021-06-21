@@ -6,7 +6,8 @@ import Header from '../../common/Header/Header';
 import CourseDetailInfo from '../../Components/layouts/CourseDetailInfo/CourseDetailInfo'
 import CourseDesc from '../../Components/layouts/CourseDesc/CourseDesc'
 import Footer from '../../common/Footer/Footer';
-import CourseIntroduce from '../../Components/layouts/CourseIntroduce/CourseIntroduce';
+import CourseIntroduce from '../../Components/layouts/CourseIntroduce/CourseIntroduce'
+import { ToastProvider } from 'react-toast-notifications'
 
 function Details(props) {
     const maKH = props.match.params.maKH;
@@ -14,11 +15,17 @@ function Details(props) {
 
     return (
         <Fragment >
-            <Header />
-            <CourseDetailInfo maKH={maKH} />
-            <CourseDesc />
-            <CourseIntroduce />
-            <Footer />
+            <ToastProvider
+                autoDismiss
+                autoDismissTimeout={2000}
+                placement="bottom-right"
+            >
+                <Header />
+                <CourseDetailInfo maKH={maKH} />
+                <CourseDesc />
+                <CourseIntroduce />
+                <Footer />
+            </ToastProvider>
         </Fragment>
     )
 }
