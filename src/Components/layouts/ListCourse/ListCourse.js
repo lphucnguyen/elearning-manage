@@ -107,7 +107,7 @@ function ListCourse() {
                 </div>
                 <div className="list-type-course mx-auto">
                     <div className="row">
-                        <div className="col-md-4 pr-5">
+                        {/* <div className="col-md-4 pr-5">
                             <div className="select-group mb-3 mb-md-0">
                                 <select name="sortCourses" id="sortCourses">
                                     <option checked>Course ID</option>
@@ -116,8 +116,8 @@ function ListCourse() {
                                 </select>
                                 <div className="custom-arrow" />
                             </div>
-                        </div>
-                        <div className="col-md-4 pr-5">
+                        </div> */}
+                        <div className="col-md-6 pr-5">
                             <div className="select-group mb-3 mb-md-0">
                                 <select name="courses" id="courses-select" onChange={(e) => getTypeCourses(e)}>
                                     <option value = "" checked>All Topic</option>
@@ -131,7 +131,7 @@ function ListCourse() {
                                 <div className="custom-arrow" />
                             </div>
                         </div>
-                        <div className="col-md-4 pr-5">
+                        <div className="col-md-6 pr-5">
                             <div className="select-group mb-3 mb-md-0">
                                 <select name="groupCourses" id="groupCourses" onChange={(e) => getTypeGroup(e)}>
                                     <option value = "GP01">Group 01</option>
