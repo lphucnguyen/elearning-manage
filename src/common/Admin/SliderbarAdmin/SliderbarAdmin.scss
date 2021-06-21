@@ -159,6 +159,10 @@
     .wrapper.collapse-slide {
         .slidebar {
             width: 70px !important;
+
+            .slidebar-menu .item {
+                width: 70px !important;
+            }
         }
     }
 }

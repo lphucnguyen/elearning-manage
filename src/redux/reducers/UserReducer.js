@@ -32,7 +32,7 @@ export const UserReducer = (state = stateDefault, action) => {
             let arrListUserUpdate = [...state.arrListUpdate];
             let index = arrListUserUpdate.findIndex(item => item.taiKhoan === action.data.taiKhoan);
             let {hoTen, soDt, maLoaiNguoiDung, email} = action.data;
-            console.log(index);
+            
             const userUpdate = {
                 taiKhoan: arrListUserUpdate[index].taiKhoan,
                 matKhau: arrListUserUpdate[index].matKhau,
@@ -41,6 +41,7 @@ export const UserReducer = (state = stateDefault, action) => {
                 maLoaiNguoiDung: maLoaiNguoiDung,
                 email: email
             }
+            console.log(soDt);
             arrListUserUpdate[index] = userUpdate;
             return {...state, arrListUser: arrListUserUpdate};
         }

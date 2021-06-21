@@ -108,3 +108,26 @@
         }
     }
 }
+
+// responsive
+@media (max-width: rp("small")) {
+    .main-list-course {
+
+        .list-course {
+            max-height: 600px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    }
+}
+
+@media (max-width: rp("medium")) {
+    .main-list-course {
+
+        .list-course {
+            max-height: 600px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    }
+}

@@ -412,7 +412,7 @@ function MainUserManage() {
                         </div>
                     </div>
                     {/* modal box */}
-                    <div className="col-md-7 pt-3 pt-lg-0">
+                    <div className="col-md-7 pl-0 pt-3 pt-lg-0">
                         <div className="modal-user pb-3" id="modalFormDetails">
                             <div className="row">
                                 <div className="col-lg-8">
@@ -439,7 +439,7 @@ function MainUserManage() {
                                                             return <Fragment key={index}>
                                                                 <li className="list-details--item">
                                                             <div className="d-flex justify-content-center align-items-center">
-                                                                <span className="icon-user"><i className="fa fa-id-card-alt" /></span>
+                                                                <span className="icon-user"><i class="fa fa-folder"></i></span>
                                                                 <span className="content">{item.tenKhoaHoc}</span>
                                                                 <div className="d-flex">
                                                                     <span title="Ban" className="icon-delete"><i class="fa fa-ban"></i></span>
@@ -469,7 +469,7 @@ function MainUserManage() {
                                                             return <Fragment key={index}>
                                                             <li className="list-details--item">
                                                                 <div className="d-flex justify-content-center align-items-center">
-                                                                    <span className="icon-user"><i className="fa fa-id-card-alt" /></span>
+                                                                    <span className="icon-user"><i class="fa fa-folder"></i></span>
                                                                     <span className="content">{item.tenKhoaHoc}</span>
                                                                     <span title="Ban" className="icon-delete"><i class="fa fa-ban"></i></span>
                                                                 </div>
@@ -496,7 +496,7 @@ function MainUserManage() {
                                                             return <Fragment key={index}>
                                                             <li className="list-details--item">
                                                                 <div className="d-flex justify-content-center align-items-center">
-                                                                    <span className="icon-user"><i className="fa fa-id-card-alt" /></span>
+                                                                    <span className="icon-user"><i class="fa fa-folder"></i></span>
                                                                     <span className="content">{item.tenKhoaHoc}</span>
                                                                     <span title="Approve" className="icon-like"><i class="fa fa-thumbs-up"></i></span>
                                                                 </div>
@@ -534,7 +534,7 @@ function MainUserManage() {
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="phone">Phone</label>
-                                                <input disabled className="form-control" type="text" id="phone" value={user.soDT}/>
+                                                <input disabled className="form-control" type="text" id="phone" value={user.soDt}/>
                                             </div>
                                         </form>
                                     </div>

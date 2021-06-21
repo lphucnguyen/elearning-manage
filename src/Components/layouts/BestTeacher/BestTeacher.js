@@ -6,7 +6,7 @@ function BestTeacher() {
         <div className="teacher">
             <div className="container best-teacher-contain">
                 <div className="best-teacher row">
-                    <div className="best-teacher-info col-md-6 d-flex align-items-center justify-content-center justify-content-md-start">
+                    <div className="best-teacher-info col-md-5 col-lg-6 d-flex align-items-center justify-content-center justify-content-md-start">
                         <div className="best-teacher-img">
                             <img src="/images/profile.jpeg" alt="" />
                         </div>
@@ -15,7 +15,7 @@ function BestTeacher() {
                             <h5 className="best-teacher-school">Amelia Kimanu</h5>
                         </div>
                     </div>
-                    <div className="best-teacher-info col-md-6">
+                    <div className="best-teacher-info col-md-7 col-lg-6">
                         <ul className="best-teacher-info-sell h-100 d-flex align-items-center justify-content-center justify-content-md-start mt-2 mt-md-0">
                             <li>
                                 <h1 className="best-teacher-info-title">5k</h1>

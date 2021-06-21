@@ -14,6 +14,7 @@ import { HomeTemplate } from './templates/HomeTemplate';
 import AdminTemplate from './templates/AdminTemplate';
 import { Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
+import MyCourses from './pages/MyCourses/MyCourses';
 export const history = createBrowserHistory();
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Switch>
           <HomeTemplate exact path="/courses" Component={Courses} /> 
           <HomeTemplate exact path="/details/:maKH" Component={Details} /> 
+          <HomeTemplate exact path="/mycourses" Component={MyCourses} /> 
           <HomeTemplate exact path="/home" Component={Home} /> 
           <HomeTemplate exact path="/" Component={Home} /> 
           <HomeTemplate exact path="/login" Component={Login} /> 
