@@ -7,12 +7,21 @@ import SwiperCore, {
     Navigation
 } from 'swiper/core';
 import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 SwiperCore.use([Navigation]);
 
 function CourseIntroduce() {
 
+    let arrCourse = useSelector(state => state.CourseReducer.arrCourse);
 
+    const renderCourses = () => {
+        return arrCourse.map((item, index) => {
+            return  <SwiperSlide>
+                        <CourseItem maKhoaHoc={item.maKhoaHoc} name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
+                     </SwiperSlide>
+        })
+    };
 
     return (
         <div className="course-introduce">
@@ -50,27 +59,7 @@ function CourseIntroduce() {
                             }
                         }}
                     >
-                        <SwiperSlide>
-                            <CourseItem />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <CourseItem />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <CourseItem />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <CourseItem />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <CourseItem />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <CourseItem />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <CourseItem />
-                        </SwiperSlide>
+                        {renderCourses()}
                     </Swiper>
 
                     <div className="course-slide-control mt-5">

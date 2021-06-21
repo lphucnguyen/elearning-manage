@@ -1,3 +1,4 @@
+
 const stateDefault = {
     login: false,
     error: false
@@ -38,7 +39,9 @@ export const AuthReducer = (state = stateDefault, action) => {
         case 'DANG_XUAT': {
             if(localStorage.getItem("accessToken")){
                 localStorage.removeItem('accessToken')
+                localStorage.removeItem('type')
             }
+            return {...state};
         }
         default: return {...state};
     }

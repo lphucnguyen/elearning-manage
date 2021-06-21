@@ -66,9 +66,9 @@
 }
 
 
-// // responsive
-// @media (max-width: rp("small")) {
-//    .teacher {
-//        padding: 30px 13px;
-//    }
-// }
+// responsive
+@media only screen and (max-width: rp("small")) {
+   .teacher {
+       padding: 30px 13px;
+   }
+}
