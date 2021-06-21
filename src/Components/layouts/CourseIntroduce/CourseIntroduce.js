@@ -7,20 +7,21 @@ import SwiperCore, {
     Navigation
 } from 'swiper/core';
 import { NavLink } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import { layDanhSachKhoaHocAction } from '../../../redux/actions/CourseAction';
-
+import { useSelector } from 'react-redux'
 
 SwiperCore.use([Navigation]);
 
 function CourseIntroduce() {
 
     let arrCourse = useSelector(state => state.CourseReducer.arrCourse);
-    const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(layDanhSachKhoaHocAction("", ""))
-    }, [])
+    const renderCourses = () => {
+        return arrCourse.map((item, index) => {
+            return  <SwiperSlide>
+                        <CourseItem maKhoaHoc={item.maKhoaHoc} name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
+                     </SwiperSlide>
+        })
+    };
 
     useEffect(() => {
         console.log(arrCourse)
@@ -66,11 +67,25 @@ return (
                             spaceBetween: 20,
                             centeredSlides: false
                         }
-                    }}
-                >
-
-                    {renderCourse()}
-                </Swiper>
+                        breakpoints={{
+                            300: {
+                                slidesPerView: 1,
+                                centeredSlides: false
+                            },
+                            768: {
+                                slidesPerView: 2,
+                                spaceBetween: 20,
+                                centeredSlides: false
+                            },
+                            1024: {
+                                slidesPerView: 4,
+                                spaceBetween: 20,
+                                centeredSlides: false
+                            }
+                        }}
+                    >
+                        {renderCourses()}
+                    </Swiper>
 
                 <div className="course-slide-control mt-5">
                     <div className="course-slide-prev"><i class="fa fa-arrow-left"></i></div>

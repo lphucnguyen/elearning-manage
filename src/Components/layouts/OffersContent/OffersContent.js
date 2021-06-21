@@ -6,6 +6,7 @@ import 'swiper/swiper.scss'
 import SwiperCore, {
     Navigation
 } from 'swiper/core';
+import { NavLink } from 'react-router-dom'
 
 export default function OffersContent() {
     return (
@@ -14,7 +15,7 @@ export default function OffersContent() {
                 <h4 className="course-introduce-subtitle">SERVICES</h4>
                 <h1 className="course-introduce-title">Amazing Services <br /> For You</h1>
                 <div className="course-introduce-all">
-                    <a href="">View all</a>
+                    <NavLink to="/courses">View all</NavLink>
                 </div>
                 <div className="offer-items">
                     <Swiper

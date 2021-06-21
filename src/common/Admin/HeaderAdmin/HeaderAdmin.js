@@ -13,9 +13,9 @@ function HeaderAdmin() {
     return (
         <div className="header-admin my-shadow">
             <div className="header-menu">
-                <a className="logo d-flex align-items-center" href="#">
+                <NavLink className="logo d-flex align-items-center" to="/home">
                         <img src="/images/logo_education.png" alt="logo" />Cyber Education
-                </a>
+                </NavLink>
                 <div className="slidebar-btn" onClick = {sliderbarBtn}>
                     <i className="fas fa-bars" />
                 </div>

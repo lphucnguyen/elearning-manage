@@ -1,3 +1,4 @@
+
 const stateDefault = {
     login: false,
     error: false
@@ -38,6 +39,7 @@ export const AuthReducer = (state = stateDefault, action) => {
         case 'DANG_XUAT': {
             if(localStorage.getItem("accessToken")){
                 localStorage.removeItem('accessToken')
+                localStorage.removeItem('type')
             }
             if(localStorage.getItem("taiKhoan")){
                 localStorage.removeItem('taiKhoan')

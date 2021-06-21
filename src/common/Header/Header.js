@@ -1,6 +1,6 @@
 import React, {useRef, useLayoutEffect, useEffect, useState} from 'react'
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Auth from '../../Components/layouts/admin/Auth/Auth';
 import './Header.scss';
 import { history } from '../../App'
@@ -25,7 +25,18 @@ function Header() {
         }
     }, [])
 
+    useEffect(() => {
+        if(localStorage.getItem("type")) {
+            (document.querySelector("#loginAdmin.d-none"))
+            ?
+            document.querySelector("#loginAdmin").classList.remove("d-none")
+            :
+            document.querySelector("#loginMyCourses").classList.remove("d-none");
+        }
+    },[])
+
     const logout = () => {
+        
         dispatch({
             type: 'DANG_XUAT'
         })
