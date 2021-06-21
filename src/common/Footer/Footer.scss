@@ -21,6 +21,7 @@
         cursor: pointer;
         font-size: fs("body2");
         color: tc("textWhite");
+        z-index: 999;
         display: none;
     }
 

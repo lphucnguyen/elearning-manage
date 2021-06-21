@@ -95,6 +95,23 @@ function CourseDemo() {
                         <div className="course-slide-next ml-3"><i class="fa fa-arrow-right"></i></div>
                     </div>
                 </div>
+                {/* Modal */}
+                <div className="modal fade pr-0" id="exampleModalLong" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div className="modal-dialog" role="document" style={{height:"100%"}}>
+                        <div className="video__list" style={{
+                                    position: "absolute",
+                                    top: "50%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)",
+                                    width: "100%"
+                        }}>
+                            <div className="video__item">
+                                <video style={{width:"100%"}} loop autoPlay muted src="/images/intro.mp4" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     )
