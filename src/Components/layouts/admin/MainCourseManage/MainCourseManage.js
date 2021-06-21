@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Loading from '../../../../common/Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux'
 import { layDanhSachKhoaHocAction, xoaKhoaHoc, uploadHinhAnhKhoaHoc, themKhoaHoc, capNhatKhoaHoc } from '../../../../redux/actions/CourseAction'
-import { layChiTietKhoaHoc } from '../../../../redux/actions/CourseAction';
+import { layChiTietKhoaHocManage } from '../../../../redux/actions/CourseAction';
 import { useToasts } from 'react-toast-notifications'
 import ImageUploader from 'react-images-upload';
 import './MainCourseManage.scss'
@@ -83,7 +83,7 @@ function MainCourseManage(props) {
 
     const viewCourse = (maKH) => {
         console.log(maKH)
-        layChiTietKhoaHoc(maKH)
+        layChiTietKhoaHocManage(maKH)
             .then((res) => {
                 dispatch({
                     type: 'LAY_CHI_TIET_KHOA_HOC',
@@ -107,7 +107,7 @@ function MainCourseManage(props) {
 
     const editCourse = (maKH) => {
         console.log(maKH)
-        layChiTietKhoaHoc(maKH)
+        layChiTietKhoaHocManage(maKH)
             .then((res) => {
                 dispatch({
                     type: 'LAY_CHI_TIET_KHOA_HOC',
