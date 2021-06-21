@@ -7,7 +7,7 @@ function OfferItem() {
             <h6 className="offer-item-subtitle">SPECIAL OFFER</h6>
             <div className="offer-item-discount">50% off</div>
             <h6 className="offer-item-content">Sign up now and get discount</h6>
-            <a href=""className="offer-item-btn">SignUp</a>
+            <a href="#"className="offer-item-btn">SignUp</a>
         </div>
     )
 }

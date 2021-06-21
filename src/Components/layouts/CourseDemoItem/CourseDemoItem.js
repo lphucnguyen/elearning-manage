@@ -1,13 +1,15 @@
 import React from 'react'
 import './CourseDemoItem.scss'
 
-function CourseDemoItem() {
+function CourseDemoItem(props) {
+    const {img, title} = props
+
     return (
-        <div className="course-demo-item">
-            <img src="/images/php.jpg" alt="Image of Course" />
+        <div className="course-demo-item my-shadow">
+            <img src={img} alt="Image of Course" />
             <div className="video-play-contain">
-                <div className="video-play"><i class="fa fa-play"></i></div>
-                <div className="video-text">Lern PHP</div>
+                <div className="video-play" data-toggle="modal" data-target="#exampleModalLong"><i class="fa fa-play"></i></div>
+                <div className="video-text">{title}</div>
             </div>
         </div>
     )

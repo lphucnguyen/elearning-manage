@@ -1,95 +1,158 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import Loading from '../../../common/Loading/Loading';
+import { layDanhSachKhoaHocAction, xoaDanhSachKhoaHocAction, layKhoaHocTheoDanhMucAction } from '../../../redux/actions/CourseAction';
 import CourseItem from '../CourseItem/CourseItem';
 import "./ListCourse.scss"
 
 function ListCourse() {
 
-    return (
-        <div className="container">
-            <div className="main-list-course d-flex">
-                <h1 className="title">Our Courses</h1>
-                <div className="search shadow">
-                    <input type="text" name="search" id="search" placeholder="Search Course"/>
-                    <button className="btn btn-search">Search</button>
+    let [data, setData] = useState({
+
+        typeCourse: "All",
+        typeGroup: "GP01",
+        page: "",
+        pageSize: "",
+        search: ""
+    })
+
+    let arrCourse = useSelector(state => state.CourseReducer.arrCourse);
+
+    const dispatch =  useDispatch();
+
+    useEffect(() => {
+        dispatch(layDanhSachKhoaHocAction(data.search, data.typeGroup));
+        dispatch(xoaDanhSachKhoaHocAction());
+    }, [])
+
+    useEffect(() => {
+        if(data.typeCourse !== ""){
+            dispatch(layKhoaHocTheoDanhMucAction(data.typeCourse ,data.typeGroup));
+            dispatch(xoaDanhSachKhoaHocAction());
+        }else{
+            dispatch(layDanhSachKhoaHocAction(data.search, data.typeGroup));
+            dispatch(xoaDanhSachKhoaHocAction());
+        }        
+    }, [data.typeCourse])
+
+    useEffect(() => {
+        dispatch(layDanhSachKhoaHocAction(data.search, data.typeGroup));
+        dispatch(xoaDanhSachKhoaHocAction());
+        
+    }, [data.typeGroup])
+
+    useEffect(() => {
+
+        setData({
+            ...data,
+            typeCourse: ""
+        })
+
+        document.getElementById("courses-select").getElementsByTagName('option')[0].selected = 'selected';
+
+        dispatch(layDanhSachKhoaHocAction(data.search, data.typeGroup));
+        dispatch(xoaDanhSachKhoaHocAction());
+        
+    }, [data.search])
+
+    const searchCourse = (e) => {
+        const keyWorkd = e.target.value
+
+        setData({
+            ...data,
+            search: keyWorkd
+        })
+    }
+
+
+    const renderCourses = () => {
+        return arrCourse.map((item, index) => {
+            return <div className="col-lg-3 col-md-4 col-sm-6 pb-4" key={index}>
+                    <CourseItem maKhoaHoc={item.maKhoaHoc} name={item.tenKhoaHoc} views={item.luotXem} img={item.hinhAnh}/>
                 </div>
-                <div className="list-type-course">
+        })
+    };
+
+    const getTypeCourses = (evt) => {
+        let {value} = evt.target;
+ 
+        setData({
+            ...data,
+            typeCourse: value
+        })
+    }
+
+    const getTypeGroup = (evt) => {
+        let {value} = evt.target;
+
+        setData({
+            ...data,
+            typeGroup: value
+        })
+
+    }
+
+    const handeSearch = (evt) => {
+        let {value} = evt.target;
+        console.log(value);
+    }
+
+
+    return (
+        <div className="main-list-course">
+            <div className="container">
+                <h1 className="title">Our Courses</h1>
+                <div className="search my-shadow mx-auto">
+                    <input type="text" name="search" id="search" placeholder="Search Course" onKeyUp={searchCourse} />
+                </div>
+                <div className="list-type-course mx-auto">
                     <div className="row">
-                        <div className="col-md-4 pr-5">
+                        {/* <div className="col-md-4 pr-5">
                             <div className="select-group mb-3 mb-md-0">
                                 <select name="sortCourses" id="sortCourses">
-                                    <option value="0" checked>Course ID</option>
-                                    <option value="1">Title: A-to-Z</option>
-                                    <option value="2">Title: Z-to-A</option>
+                                    <option checked>Course ID</option>
+                                    <option>Title: A-to-Z</option>
+                                    <option>Title: Z-to-A</option>
                                 </select>
-                                <div className="custom-arrow"></div>
+                                <div className="custom-arrow" />
+                            </div>
+                        </div> */}
+                        <div className="col-md-6 pr-5">
+                            <div className="select-group mb-3 mb-md-0">
+                                <select name="courses" id="courses-select" onChange={(e) => getTypeCourses(e)}>
+                                    <option value = "" checked>All Topic</option>
+                                    <option value = "BackEnd">Lập trình Backend</option>
+                                    <option value = "Design">Thiết kế Web</option>
+                                    <option value = "DiDong">Lập trình di động</option>
+                                    <option value = "FrontEnd">Lập trình Front end</option>
+                                    <option value = "FullStack">Lập trình Full Stack</option>
+                                    <option value = "TuDuy">Tư duy lập trình</option>
+                                </select>
+                                <div className="custom-arrow" />
                             </div>
                         </div>
-                        <div className="col-md-4 pr-5">
+                        <div className="col-md-6 pr-5">
                             <div className="select-group mb-3 mb-md-0">
-                                <select name="courses" id="courses">
-                                    <option value="0" checked>All Topic</option>
-                                    <option value="1">Lập trình Backend</option>
-                                    <option value="2">Thiết kế Web</option>
-                                    <option value="3">Lập trình di động</option>
-                                    <option value="4">Lập trình Front end</option>
-                                    <option value="5">Lập trình Full Stack</option>
-                                    <option value="6">Tư duy lập trình</option>
+                                <select name="groupCourses" id="groupCourses" onChange={(e) => getTypeGroup(e)}>
+                                    <option value = "GP01">Group 01</option>
+                                    <option value = "GP02">Group 02</option>
+                                    <option value = "GP03">Group 03</option>
+                                    <option value = "GP04">Group 04</option>
+                                    <option value = "GP05">Group 05</option>
+                                    <option value = "GP06">Group 06</option>
+                                    <option value = "GP07">Group 07</option>
+                                    <option value = "GP08">Group 08</option>
                                 </select>
-                                <div className="custom-arrow"></div>
-                            </div>
-                        </div>
-                        <div className="col-md-4 pr-5">
-                            <div className="select-group mb-3 mb-md-0">
-                                <select name="groupCourses" id="groupCourses">
-                                    <option value="0">Group 01</option>
-                                    <option value="1">Group 02</option>
-                                    <option value="2">Group 03</option>
-                                    <option value="3">Group 04</option>
-                                    <option value="4">Group 05</option>
-                                    <option value="5">Group 06</option>
-                                    <option value="6">Group 07</option>
-                                    <option value="7">Group 08</option>
-                                </select>
-                                <div className="custom-arrow"></div>
+                                <div className="custom-arrow" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="list-course mt-5">
                     <div className="row">
-                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-                            <CourseItem/>
-                        </div>
-                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-                            <CourseItem/>
-                        </div>
-                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-                            <CourseItem/>
-                        </div>
-                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-                            <CourseItem/>
-                        </div>
-                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-                            <CourseItem/>
-                        </div>
-                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-                            <CourseItem/>
-                        </div>
-                        <div className="col-lg-3 col-md-4 col-sm-6 pb-4">
-                            <CourseItem/>
-                        </div>
+                        <Loading />
+                        {renderCourses()}
                     </div>
-                </div>
-                <div className="list-pagination d-flex justify-content-center my-5">
-                    <nav aria-label="Page navigation example">
-                        <ul className="pagination">
-                            <li className="page-item"><a className="page-link p-3" href="#">Previous</a></li>
-                            <li className="page-item"><a className="page-link p-3" href="#">1</a></li>
-                            <li className="page-item"><a className="page-link p-3" href="#">2</a></li>
-                            <li className="page-item"><a className="page-link p-3" href="#">3</a></li>
-                            <li className="page-item"><a className="page-link p-3" href="#">Next</a></li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>

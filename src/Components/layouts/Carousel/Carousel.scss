@@ -2,22 +2,24 @@
 @import "../../../styles/helpers/mixin";
 @import "../../../styles/helpers/theme";
 @import "../../../styles/base/reset";
+@import "../../../styles/helpers/keyframes";
 
 
 .carousel {
     background: c("bgSecondary");
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
 
     .slider-contain {
         height: 100%;
         display: flex;
         align-items: center;
         flex-wrap: wrap;
+        padding-top: 150px;
     }
 
     .slider-item {
-        max-width: 400px;
+        max-width: 100%;
         flex-grow: 1;
     }
 
@@ -26,22 +28,8 @@
         text-align: center;
 
         img {
-            max-width: 400px;
+            max-width: 100%;
             animation: upDown 2.6s infinite linear;
-        }
-    }
-
-    @keyframes upDown {
-        0% {
-            transform: translateY(-10px);
-        }
-
-        50% {
-            transform: translateY(10px);
-        }
-
-        100% {
-            transform: translateY(-10px);
         }
     }
 
@@ -131,3 +119,28 @@
         }
     }
 } 
+
+@media only screen and (max-width: 768px) {
+    .carousel {
+        .slider-contain {
+
+            .slider-item {
+                margin-top: 150px;
+
+                .slider-body-video {
+                    margin-left: 0px;
+                    margin-top: 10px;
+                }
+            }
+
+            .slider-image {
+                margin-top: 50px;
+            }
+
+            .slider-body-video {
+                margin-left: 0px;
+                display: flex;
+            }
+        }
+    }
+}

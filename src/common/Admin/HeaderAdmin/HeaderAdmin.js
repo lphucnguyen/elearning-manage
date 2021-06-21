@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { NavLink } from 'react-router-dom';
 import './HeaderAdmin.scss'
 
 function HeaderAdmin() {
+
 
     // function toggle class
     const sliderbarBtn = () => {
@@ -9,16 +11,16 @@ function HeaderAdmin() {
     };
 
     return (
-        <div className="header">
+        <div className="header-admin my-shadow">
             <div className="header-menu">
-                <h1 className="title">
-                    Cyber Education
-                </h1>
+                <NavLink className="logo d-flex align-items-center" to="/home">
+                        <img src="/images/logo_education.png" alt="logo" />Cyber Education
+                </NavLink>
                 <div className="slidebar-btn" onClick = {sliderbarBtn}>
                     <i className="fas fa-bars" />
                 </div>
                 <ul>
-                    <li><a href="#" title="Đăng xuất"><i className="fas fa-power-off" /></a></li>
+                    <li><NavLink to="/home" title="Log out"><i className="fas fa-power-off" /></NavLink></li>
                 </ul>
             </div>
         </div>

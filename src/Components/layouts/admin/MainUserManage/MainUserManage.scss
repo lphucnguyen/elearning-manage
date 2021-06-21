@@ -8,9 +8,11 @@
     width: calc(100% - 250px);
     margin-top: 70px;
     margin-left: 250px;
-    padding: 15px;
+    padding-left: 15px;
+    // min-height: calc(100% - 9%);
     min-height: 100vh;
     background: c("bgSecondary");
+    overflow: hidden;
     transition: all 0.3s linear;
 
     .list-users {
@@ -26,6 +28,7 @@
                 border-radius: 50%;
                 background: c("bgGreen");
                 border: none;
+                outline: none;
                 transition: all 0.3s linear;
 
                 i {
@@ -168,7 +171,7 @@
         }
 
         .list-user--item {
-            max-height: 525px;
+            max-height: 100vh;
             overflow-y: auto;
 
             &::-webkit-scrollbar {
@@ -185,67 +188,6 @@
                     background:  rgba(255, 255, 255, 0.2);
                 }
             }
-
-            .user {
-                cursor: pointer;
-                position: relative;
-                transition: all 0.3s linear;
-
-                &:hover {
-                    background:  rgba(255, 255, 255, 0.1);
-                }
-
-                .avatar-user {
-                    width: 45px;
-                    height: 45px;
-                    border-radius: 50%;
-                    overflow: hidden;
-                }
-
-                .info-user {
-                    margin-right: auto;
-                    @include text(fs("subtitle"), tc("textWhite"), fw("fwLight"), 0);
-                    padding: 0px 10px;
-
-                    .email {
-                        color: tc("textSecondary");
-                    }
-                }
-
-                .type-user {
-                    position: absolute;
-                    top: -3px;
-                    left: 35px;
-                    width: 30px;
-                    height: 20px;
-                    line-height: 20px;
-                    text-align: center;
-                    border-radius: 50%;
-                    background: orangered;
-                    @include text(fs("body1"), tc("textWhite"), fw("fwRegular"), 0);
-                }
-
-                .options {
-                    font-size: fs("h5");
-                    color: tc("textWhite");
-                    flex-basis: 15%;
-
-                    span {
-                        width: 45px;
-                        height: 45px;
-                        line-height: 45px;
-                        border-radius: 50%;
-                        cursor: pointer;
-                        text-align: center;
-                        transition: all 0.3s linear;
-
-                        &:hover {
-                            background: c("bgGreenLight");
-                            color: tc("textPrimary");
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -253,9 +195,12 @@
         width: 100%;
         min-height: 200px;
         background: c("bgGrayBlack");
-        border-radius: 7px;
         padding: 15px;
-        // display: none !important;
+        display: none;
+
+        textarea {
+            font-size: fs("body2");
+        }
 
         .modal-user--course {
             background: transparent;
@@ -322,19 +267,22 @@
                         border-radius: 50%;
                         text-align: center;
                         font-size: 20px;
+                        transform: rotate(0deg);
                         transition: all 0.3s linear;
+                    }
 
-                        &:hover {
-                            transform: rotate(180deg);
-                        }
+                    .custom-arrow-content.arrow-action {
+                        transform: rotate(180deg);
                     }
                 }
 
                 .details {
-                    padding: 20px;
-                    display: none;
+                    height: 0;
+                    overflow: hidden;
+                    transition: all 0.3s linear;
 
                     .list-details {
+                        padding: 15px 10px;
                         ul {
                             .list-details--item {
 
@@ -353,40 +301,34 @@
                                     font-size: 15px;
                                     font-weight: 300;
                                 }
-        
-                                .icon-delete {
-                                    font-size: 25px;
+                                
+                                .icon-like, .icon-delete {
+                                    font-size: 20px;
                                     color: rgba(255, 255, 255, 0.26);
-                                    position: relative;
-                                    width: 45px;
-                                    height: 40px;
-                                    line-height: 40px;
+                                    width: 35px;
+                                    height: 35px;
+                                    line-height: 35px;
                                     text-align: center;
                                     border-radius: 50%;
                                     transition: all 0.3s linear;
 
-                                    i {
-                                        transform: rotate(45deg);
-                                    }
-
-                                    &::after {
-                                        content: "";
-                                        width: 21px;
-                                        height: 3px;
-                                        background: rgba(255, 255, 255, 0.26);
-                                        position: absolute;
-                                        top: 17px;
-                                        left: 9px;
-                                        transform: rotate(134deg);
-                                    }
-
                                     &:hover {
-                                        background: rgba(255, 255, 255, 0.1);
+                                        color: tc("textWhite");
                                     }
                                 }
                                 
                             }
                         }
+                    }
+                }
+
+                .details.show-list {
+                    min-height: 400px;
+                    width: 100%;
+                    overflow-y: auto;
+                    
+                    li {
+                        padding: 5px 0px;
                     }
                 }
             }
@@ -447,28 +389,25 @@
 
     .modal-form{
         width: 100%;
-        height: 100%;
+        min-height: 600px;
         background: transparent;
         border-radius: 7px;
         padding: 15px;
         position: relative;
-        display: none !important;
+        display: none;
 
         .form-user {
             box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 20px 0px;
             padding: 10px 15px;
-            width: 300px;
+            min-width: 300px;
             min-height: 300px;
             margin: 0px auto;
             background: c("bgGrayBlack");
             position: absolute;
-            top: 0px;
-            left: 35%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             transition: all 0.3s linear;
-
-            &:hover {
-                top: 10px;
-            }
 
             form {
 
@@ -478,6 +417,8 @@
                 }
 
                 .form-group {
+                    position: relative;
+
                     label {
                         @include text(fs("h6"), tc("textSecondary"), fw("fwLight"), 0);
                     }
@@ -504,8 +445,55 @@
                             color: tc("textWhite");
                         }
                     }
+                    
+                    .eye-appear {
+                        position: absolute;
+                        bottom: 3px;
+                        right: 0px;
+                        font-size: 20px;
+                        color: tc("textWhite");
+                        cursor: pointer;
+                        // display: none;
+                    }
+
+                    .eye-hidden {
+                        position: absolute;
+                        bottom: 3px;
+                        right: 0px;
+                        font-size: 20px;
+                        color: tc("textWhite");
+                        cursor: pointer;
+                        z-index: 20;
+                    }
+
+                    .opt-0 {
+                        opacity: 0;
+                        visibility: hidden;
+                        z-index: 10;
+                    }
+
+                    .opt-1 {
+                        opacity: 1;
+                        visibility: visible;
+                        z-index: 20;
+                    }
+                }
+
+                button {
+                    display: none;
                 }
             }
+        }
+    }
+}
+
+// responsive
+@media only screen and (max-width: rp("small")) {
+    .modal-form {
+
+        .form-user {
+            min-width: 230px !important;
+            width: 100% !important;
         }
     }
 }

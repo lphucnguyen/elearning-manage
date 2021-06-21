@@ -3,14 +3,36 @@
 @import "../../../src/styles/helpers/theme";
 @import "../../../src/styles/base/reset";
 @import "../../../src/styles/components/button";
+@import "../../../src/styles/helpers/keyframes";
 
-.footer {
+.footer-contain {
     background: c("bgSecondary");
-    padding-top: 30px;
+    padding-top: 50px;
+
+    .scroll-to-top {
+        position: fixed;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        right: 20px;
+        bottom: 20px;
+        background: c("bgGreen");
+        cursor: pointer;
+        font-size: fs("body2");
+        color: tc("textWhite");
+        z-index: 999;
+        display: none;
+    }
+
+    .scroll-to-top.active {
+        display: block;
+        animation: upDown 2.6s infinite linear;
+    }
 
     .title {
-        font-size: fs("h5");
-        font-weight: fw("fwMeidum");
+        font-size: fs("h4");
+        font-weight: fw("fwMedidum");
         margin-bottom: 20px;
     }
 
@@ -18,19 +40,31 @@
         font-size: fs("body2");
     }
 
-    .list-footer {
+    .list-footer, .list-footer-company {
         list-style: none;
+        padding-left: 5px;
+
+        i {
+            font-size: fs("h4");
+        }
 
         a {
             display: block;
-            padding: 5px 5px 5px 0px;
+            padding: 10px;
             color: c("bgBlack");
             font-size: fs("body2");
+            font-weight: fw("fwLight");
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
     }
 
+    .list-footer-company a {
+        padding: 5px !important;
+    }
+
     .form {
-        margin-top: 20px;
+        margin: 20px 0px;
 
         input[type="text"] {
             padding: 5px 5px 5px 10px;

@@ -1,8 +1,7 @@
-import React from 'react'
 import axios from "axios";
 import {domain, token} from '../configs/settings';
 
-function UserServices() {
+export class UserServices {
 
     dangKy = (data) => {
         return axios({
@@ -27,13 +26,28 @@ function UserServices() {
         });
     };
     
-    layDanhSachNguoiDung = (group) => {
+    layDanhSachNguoiDung = (group, username) => {
+        
+        if (username === "") {
+            return axios({
+                url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${group}`,
+                method: "GET",
+            });
+        }
+
         return axios({
-            url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${group}`,
+            url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${group}&tuKhoa=${username}`,
             method: "GET",
         });
     };
-
+  
+    timKiemDanhSachNguoiDung = (group) => {
+        return axios({
+          url: `${domain}/api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=${group}`,
+          method: "GET",
+        });
+      };
+    
     layDanhSachNguoiDung_PhanTrang = (group,page) => {
         return axios({
             url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDung_PhanTrang?MaNhom=${group}&page=${page}&pageSize=20`,
@@ -50,6 +64,7 @@ function UserServices() {
         });
     };
     capNhatThongTinNguoiDung = (value) => {
+        console.log(value.maNhom);
         return axios({
             url: `${domain}/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
             method: "PUT",
@@ -91,12 +106,34 @@ function UserServices() {
             headers: { Authorization: `Bearer ${token}` },
         });
     };
+
+    layDanhSachNguoiDungChuaGhiDanh = (maKhoaHoc) => {
+        return axios({
+            url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDungChuaGhiDanh`,
+            method: "POST",
+            data: {maKhoaHoc},
+            headers: { Authorization: `Bearer ${token}` },
+        });
+    }
+
+    layDanhSachHocVienChoXetDuyet = (maKhoaHoc) => {
+        return axios({
+            url: `${domain}/api/QuanLyNguoiDung/LayDanhSachHocVienChoXetDuyet`,
+            method: "POST",
+            data: {maKhoaHoc},
+            headers: { Authorization: `Bearer ${token}` },
+        });
+    }
     
-    return (
-        <div>
-            
-        </div>
-    )
+    LayDanhSachHocVienKhoaHoc = (maKhoaHoc) => {
+        return axios({
+            url: `${domain}/api/QuanLyNguoiDung/LayDanhSachHocVienKhoaHoc`,
+            method: "POST",
+            data: {maKhoaHoc},
+            headers: { Authorization: `Bearer ${token}` },
+        });
+    }
 }
 
-export default UserServices;
+// export default UserServices;
+export const userServices = new UserServices();

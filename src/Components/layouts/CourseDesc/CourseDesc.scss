@@ -1,0 +1,35 @@
+@import "../../../styles/helpers/function";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/theme";
+@import "../../../styles/base/reset";
+
+.course-desc {
+    background: c("bgSecondary");
+    padding: 50px 0px;
+
+    .course-desc-content {
+        padding: 20px 0px;
+
+        h1 {
+            font-size: fs("h5");
+            font-weight: fw("fwMedium");
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: fs("body2");
+        }
+
+        ul {
+            padding-left: 10px;
+
+            li {
+                padding: 10px 0px;
+
+                i {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}

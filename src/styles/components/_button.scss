@@ -8,13 +8,25 @@
 }
 
 .btn--login {
-    background: c("bgPrimary");
-    color: tc("textOrange") !important;
+    background: btnc("btnGreen");
+    color: tc("textWhite") !important;
     border: 2px solid c("bgPrimary");
     transition: all 0.4s ease;
     &:hover {
         background: transparent;
-        color: c("bgPrimary") !important;
+        color: tc("textGreen") !important;
+        border: 2px solid bc("borderGreen");
+    }
+}
+
+.btn--go {
+    background: btnc("btnOrange");
+    color: tc("textWhite") !important;
+    border: 2px solid c("bgPrimary");
+    transition: all 0.4s ease;
+    &:hover {
+        background: transparent;
+        color: tc("textOrange") !important;
         border: 2px solid tc("textOrange");
     }
 }
