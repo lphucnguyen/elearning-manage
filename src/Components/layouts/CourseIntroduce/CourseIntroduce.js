@@ -63,7 +63,6 @@ return (
                             centeredSlides: false
                         }   
                     }}
-                    >
                         {renderCourses()}
                     </Swiper>
 

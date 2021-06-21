@@ -237,3 +237,16 @@ export const huyGhiDanhKhoaHocAction = (maKH, taiKhoan) => {
 
     }
 }
+
+
+export const layDanhSachNguoiDungChuaGhiDanhAction = (maKH) => {
+    return userServices.layDanhSachNguoiDungChuaGhiDanh(maKH)
+}
+
+export const layDanhSachHocVienChoXetDuyetAction = (maKH) => {
+    return userServices.layDanhSachHocVienChoXetDuyet(maKH)
+}
+
+export const layDanhSachHocVienKhoaHocAction = (maKH) => {
+    return userServices.LayDanhSachHocVienKhoaHoc(maKH)
+}
