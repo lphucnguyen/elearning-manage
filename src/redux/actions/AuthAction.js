@@ -22,7 +22,7 @@ export const login = (username, password) => {
                     window.location = "/home"
             })
             .catch((err) => {
-                console.log("errors:", err.message);
+                console.log("errors:", err.response.data);
                 dispatch({
                     type: 'DANG_NHAP',
                     data: false,

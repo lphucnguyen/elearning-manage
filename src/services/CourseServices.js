@@ -46,7 +46,7 @@ export class CourseServices {
     }
 
 
-    dangKyKhoaHoc = ({maKhoaHoc,taiKhoan}) => {
+    dangKyKhoaHoc = (maKhoaHoc,taiKhoan) => {
         console.log({maKhoaHoc,taiKhoan})
         return axios({
           url: `${domain}/api/QuanLyKhoaHoc/DangKyKhoaHoc`,
@@ -56,7 +56,7 @@ export class CourseServices {
         });
     };
       
-    ghiDanhKhoaHoc = ({maKhoaHoc,taiKhoan}) => {
+    ghiDanhKhoaHoc = (maKhoaHoc,taiKhoan) => {
         return axios({
             url: `${domain}/api/QuanLyKhoaHoc/GhiDanhKhoaHoc`,
             method: "POST",
@@ -65,7 +65,7 @@ export class CourseServices {
         });
     };
 
-    huyGhiDanh = ({maKhoaHoc,taiKhoan}) => {
+    huyGhiDanh = (maKhoaHoc,taiKhoan) => {
         return axios({
             url: `${domain}/api/QuanLyKhoaHoc/HuyGhiDanh`,
             method: "POST",
