@@ -62,6 +62,8 @@ export const register = (username, password, hoTen, sdt, maNhom, email) => {
                         error: false,
                         isLogin: true
                     })
+
+                window.location = "/admin"
             })
             .catch((err) => {
                 console.log("errors:", err.message);

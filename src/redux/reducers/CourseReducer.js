@@ -61,6 +61,16 @@ export const CourseReducer = (state = stateDefault, action) => {
             return {...state, arrCourse: arrCourse};
         }
 
+        case 'THEM_KHOA_HOC': {
+            state.arrCourse.push(action.data)
+            return {...state};
+        }
+
+        case 'GHI_DANH_KHOA_HOC': {
+            
+            return {...state};
+        }
+
         case 'TIM_KIEM_KHOA_HOC': {
             let arrCourseUpdate = [...state.arrCourse];
     

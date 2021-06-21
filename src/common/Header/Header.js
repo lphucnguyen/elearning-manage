@@ -30,18 +30,6 @@ function Header() {
                             <li>
                                 <NavLink activeClassname="active" to="/courses">Courses</NavLink>
                             </li>
-                            <li>
-                                <a href="#carousel">How it Works</a>
-                            </li>
-                            <li>
-                                <a href="#courseDemo">Demos</a>
-                            </li>
-                            <li>
-                                <a href="#services">Services</a>
-                            </li>
-                            <li>
-                                <a href="#footer">Placement</a>
-                            </li>
                         </ul>
                     </div>
                     {Auth.isAuth() ? 

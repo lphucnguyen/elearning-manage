@@ -1,7 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import './CourseDetailInfo.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import { layChiTietKhoaHoc } from '../../../redux/actions/CourseAction';
+import { ghiDanhKhoaHoc, layChiTietKhoaHoc } from '../../../redux/actions/CourseAction';
+import { useToasts } from 'react-toast-notifications'
 
 import Loading from '../../../common/Loading/Loading';
 
@@ -10,7 +11,30 @@ function CourseDetailInfo(props) {
 
     const dispatch = useDispatch();
     const courseDetail = useSelector(state => state.CourseReducer.courseDetail)
-    const isLoading = useSelector(state => state.LoadingReducer.loading);
+    const isLoading = useSelector(state => state.LoadingReducer.loading)
+
+    const { addToast } = useToasts()
+
+    const enroll = (maKH) => {
+        let taiKhoan = localStorage.getItem("taiKhoan")
+
+        ghiDanhKhoaHoc(maKH, taiKhoan)
+        .then((res) => {
+            addToast("Ghi danh thanh cong", {
+                appearance: 'success',
+                autoDismiss: true,
+            })
+        })
+        .catch((err) => {
+            console.log("errors:", err);
+            addToast(err.response.data, {
+                appearance: 'error',
+                autoDismiss: true,
+            })
+
+        });
+
+    }
 
     useEffect(() => {
         console.log(maKH)
@@ -42,7 +66,7 @@ function CourseDetailInfo(props) {
                     <li><i class="fa fa-eye"></i> {courseDetail.luotXem}</li>
                 </ul>
                 <div className="course-price">$234</div>  
-                <div className="course-buy">Buy Now</div>
+                <div className="course-buy" onClick={() => enroll(maKH)}>Enroll Now</div>
             </Fragment>
         );
     }
