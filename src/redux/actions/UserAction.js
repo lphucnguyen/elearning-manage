@@ -1,6 +1,7 @@
 import { userServices } from "../../services/UserServices";
 import { message, Modal, Button, Space } from "antd";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { courseServices } from "../../services/CourseServices";
 
 export const loadingAction = () => {
     return (dispatch) => {
@@ -55,17 +56,17 @@ export const clickGroupAction = (group) => {
     }
 }
 
-export const thongTinNguoiDungAction = (setUserInfo, user) => {
-    userServices
-    .thongTinTaiKhoan(user)
-    .then((res) => {
-        setUserInfo(res.data);
-    })
-    .catch((err) => {
-        message.error(err.response.data);
-    })
-    return setUserInfo; 
-}
+// export const thongTinNguoiDungAction = (setUserInfo, user) => {
+//     userServices
+//     .thongTinTaiKhoan(user)
+//     .then((res) => {
+//         setUserInfo(res.data);
+//     })
+//     .catch((err) => {
+//         message.error(err.response.data);
+//     })
+//     return setUserInfo; 
+// }
 
 export const timKiemDanhSachNguoiDungAction = (setUserListSearch, group) => {
     userServices
@@ -195,4 +196,44 @@ export const layDanhSachKhoaHocDaXetDuyetAction = (user, setRegistered) => {
         message.error(err.response.data);
     });
     return setRegistered;
+}
+
+export const thongTinTaiKhoanAction = (taiKhoan, matKhau) => {
+    return (dispatch) => {
+        let object = {taiKhoan, matKhau}
+
+        userServices
+        .thongTinTaiKhoan(object)
+        .then((res) => { 
+            console.log(res.data)
+            dispatch({
+                type: "THONG_TIN_TAI_KHOAN",
+                data: res.data
+            })
+            message.success("Lấy thông tin thành công");
+        })
+        .catch((err) => {
+            message.error(err.response.data);
+        });
+
+    }
+}
+
+export const huyGhiDanhKhoaHocAction = (maKH, taiKhoan) => {
+    return (dispatch) => {
+
+        courseServices
+        .huyGhiDanh(maKH, taiKhoan)
+        .then((res) => { 
+            dispatch({
+                type: "HUY_GHI_DANH_KHOA_HOC",
+                data: maKH
+            })
+            message.success(maKH);
+        })
+        .catch((err) => {
+            message.error(err.response.data);
+        });
+
+    }
 }

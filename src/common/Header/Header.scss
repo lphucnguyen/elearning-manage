@@ -20,6 +20,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 10px 0px;
+
         
         a {
             @include text(fs("body2"), tc("textPrimary"), fw("fwMedium"), 0);
@@ -99,6 +100,10 @@
             .menu-list {
                 justify-content: center;
             }
+        }
+
+        .header-contain {
+            justify-content: center;
         }
     }
 }

@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import {courseServices} from '../../services/CourseServices';
 
 export const layDanhSachKhoaHocAction = (tenKH, maNhom) => {
@@ -81,6 +82,7 @@ export const layChiTietKhoaHoc = (maKH) => {
             })
             .catch((err) => {
                 console.log("errors:", err);
+                message.error("Lỗi load dữ liệu")
             });
 
             // Turn off loading
@@ -91,9 +93,9 @@ export const layChiTietKhoaHoc = (maKH) => {
     }
 }
 
-export const ghiDanhKhoaHoc = (maKH, taiKhoan) => {
+export const dangKyKhoaHoc = (maKH, taiKhoan) => {
     return courseServices
-            .ghiDanhKhoaHoc(maKH, taiKhoan)
+            .dangKyKhoaHoc(maKH, taiKhoan)
 }
 
 export const layChiTietKhoaHocManage = (maKH) => {

@@ -1,4 +1,4 @@
-import React, {useRef, useLayoutEffect} from 'react'
+import React, {useRef, useLayoutEffect, useEffect, useState} from 'react'
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Auth from '../../Components/layouts/admin/Auth/Auth';
@@ -10,6 +10,7 @@ function Header() {
     const headerElement = useRef(null);
 
     const dispatch = useDispatch()
+    const [isLogin, setIsLogin] = useState(false)
 
     useLayoutEffect(() => {
         window.addEventListener("scroll", (e) => {
@@ -18,23 +19,44 @@ function Header() {
             if(window.scrollY > 0) headerElement.current.classList.add("active")
             else headerElement.current.classList.remove("active")
         })
+
+        if(localStorage.getItem("accessToken")){
+            setIsLogin(true)
+        }
     }, [])
 
     const logout = () => {
         dispatch({
             type: 'DANG_XUAT'
         })
-
+        setIsLogin(false)
         history.replace("/home")
     }
+
+    const renderHeader = () => {
+
+        if(isLogin){
+            if(typeStorage === "GV") {
+                return <NavLink to="/admin" className="btn--common btn--go">Go to dashboard</NavLink>
+            }else if(typeStorage === "HV"){
+                return <NavLink to="/mycourses" className="btn--common btn--go">My courses</NavLink>
+            }
+        }else {
+            return;
+        }
+    }
+    
+    useEffect(() => {
+        console.log("Render")
+    }, [])
 
     return (
         <div className="header" ref={headerElement}>
             <div className="container">
-                <div className="header-contain d-flex align-items-center">
-                    <a className="logo d-flex align-items-center" href="#">
+                <div className="header-contain d-flex align-items-center flex-wrap">
+                    <NavLink to="/home" className="logo d-flex align-items-center" href="#">
                         <img src="/images/logo_education.png" alt="logo" />Cyber Education
-                    </a>
+                    </NavLink>
                     <div className="menu">
                         <ul className="menu-list d-flex">
                             <li>
@@ -45,17 +67,14 @@ function Header() {
                             </li>
                         </ul>
                     </div>
-                    {(typeStorage === "GV") ? 
-                        <NavLink to="/admin" className="btn--common btn--go">Go to dashboard</NavLink>
-                    :   
-                        <NavLink to="/mycourses" className="btn--common btn--go">My courses</NavLink>
-                    }
+                    <div className="btn-group">
+                    {renderHeader()}
                     {Auth.isAuth() ? 
                         <NavLink to="/home" onClick={logout} className="btn--common btn--login"><i class="fa fa-sign-out-alt pr-2"></i>Log Out</NavLink>
                     :   
                         <NavLink to="/login" className="btn--common btn--login"><i class="fa fa-sign-in-alt pr-2"></i>Login</NavLink>
-                    }
-                    
+                    }                        
+                    </div>       
                 </div>
             </div>
         </div>

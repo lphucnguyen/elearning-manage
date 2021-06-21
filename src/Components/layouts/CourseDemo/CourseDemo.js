@@ -11,6 +11,46 @@ import { NavLink } from 'react-router-dom'
 SwiperCore.use([Navigation]);
 
 function CourseDemo() {
+
+    const arrCourse = [
+        {
+            img: "/images/php.jpg",
+            title: "Learn PHP"
+        },
+        {
+            img: "/images/reactjs.png",
+            title: "Learn React"
+        },
+        {
+            img: "/images/laravel.jpg",
+            title: "Learn Laravel"
+        },
+        {
+            img: "/images/nodejs.jpg",
+            title: "Learn Nodejs"
+        },
+        {
+            img: "/images/php.jpg",
+            title: "Learn PHP"
+        },
+        {
+            img: "/images/reactjs.png",
+            title: "Learn React"
+        },
+        {
+            img: "/images/laravel.jpg",
+            title: "Learn Laravel"
+        },
+    ]
+
+    const renderCourses = () => {
+        return arrCourse.map((course, index) => {
+            return <SwiperSlide>
+                <CourseDemoItem img={course.img} title={course.title} />
+            </SwiperSlide>
+        })
+    }
+
     return (
         <div className="course-introduce course-demo" id="courseDemo">
             <div className="container">
@@ -47,21 +87,7 @@ function CourseDemo() {
                             }
                         }}
                     >
-                        <SwiperSlide>
-                            <CourseDemoItem />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <CourseDemoItem />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <CourseDemoItem />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <CourseDemoItem />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <CourseDemoItem />
-                        </SwiperSlide>
+                        {renderCourses()}
                     </Swiper>
 
                     <div className="course-slide-demo mt-5">

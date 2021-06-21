@@ -39,6 +39,18 @@ export const AuthReducer = (state = stateDefault, action) => {
             if(localStorage.getItem("accessToken")){
                 localStorage.removeItem('accessToken')
             }
+            if(localStorage.getItem("taiKhoan")){
+                localStorage.removeItem('taiKhoan')
+            }
+            if(localStorage.getItem("maNhom")){
+                localStorage.removeItem('maNhom')
+            }
+            if(localStorage.getItem("email")){
+                localStorage.removeItem('email')
+            }
+            if(localStorage.getItem("type")){
+                localStorage.removeItem('type')
+            }
         }
         default: return {...state};
     }

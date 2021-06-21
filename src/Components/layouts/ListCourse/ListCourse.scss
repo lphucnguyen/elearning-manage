@@ -114,9 +114,7 @@
     .main-list-course {
 
         .list-course {
-            max-height: 600px;
-            overflow-y: auto;
-            overflow-x: hidden;
+            min-height: 600px;
         }
     }
 }
@@ -125,9 +123,7 @@
     .main-list-course {
 
         .list-course {
-            max-height: 600px;
-            overflow-y: auto;
-            overflow-x: hidden;
+            min-height: 600px;
         }
     }
 }
