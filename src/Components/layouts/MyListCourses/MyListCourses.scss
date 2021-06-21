@@ -176,7 +176,7 @@
 
 
 // responsive
-@media (max-width: rp("small")) {
+@media only screen and (max-width: rp("small")) {
     .my-courses {
 
         .list-courses-of-user {

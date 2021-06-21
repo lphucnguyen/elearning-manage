@@ -110,7 +110,7 @@
 }
 
 // responsive
-@media (max-width: rp("small")) {
+@media only screen and (max-width: rp("small")) {
     .main-list-course {
 
         .list-course {
@@ -121,7 +121,7 @@
     }
 }
 
-@media (max-width: rp("medium")) {
+@media only screen and (max-width: rp("medium")) {
     .main-list-course {
 
         .list-course {
