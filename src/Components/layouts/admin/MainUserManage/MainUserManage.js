@@ -412,7 +412,7 @@ function MainUserManage() {
                         </div>
                     </div>
                     {/* modal box */}
-                    <div className="col-md-7 pt-3 pt-lg-0">
+                    <div className="col-md-7 pl-0 pt-3 pt-lg-0">
                         <div className="modal-user pb-3" id="modalFormDetails">
                             <div className="row">
                                 <div className="col-lg-8">

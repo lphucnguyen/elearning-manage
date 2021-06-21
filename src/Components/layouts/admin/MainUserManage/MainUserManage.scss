@@ -393,7 +393,7 @@
         .form-user {
             box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 20px 0px;
             padding: 10px 15px;
-            width: 300px;
+            min-width: 300px;
             min-height: 300px;
             margin: 0px auto;
             background: c("bgGrayBlack");
@@ -477,6 +477,17 @@
                     display: none;
                 }
             }
+        }
+    }
+}
+
+// responsive
+@media (max-width: rp("small")) {
+    .modal-form {
+
+        .form-user {
+            min-width: 230px !important;
+            width: 100% !important;
         }
     }
 }

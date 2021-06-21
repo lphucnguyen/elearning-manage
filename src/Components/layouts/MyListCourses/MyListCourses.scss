@@ -173,3 +173,14 @@
         }
     }
 }
+
+
+// responsive
+@media (max-width: rp("small")) {
+    .my-courses {
+
+        .list-courses-of-user {
+            min-width: 400px;
+        }
+    }
+}
