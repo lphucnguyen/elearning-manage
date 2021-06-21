@@ -62,7 +62,7 @@ return (
                             spaceBetween: 20,
                             centeredSlides: false
                         }   
-                    }}
+                    }}>
                         {renderCourses()}
                     </Swiper>
 
