@@ -394,7 +394,7 @@ function MainCourseManage(props) {
     return (
         <main className="main-container">
             <div className="row">
-                <div className="col-md-5 pl-0">
+                <div className="col-md-5 px-0">
                     <div className="list-users">
                         <div className="group-select-info d-flex justify-content-between  align-items-center p-3">
                             <button onClick={addCourse} className="btn-add shadow"><i className="fa fa-plus" /></button>
@@ -431,7 +431,7 @@ function MainCourseManage(props) {
                     </div>
                 </div>
 
-                <div className="col-md-7">
+                <div className="col-md-7 px-0 pl-0 pl-md-2 pt-3 pt-md-0">
                     <div className="modal-user pb-3" ref={modalBox} id="modalFormDetails">
                         <div className="row">
                             <div className="col-12">
