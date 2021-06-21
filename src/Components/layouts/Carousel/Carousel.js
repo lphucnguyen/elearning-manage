@@ -23,13 +23,20 @@ function Carousel() {
                     <img src="/images/bg1.png" alt="Backgroud Image" />
                 </div>
                 {/* Modal */}
-                <div className="modal fade" id="exampleModalLong" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content" style={{width: "600px", height: "300px"}}>
-                            <div className="modal-body p-0">
-                                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/5_1wSjK_5G4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div className="modal fade pr-0" id="exampleModalLong" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div className="modal-dialog" role="document" style={{height:"100%"}}>
+                        <div className="video__list" style={{
+                                    position: "absolute",
+                                    top: "50%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)",
+                                    width: "100%"
+                        }}>
+                            <div className="video__item">
+                                <video style={{width:"100%"}} loop autoPlay muted src="/images/intro.mp4" />
                             </div>
                         </div>
+
                     </div>
                 </div>
 
