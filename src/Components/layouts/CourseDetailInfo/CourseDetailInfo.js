@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import './CourseDetailInfo.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import { ghiDanhKhoaHoc, layChiTietKhoaHoc } from '../../../redux/actions/CourseAction';
+import { dangKyKhoaHoc, layChiTietKhoaHoc } from '../../../redux/actions/CourseAction';
 import { useToasts } from 'react-toast-notifications'
 
 import Loading from '../../../common/Loading/Loading';
@@ -18,7 +18,9 @@ function CourseDetailInfo(props) {
     const enroll = (maKH) => {
         let taiKhoan = localStorage.getItem("taiKhoan")
 
-        ghiDanhKhoaHoc(maKH, taiKhoan)
+        console.log(taiKhoan)
+
+        dangKyKhoaHoc(maKH, taiKhoan)
         .then((res) => {
             addToast("Ghi danh thanh cong", {
                 appearance: 'success',
@@ -37,7 +39,6 @@ function CourseDetailInfo(props) {
     }
 
     useEffect(() => {
-        console.log(maKH)
         dispatch(layChiTietKhoaHoc(maKH));
     }, [])
 

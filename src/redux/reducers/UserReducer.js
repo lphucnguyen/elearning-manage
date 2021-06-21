@@ -3,7 +3,8 @@ let group = "GP01";
 const stateDefault = {
     arrListUpdate: [],
     arrListUser: [],
-    group:group
+    group:group,
+    arrListCourse: []
 }
 
 export const UserReducer = (state = stateDefault, action) => {
@@ -47,6 +48,22 @@ export const UserReducer = (state = stateDefault, action) => {
         }
         case 'CHON_NHOM': {
             return {...state, group: action.data};
+        }
+
+        case 'THONG_TIN_TAI_KHOAN': {
+            state.arrListCourse = action.data.chiTietKhoaHocGhiDanh
+
+            return {...state};
+        }
+
+        case 'HUY_GHI_DANH_KHOA_HOC': {
+            console.log(action.data)
+
+            let arrCourse = state.arrListCourse.filter((course, index) => {
+                return course.maKhoaHoc != action.data
+            })
+
+            return {...state, arrListCourse: arrCourse};
         }
         default: return {...state};
     }

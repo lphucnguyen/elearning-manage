@@ -16,7 +16,7 @@ function Home() {
         <Fragment>
             <Header />
             <Carousel />
-            <BestTeacher />
+            {/* <BestTeacher /> */}
             <CourseIntroduce />
             <CourseDemo />
             <ServicesContent />
