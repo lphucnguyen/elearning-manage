@@ -7,14 +7,15 @@ import SwiperCore, {
     Navigation
 } from 'swiper/core';
 import { NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { layDanhSachKhoaHocAction } from '../../../redux/actions/CourseAction'
 
 SwiperCore.use([Navigation]);
 
 function CourseIntroduce() {
 
     let arrCourse = useSelector(state => state.CourseReducer.arrCourse);
-
+    const dispatch = useDispatch();
     const renderCourses = () => {
         return arrCourse.map((item, index) => {
             return  <SwiperSlide>
@@ -24,14 +25,8 @@ function CourseIntroduce() {
     };
 
     useEffect(() => {
-        console.log(arrCourse)
-    }, [arrCourse])
-
-    const renderCourse = () => {
-        return arrCourse.map((course, index) => {
-            return <SwiperSlide><CourseItem name={course.tenKhoaHoc} views={course.luotXem} img={course.hinhAnh} maKhoaHoc={course.maKhoaHoc} /></SwiperSlide >
-        })
-    }
+        dispatch(layDanhSachKhoaHocAction("",""))
+    }, [])
 
 return (
     <div className="course-introduce">
@@ -66,23 +61,8 @@ return (
                             slidesPerView: 4,
                             spaceBetween: 20,
                             centeredSlides: false
-                        }
-                        breakpoints={{
-                            300: {
-                                slidesPerView: 1,
-                                centeredSlides: false
-                            },
-                            768: {
-                                slidesPerView: 2,
-                                spaceBetween: 20,
-                                centeredSlides: false
-                            },
-                            1024: {
-                                slidesPerView: 4,
-                                spaceBetween: 20,
-                                centeredSlides: false
-                            }
-                        }}
+                        }   
+                    }}
                     >
                         {renderCourses()}
                     </Swiper>

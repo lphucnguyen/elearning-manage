@@ -25,16 +25,6 @@ function Header() {
         }
     }, [])
 
-    useEffect(() => {
-        if(localStorage.getItem("type")) {
-            (document.querySelector("#loginAdmin.d-none"))
-            ?
-            document.querySelector("#loginAdmin").classList.remove("d-none")
-            :
-            document.querySelector("#loginMyCourses").classList.remove("d-none");
-        }
-    },[])
-
     const logout = () => {
         
         dispatch({
