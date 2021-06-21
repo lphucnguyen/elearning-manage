@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
-import './SliderbarAdmin.scss'
+import './SliderbarAdmin.scss';
+import { taiKhoanStorage, maNhomStorage, emailStorage } from '../../../configs/settings';
 
 function SliderbarAdmin() {
     return (
@@ -22,9 +23,9 @@ function SliderbarAdmin() {
                     <div className="img" title="profile">
                         <img src="/images/user.png" alt="" />
                     </div>
-                    <p className="username">dangtdn</p>
-                    <p className="code-group">GP01</p>
-                    <p className="email">nguyendang@gmail.com</p>
+                    <p className="username">{taiKhoanStorage}</p>
+                    <p className="code-group">{maNhomStorage}</p>
+                    <p className="email">{emailStorage}</p>
                 </div>
                 <div className="profile-contact">
                     <p>Contact me</p>

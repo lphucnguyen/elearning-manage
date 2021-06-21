@@ -1,4 +1,6 @@
 import { userServices } from "../../services/UserServices";
+import { message, Modal, Button, Space } from "antd";
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 export const loadingAction = () => {
     return (dispatch) => {
@@ -16,7 +18,7 @@ export const loadingAction = () => {
     }
 }
 
-export const layDanhSachNguoiDungAction = (group, setUserList) => {
+export const layDanhSachNguoiDungAction = (group, username) => {
     return (dispatch) => {
         // Call loading open
         dispatch({
@@ -25,12 +27,15 @@ export const layDanhSachNguoiDungAction = (group, setUserList) => {
 
         setTimeout(() => {
             userServices
-            .layDanhSachNguoiDung(group)
+            .layDanhSachNguoiDung(group, username)
             .then((res) => {
-                setUserList(res.data);
+                dispatch({
+                    type: "LAY_DANH_SACH_NGUOI_DUNG",
+                    data: res.data
+                })
             })
             .catch((err) => {
-                console.log("errors:", err);
+                message.error(err.response.data);
             });
 
             // Turn off loading
@@ -38,8 +43,6 @@ export const layDanhSachNguoiDungAction = (group, setUserList) => {
                 type: 'closeLoading'
             })
         },2000)
-
-        return setUserList;
     }
 }
 
@@ -59,7 +62,7 @@ export const thongTinNguoiDungAction = (setUserInfo, user) => {
         setUserInfo(res.data);
     })
     .catch((err) => {
-        console.log("errors:", err.response.data);
+        message.error(err.response.data);
     })
     return setUserInfo; 
 }
@@ -71,7 +74,7 @@ export const timKiemDanhSachNguoiDungAction = (setUserListSearch, group) => {
         setUserListSearch(res.data);
     })
     .catch((err) => {
-        console.log("errors:", err.response.data);
+        message.error(err.response.data);
     })
     return setUserListSearch; 
 }
@@ -83,24 +86,37 @@ export const layDanhSachNguoiDung_PhanTrangAction = (group, page, setUserListPag
         setUserListPage(res.data);
     })
     .catch((err) => {
-        console.log("errors:", err.response.data);
+        message.error(err.response.data);
     })
     return setUserListPage; 
 }
 
-export const xoaDanhSachNguoiDungAction = (setListUser) => {
-    return setListUser([]);
+export const xoaDanhSachNguoiDungAction = () => {
+    return (dispatch) => {
+        dispatch({
+            type: "XOA_DANH_SACH_NGUOI_DUNG"
+        })
+    }
 }
 
 export const themNguoiDungAction = (user) => {
-    return userServices
-    .themNguoiDung(user)
-    .then((res) => {
-        alert("Thêm người dùng thành công");
-    })
-    .catch((err) => {
-        console.log("errors:", err.response.data);
-    });
+    
+    return (dispatch) => {
+        userServices
+        .themNguoiDung(user)
+        .then((res) => { 
+            console.log(user.maNhom);
+            dispatch({
+                type: "THEM_NGUOI_DUNG",
+                data: user
+            })
+            message.success("Thêm người dùng thành công");
+        })
+        .catch((err) => {
+            message.error(err.response.data);
+        });
+
+    }
 }
 
 export const capNhatThongTinNguoiDungAction = (value) => {
@@ -110,39 +126,49 @@ export const capNhatThongTinNguoiDungAction = (value) => {
         .then((res) => {
             dispatch({
                 type: "CAP_NHAT_NGUOI_DUNG",
-                data: res.data
+                data: value
             })
-            alert("Cập nhật người dùng thành công");
+            message.success("Cập nhật người dùng thành công");
         })
         .catch((err) => {
-            console.log("errors:", err.response.data);
+            // console.log(err.response);
+            message.error(err.response);
         });
         } 
 }
 
 export const xoaNguoiDungAction = (id) => {
-    return userServices
-    .xoaNguoiDung(id)
-    .then((res) => {
-        const isDelete = window.confirm(`Bạn có muốn xóa tài khoản ${id} không??`);
-        if(isDelete){
-            alert(`Đã xóa thành công xóa`);
-        }
-    })
-    .catch((err) => {
-        console.log("errors:", err.response.data);
-    });
+    const { confirm } = Modal;
+
+    return (dispatch) => {
+        userServices
+        .xoaNguoiDung(id)
+        .then((res) => {
+            const isDelete = window.confirm(`Bạn có muốn xóa tài khoản ${id} không?`);
+            console.log(isDelete);
+            if(isDelete) {
+                message.success("Đã xóa thành công");
+                dispatch({
+                    type: "XOA_NGUOI_DUNG",
+                    data: id
+                })
+            }
+        })
+        .catch((err) => {
+            message.error(err.response.data);
+        });
+        
+    } 
 }
 
 export const layDanhSachKhoaHocChuaGhiDanhAction = (user, setNotRegistered) => {
     userServices
     .layDanhSachKhoaHocChuaGhiDanh(user)
     .then((res) => {
-        console.log(res.data)
         setNotRegistered(res.data);
     })
     .catch((err) => {
-        console.log("errors:", err.response.data);
+        message.error(err.response.data);
     });
     return setNotRegistered;
 }
@@ -151,11 +177,10 @@ export const layDanhSachKhoaHocChoXetDuyetAction = (user, setUnRegistered) => {
     userServices
     .layDanhSachKhoaHocChoXetDuyet(user)
     .then((res) => {
-        console.log(res.data)
         setUnRegistered(res.data);
     })
     .catch((err) => {
-        console.log("errors:", err.response.data);
+        message.error(err.response.data);
     });
     return setUnRegistered;
 }
@@ -164,11 +189,10 @@ export const layDanhSachKhoaHocDaXetDuyetAction = (user, setRegistered) => {
     userServices
     .layDanhSachKhoaHocDaXetDuyet(user)
     .then((res) => {
-        console.log(res.data)
         setRegistered(res.data);
     })
     .catch((err) => {
-        console.log("errors:", err.response.data);
+        message.error(err.response.data);
     });
     return setRegistered;
 }
