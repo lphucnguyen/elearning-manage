@@ -25,6 +25,7 @@ function App() {
     
     <Router history = {history}>
       <div className="App">
+      <div>Hello cac ban</div>
         <Switch>
           <HomeTemplate exact path="/courses" Component={Courses} /> 
           <HomeTemplate exact path="/details/:maKH" Component={Details} /> 
